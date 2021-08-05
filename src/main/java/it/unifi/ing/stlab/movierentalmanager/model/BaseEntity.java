@@ -9,13 +9,14 @@ public abstract class BaseEntity {
 
     @Id
     @GeneratedValue
-    private String id;
+    private Long id;
     private UUID uuid;
     private Timestamp creationTime;
     private Timestamp lastUpdateTime;
 
     public BaseEntity() {
-
+        this.creationTime = new Timestamp(System.currentTimeMillis());
+        this.lastUpdateTime = new Timestamp(System.currentTimeMillis());
     }
 
     public BaseEntity(UUID uuid) {
@@ -24,7 +25,7 @@ public abstract class BaseEntity {
         this.lastUpdateTime = new Timestamp(System.currentTimeMillis());
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 

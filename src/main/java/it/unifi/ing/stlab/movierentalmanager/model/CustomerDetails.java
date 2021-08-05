@@ -14,8 +14,8 @@ public class CustomerDetails {
     private List<Person> favActors;
     @OneToMany
     private List<Person> favDirectors;
-/*    @OneToMany
-    private List<Genres> favGenres;*/
+//    @OneToMany
+//    private List<Genres> favGenres;
 
     public CustomerDetails() {
         super();

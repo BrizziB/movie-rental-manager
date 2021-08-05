@@ -1,6 +1,7 @@
 package it.unifi.ing.stlab.movierentalmanager.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -27,6 +28,21 @@ public class Movie extends BaseEntity {
 
     @OneToMany
     private List<Character> characters;
+
+    @Enumerated(EnumType.STRING)
+    private Genres genre;
+
+    public Movie() {
+        super();
+        this.crew = new ArrayList<Person>();
+        this.characters = new ArrayList<Character>();
+    }
+
+    public Movie(UUID uuid) {
+        super(uuid);
+        this.crew = new ArrayList<Person>();
+        this.characters = new ArrayList<Character>();
+    }
 
     public String getTitle() {
         return title;
@@ -107,10 +123,4 @@ public class Movie extends BaseEntity {
         this.characters = characters;
     }
 
-    public Movie() {
-    }
-
-    public Movie(UUID uuid) {
-        super(uuid);
-    }
 }
