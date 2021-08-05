@@ -1,8 +1,7 @@
 package it.unifi.ing.stlab.movierentalmanager.model;
 
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.UUID;
 
 @Entity
 @Table(name = "employees")
@@ -13,9 +12,15 @@ public class Employee extends BaseEntity {
     private String phoneNumber;
     @Embedded
     private WebUser webUser;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     public Employee() {
+        super();
+    }
 
+    public Employee(UUID uuid) {
+        super(uuid);
     }
 
     public String getName() {

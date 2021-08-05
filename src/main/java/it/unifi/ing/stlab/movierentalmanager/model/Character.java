@@ -5,7 +5,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "character")
+@Table(name = "characters")
 public class Character extends BaseEntity{
 
     private String name;
@@ -16,7 +16,7 @@ public class Character extends BaseEntity{
             inverseJoinColumns=@JoinColumn(name="person_id"))
     private List<Person> dubbers;
 
-    @OneToOne
+    @ManyToOne
     private Person actor;
 
     public Character(){

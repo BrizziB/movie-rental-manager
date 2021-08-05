@@ -36,10 +36,6 @@ public abstract class BaseEntity {
         return creationTime;
     }
 
-    public void setCreationTime(Timestamp creationTime) {
-        this.creationTime = creationTime;
-    }
-
     public Timestamp getLastUpdateTime() {
         return lastUpdateTime;
     }
