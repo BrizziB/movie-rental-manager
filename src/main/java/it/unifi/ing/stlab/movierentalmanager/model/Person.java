@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.Lob;
 import javax.persistence.Table;
 import java.util.Date;
+import java.util.UUID;
 
 @Entity
 @Table(name = "people")
@@ -19,6 +20,10 @@ public class Person extends BaseEntity{
 
     public Person(){
 
+    }
+
+    public Person(UUID uuid){
+        super(uuid);
     }
 
     public String getName() {

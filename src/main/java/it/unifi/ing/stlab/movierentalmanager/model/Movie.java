@@ -2,6 +2,7 @@ package it.unifi.ing.stlab.movierentalmanager.model;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "movies")
@@ -102,8 +103,14 @@ public class Movie extends BaseEntity {
     public List<Character> getCharacters() {
         return characters;
     }
-
     public void setCharacters(List<Character> characters) {
         this.characters = characters;
+    }
+
+    public Movie() {
+    }
+
+    public Movie(UUID uuid) {
+        super(uuid);
     }
 }

@@ -3,6 +3,7 @@ package it.unifi.ing.stlab.movierentalmanager.model;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "characters")
@@ -20,7 +21,11 @@ public class Character extends BaseEntity{
     private Person actor;
 
     public Character(){
+        super();
+    }
 
+    public Character(UUID uuid){
+        super(uuid);
     }
 
     public String getName() {
