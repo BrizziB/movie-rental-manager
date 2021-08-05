@@ -16,6 +16,9 @@ public class Movie extends BaseEntity {
     private Integer budget;
 
     @ManyToMany
+    @JoinTable(name="movies_people",
+            joinColumns=@JoinColumn(name="movie_id"),
+            inverseJoinColumns=@JoinColumn(name="person_id"))
     private List<Person> crew;
 
     @ManyToOne

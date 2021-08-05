@@ -1,8 +1,7 @@
 package it.unifi.ing.stlab.movierentalmanager.model;
 
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -11,8 +10,13 @@ public class Character extends BaseEntity{
 
     private String name;
 
+    @ManyToMany
+    @JoinTable(name="characters_dubbers",
+            joinColumns=@JoinColumn(name="character_id"),
+            inverseJoinColumns=@JoinColumn(name="person_id"))
     private List<Person> dubbers;
 
+    @OneToOne
     private Person actor;
 
     public Character(){
