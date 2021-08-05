@@ -8,9 +8,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "movies")
 public class Movie extends BaseEntity {
-    @Id
-    @GeneratedValue
-    private String id;
+
     private String title;
 
 

@@ -1,10 +1,14 @@
 package it.unifi.ing.stlab.movierentalmanager.model;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import java.sql.Timestamp;
 import java.util.UUID;
 
+@Entity
+@Table(name = "entities")
 public abstract class BaseEntity {
 
     @Id
