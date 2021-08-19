@@ -10,8 +10,13 @@ public abstract class BaseEntity {
     @Id
     @GeneratedValue
     private Long id;
+
     private UUID uuid;
+
+    // TODO temporal
     private Timestamp creationTime;
+
+    // TODO temporal
     private Timestamp lastUpdateTime;
 
     public BaseEntity() {

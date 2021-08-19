@@ -1,24 +1,29 @@
 package it.unifi.ing.stlab.movierentalmanager.model;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Embeddable;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Embeddable
 public class CustomerDetails {
 
-    @OneToMany
+    @OneToMany @JoinTable(name = "customer_favactors")
+    private List<Actor> favActors;
+    @OneToMany @JoinTable(name = "customer_favdirectors")
+    private List<CrewMember> favDirectors;
+    @OneToMany @JoinTable(name = "customer_favmovies")
     private List<Movie> favMovies;
-    @OneToMany
-    private List<Person> favActors;
-    @OneToMany
-    private List<Person> favDirectors;
-//    @OneToMany
-//    private List<Genres> favGenres;
+    @ElementCollection private List<Genre> favGenres;
 
     public CustomerDetails() {
         super();
+        favActors = new ArrayList<Actor>();
+        favDirectors = new ArrayList<CrewMember>();
+        favMovies = new ArrayList<Movie>();
+        favGenres = new ArrayList<Genre>();
     }
 
     public List<Movie> getFavMovies() {
@@ -29,28 +34,28 @@ public class CustomerDetails {
         this.favMovies = favMovies;
     }
 
-    public List<Person> getFavActors() {
+    public List<Actor> getFavActors() {
         return favActors;
     }
 
-    public void setFavActors(List<Person> favActors) {
+    public void setFavActors(List<Actor> favActors) {
         this.favActors = favActors;
     }
 
-    public List<Person> getFavDirectors() {
+    public List<CrewMember> getFavDirectors() {
         return favDirectors;
     }
 
-    public void setFavDirectors(List<Person> favDirectors) {
+    public void setFavDirectors(List<CrewMember> favDirectors) {
         this.favDirectors = favDirectors;
     }
 
-    /*public List<Genres> getFavGenres() {
+    public List<Genre> getFavGenres() {
         return favGenres;
     }
 
-    public void setFavGenres(List<Genres> favGenres) {
+    public void setFavGenres(List<Genre> favGenres) {
         this.favGenres = favGenres;
-    }*/
+    }
 
 }

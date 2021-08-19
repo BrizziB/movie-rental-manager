@@ -16,32 +16,51 @@ public class Movie extends BaseEntity {
     private String country;
     private String language;
     private Integer budget;
+    @ManyToOne private CrewMember director;
+    @Enumerated(EnumType.STRING) private Genre genre;
+    @Enumerated(EnumType.STRING) private Rating rating;
 
     @ManyToMany
-    @JoinTable(name="movies_people",
+    @JoinTable(name="movies_characters",
             joinColumns=@JoinColumn(name="movie_id"),
-            inverseJoinColumns=@JoinColumn(name="person_id"))
-    private List<Person> crew;
-
-    @ManyToOne
-    private Person director;
-
-    @OneToMany
+            inverseJoinColumns=@JoinColumn(name="character_id"))
     private List<Character> characters;
 
-    @Enumerated(EnumType.STRING)
-    private Genres genre;
+    @ManyToMany
+    @JoinTable(name="movies_crews",
+            joinColumns=@JoinColumn(name="movie_id"),
+            inverseJoinColumns=@JoinColumn(name="crew_member_id"))
+    private List<CrewMember> crew;
+
+    @ManyToMany
+    @JoinTable(name="movies_actors",
+            joinColumns=@JoinColumn(name="movie_id"),
+            inverseJoinColumns=@JoinColumn(name="actor_id"))
+    private List<Actor> cast;
+
+    @ManyToMany
+    @JoinTable(name="movies_producers",
+            joinColumns=@JoinColumn(name="movie_id"),
+            inverseJoinColumns=@JoinColumn(name="producer_id"))
+    private List<ProductionCompany> producers;
+
+    @OneToMany(mappedBy = "movie")
+    private List<MovieItem> items;
 
     public Movie() {
         super();
-        this.crew = new ArrayList<Person>();
+        this.cast = new ArrayList<Actor>();
+        this.crew = new ArrayList<CrewMember>();
         this.characters = new ArrayList<Character>();
+        this.items = new ArrayList<MovieItem>();
     }
 
     public Movie(UUID uuid) {
         super(uuid);
-        this.crew = new ArrayList<Person>();
+        this.cast = new ArrayList<Actor>();
+        this.crew = new ArrayList<CrewMember>();
         this.characters = new ArrayList<Character>();
+        this.items = new ArrayList<MovieItem>();
     }
 
     public String getTitle() {
@@ -100,27 +119,67 @@ public class Movie extends BaseEntity {
         this.budget = budget;
     }
 
-    public List<Person> getCrew() {
-        return crew;
-    }
-
-    public void setCrew(List<Person> crew) {
-        this.crew = crew;
-    }
-
-    public Person getDirector() {
+    public CrewMember getDirector() {
         return director;
     }
 
-    public void setDirector(Person director) {
+    public void setDirector(CrewMember director) {
         this.director = director;
+    }
+
+    public Genre getGenre() {
+        return genre;
+    }
+
+    public void setGenre(Genre genre) {
+        this.genre = genre;
+    }
+
+    public Rating getRating() {
+        return rating;
+    }
+
+    public void setRating(Rating rating) {
+        this.rating = rating;
     }
 
     public List<Character> getCharacters() {
         return characters;
     }
+
     public void setCharacters(List<Character> characters) {
         this.characters = characters;
     }
 
+    public List<CrewMember> getCrew() {
+        return crew;
+    }
+
+    public void setCrew(List<CrewMember> crew) {
+        this.crew = crew;
+    }
+
+    public List<Actor> getCast() {
+        return cast;
+    }
+
+    public void setCast(List<Actor> cast) {
+        this.cast = cast;
+    }
+
+    public List<ProductionCompany> getProducers() {
+        return producers;
+    }
+
+    public void setProducers(List<ProductionCompany> producers) {
+        this.producers = producers;
+    }
+
+    public List<MovieItem> getItems() {
+        return items;
+    }
+
+    public void setItems(List<MovieItem> items) {
+        this.items = items;
+    }
 }

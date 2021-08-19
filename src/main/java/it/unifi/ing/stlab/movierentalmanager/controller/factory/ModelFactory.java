@@ -1,8 +1,6 @@
 package it.unifi.ing.stlab.movierentalmanager.controller.factory;
 
-import it.unifi.ing.stlab.movierentalmanager.model.BaseEntity;
-import it.unifi.ing.stlab.movierentalmanager.model.Movie;
-import it.unifi.ing.stlab.movierentalmanager.model.Person;
+import it.unifi.ing.stlab.movierentalmanager.model.*;
 import it.unifi.ing.stlab.movierentalmanager.model.Character;
 
 import java.util.UUID;
@@ -14,15 +12,19 @@ public class ModelFactory {
         return movie;
     }
 
-    public static Person initPerson(){
-        Person person = new Person(UUID.randomUUID());
-        return person;
+    public static Actor initActor(){
+        Actor actor = new Actor(UUID.randomUUID());
+        return actor;
+    }
+
+    public static CrewMember initCrewMember(){
+        CrewMember director = new CrewMember(UUID.randomUUID());
+        return director;
     }
 
     public static Character initCharacter(){
         Character character = new Character(UUID.randomUUID());
         return character;
     }
-
 
 }

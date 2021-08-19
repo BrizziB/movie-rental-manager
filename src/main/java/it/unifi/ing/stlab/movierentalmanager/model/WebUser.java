@@ -1,8 +1,6 @@
 package it.unifi.ing.stlab.movierentalmanager.model;
 
 import javax.persistence.Embeddable;
-import javax.persistence.Entity;
-import javax.persistence.Table;
 
 // Se si vuole criptare la tabella delle credenziali, WebUser deve essere un'entità
 
@@ -40,4 +38,5 @@ public class WebUser {
     public void setPassword(String password) {
         this.password = password;
     }
+
 }

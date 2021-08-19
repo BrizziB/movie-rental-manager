@@ -10,10 +10,8 @@ public class Employee extends BaseEntity {
     private String name;
     private String address;
     private String phoneNumber;
-    @Embedded
-    private WebUser webUser;
-    @Enumerated(EnumType.STRING)
-    private Role role;
+    @Embedded private WebUser webUser;
+    @Enumerated(EnumType.STRING) private Role role;
 
     public Employee() {
         super();
@@ -53,6 +51,14 @@ public class Employee extends BaseEntity {
 
     public void setWebUser(WebUser webUser) {
         this.webUser = webUser;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 
 }

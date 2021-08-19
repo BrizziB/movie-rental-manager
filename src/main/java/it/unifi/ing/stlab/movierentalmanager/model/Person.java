@@ -1,22 +1,21 @@
 package it.unifi.ing.stlab.movierentalmanager.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Lob;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 import java.util.UUID;
 
 @Entity
 @Table(name = "people")
-public class Person extends BaseEntity{
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "person_role")
+public abstract class Person extends BaseEntity {
 
     private String name;
     private String surname;
-    private String stageName;
-    private Date birthDate;
+
+    @Temporal(TemporalType.DATE) private Date birthDate;
     private String country;
-    @Lob
-    private String biography;
+    @Lob private String biography;
 
     public Person(){
 
@@ -42,14 +41,6 @@ public class Person extends BaseEntity{
         this.surname = surname;
     }
 
-    public String getStageName() {
-        return stageName;
-    }
-
-    public void setStageName(String stageName) {
-        this.stageName = stageName;
-    }
-
     public Date getBirthDate() {
         return birthDate;
     }
@@ -73,4 +64,5 @@ public class Person extends BaseEntity{
     public void setBiography(String biography) {
         this.biography = biography;
     }
+
 }
