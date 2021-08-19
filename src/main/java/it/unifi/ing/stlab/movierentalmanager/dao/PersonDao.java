@@ -6,19 +6,22 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 public class PersonDao {
 
     @PersistenceContext
     private EntityManager em;
 
+    @Transactional
     public void addPerson(Person p) {
         em.persist(p);
     }
 
-    public Person findPersonById(Long id) {
-        return em.find(Person.class, id);
+    public Optional<Person> findPersonById(Long id) {
+        return Optional.ofNullable(em.find(Person.class, id));
     }
 
     public List<Person> findAllPeople() {
@@ -28,6 +31,7 @@ public class PersonDao {
         return query.getResultList();
     }
 
+    @Transactional
     public void updatePerson(Person p) {
         Person oldPerson = em.find(Person.class, p.getId());
         oldPerson.setName(p.getName());
@@ -37,6 +41,7 @@ public class PersonDao {
         oldPerson.setBiography(p.getBiography());
     }
 
+    @Transactional
     public void savePerson(Person p) {
         if(p.getId() != null)
             em.merge(p);
@@ -44,6 +49,7 @@ public class PersonDao {
             em.persist(p);
     }
 
+    @Transactional
     public int deletePersonById(Long id) {
         Query query = em.createQuery("DELETE FROM Person p WHERE p.id = :id", Person.class)
                         .setParameter("id", id);

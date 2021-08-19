@@ -6,19 +6,22 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 public class MovieDao {
 
     @PersistenceContext
     private EntityManager em;
 
+    @Transactional
     public void addMovie(Movie m) {
         em.persist(m);
     }
 
-    public Movie findMovieById(Long id) {
-        return em.find(Movie.class, id);
+    public Optional<Movie> findMovieById(Long id) {
+        return Optional.ofNullable(em.find(Movie.class, id));
     }
 
     public List<Movie> findAllMovies() {
@@ -28,6 +31,7 @@ public class MovieDao {
         return query.getResultList();
     }
 
+    @Transactional
     public void updateMovie(Movie m) {
         Movie oldMovie = em.find(Movie.class, m.getId());
         oldMovie.setTitle(m.getTitle());
@@ -46,6 +50,7 @@ public class MovieDao {
         oldMovie.setItems(m.getItems());
     }
 
+    @Transactional
     public void saveMovie(Movie m) {
         if(m.getId() != null)
             em.merge(m);
@@ -53,6 +58,7 @@ public class MovieDao {
             em.persist(m);
     }
 
+    @Transactional
     public int deleteMovieById(Long id) {
         Query query = em.createQuery("DELETE FROM Movie m WHERE m.id = :id")
                         .setParameter("id", id);

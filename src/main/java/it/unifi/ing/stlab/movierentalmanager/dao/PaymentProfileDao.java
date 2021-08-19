@@ -6,19 +6,22 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 public class PaymentProfileDao {
 
     @PersistenceContext
     private EntityManager em;
 
+    @Transactional
     public void addPaymentProfile(PaymentProfile pp) {
         em.persist(pp);
     }
 
-    public PaymentProfile findPaymentProfileById(Long id) {
-        return em.find(PaymentProfile.class, id);
+    public Optional<PaymentProfile> findPaymentProfileById(Long id) {
+        return Optional.ofNullable(em.find(PaymentProfile.class, id));
     }
 
     public List<PaymentProfile> findAllPaymentProfiles() {
@@ -28,6 +31,7 @@ public class PaymentProfileDao {
         return query.getResultList();
     }
 
+    @Transactional
     public void updatePaymentProfile(PaymentProfile pp) {
         PaymentProfile oldPaymentProfile = em.find(PaymentProfile.class, pp.getId());
         oldPaymentProfile.setCustomer(pp.getCustomer());
@@ -35,6 +39,7 @@ public class PaymentProfileDao {
         oldPaymentProfile.setCreditCartNumber(pp.getCreditCartNumber());
     }
 
+    @Transactional
     public void savePaymentProfile(PaymentProfile pp) {
         if(pp.getId() != null)
             em.merge(pp);
@@ -42,6 +47,7 @@ public class PaymentProfileDao {
             em.persist(pp);
     }
 
+    @Transactional
     public int deletePaymentProfileById(Long id) {
         Query query = em.createQuery("DELETE FROM PaymentProfile pp WHERE pp.id = :id")
                         .setParameter("id", id);

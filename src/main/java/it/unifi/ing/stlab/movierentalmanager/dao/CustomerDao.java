@@ -6,19 +6,22 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 public class CustomerDao {
 
     @PersistenceContext
     private EntityManager em;
 
+    @Transactional
     public void addCustomer(Customer c) {
         em.persist(c);
     }
 
-    public Customer findCustomerById(Long id) {
-        return em.find(Customer.class, id);
+    public Optional<Customer> findCustomerById(Long id) {
+        return Optional.ofNullable(em.find(Customer.class, id));
     }
 
     public List<Customer> findAllCustomers() {
@@ -28,6 +31,7 @@ public class CustomerDao {
         return query.getResultList();
     }
 
+    @Transactional
     public void updateCustomer(Customer c) {
         Customer oldCustomer = em.find(Customer.class, c.getId());
         oldCustomer.setName(c.getName());
@@ -40,6 +44,7 @@ public class CustomerDao {
         oldCustomer.setMembership(c.getMembership());
     }
 
+    @Transactional
     public void saveCustomer(Customer c) {
         if(c.getId() != null)
             em.merge(c);
@@ -47,6 +52,7 @@ public class CustomerDao {
             em.persist(c);
     }
 
+    @Transactional
     public int deleteCustomerById(Long id) {
         Query query = em.createQuery("DELETE FROM Customer c WHERE c.id = :id")
                         .setParameter("id", id);

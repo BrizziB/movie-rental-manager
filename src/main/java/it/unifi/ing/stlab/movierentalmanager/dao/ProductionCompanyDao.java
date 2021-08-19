@@ -6,19 +6,22 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 public class ProductionCompanyDao {
 
     @PersistenceContext
     private EntityManager em;
 
+    @Transactional
     public void addProductionCompany(ProductionCompany pc) {
         em.persist(pc);
     }
 
-    public ProductionCompany findProductionCompanyById(Long id) {
-        return em.find(ProductionCompany.class, id);
+    public Optional<ProductionCompany> findProductionCompanyById(Long id) {
+        return Optional.ofNullable(em.find(ProductionCompany.class, id));
     }
 
     public List<ProductionCompany> findAllProductionCompanies() {
@@ -28,6 +31,7 @@ public class ProductionCompanyDao {
         return query.getResultList();
     }
 
+    @Transactional
     public void updateProductionCompany(ProductionCompany pc) {
         ProductionCompany oldProductionCompany = em.find(ProductionCompany.class, pc.getId());
         oldProductionCompany.setName(pc.getName());
@@ -37,6 +41,7 @@ public class ProductionCompanyDao {
         oldProductionCompany.setMovies(pc.getMovies());
     }
 
+    @Transactional
     public void saveProductionCompany(ProductionCompany pc) {
         if(pc.getId() != null)
             em.merge(pc);
@@ -44,6 +49,7 @@ public class ProductionCompanyDao {
             em.persist(pc);
     }
 
+    @Transactional
     public int deleteProductionCompanyById(Long id) {
         Query query = em.createQuery("DELETE FROM ProductionCompany pc WHERE pc.id = :id")
                         .setParameter("id", id);

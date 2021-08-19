@@ -4,22 +4,25 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
 
 import it.unifi.ing.stlab.movierentalmanager.model.Order;
 
 import java.util.List;
+import java.util.Optional;
 
 public class OrderDao {
 
     @PersistenceContext
     private EntityManager em;
 
+    @Transactional
     public void addOrder(Order o) {
         em.persist(o);
     }
 
-    public Order findOrderById(Long id) {
-        return em.find(Order.class, id);
+    public Optional<Order> findOrderById(Long id) {
+        return Optional.ofNullable(em.find(Order.class, id));
     }
 
     public List<Order> findAllOrders() {
@@ -29,6 +32,7 @@ public class OrderDao {
         return query.getResultList();
     }
 
+    @Transactional
     public void updateOrder(Order o) {
         Order oldOrder = em.find(Order.class, o.getId());
         oldOrder.setCustomer(o.getCustomer());
@@ -41,6 +45,7 @@ public class OrderDao {
         oldOrder.setDelivery(o.getDelivery());
     }
 
+    @Transactional
     public void saveOrder(Order o) {
         if(o.getId() != null)
             em.merge(o);
@@ -48,6 +53,7 @@ public class OrderDao {
             em.persist(o);
     }
 
+    @Transactional
     public int deleteOrderById(Long id) {
         Query query = em.createQuery("DELETE FROM Order o WHERE o.id = :id")
                         .setParameter("id", id);
