@@ -1,39 +1,22 @@
 package it.unifi.ing.stlab.movierentalmanager.dao;
 
+import it.unifi.ing.stlab.movierentalmanager.model.Actor;
 import it.unifi.ing.stlab.movierentalmanager.model.Movie;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-import javax.persistence.TypedQuery;
+import javax.ejb.Stateless;
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 
-public class MovieDao {
+@Stateless
+public class MovieDao extends BaseDao<Movie> {
 
-    @PersistenceContext
-    private EntityManager em;
-
-    @Transactional
-    public void addMovie(Movie m) {
-        em.persist(m);
-    }
-
-    public Optional<Movie> findMovieById(Long id) {
-        return Optional.ofNullable(em.find(Movie.class, id));
-    }
-
-    public List<Movie> findAllMovies() {
-        TypedQuery<Movie> query = em.createQuery("FROM Movie", Movie.class);
-        query.setFirstResult(0);
-        query.setMaxResults(20);
-        return query.getResultList();
-    }
+   public MovieDao() {
+       super(Movie.class);
+   }
 
     @Transactional
-    public void updateMovie(Movie m) {
-        Movie oldMovie = em.find(Movie.class, m.getId());
+    public void update(Movie m) {
+        Movie oldMovie = getEm().find(Movie.class, m.getId());
         oldMovie.setTitle(m.getTitle());
         oldMovie.setYear(m.getYear());
         oldMovie.setLength(m.getLength());
@@ -50,19 +33,14 @@ public class MovieDao {
         oldMovie.setItems(m.getItems());
     }
 
-    @Transactional
-    public void saveMovie(Movie m) {
-        if(m.getId() != null)
-            em.merge(m);
-        else
-            em.persist(m);
-    }
-
-    @Transactional
-    public int deleteMovieById(Long id) {
-        Query query = em.createQuery("DELETE FROM Movie m WHERE m.id = :id")
-                        .setParameter("id", id);
-        return query.executeUpdate();
-    }
+    /*public List<Movie> findMoviesByActor(Actor actor) {
+       String q = "SELECT m FROM Movie m" +
+               "WHERE (:actor) in m.cast" +
+               "ORDER BY m.id DESC";
+       List<Movie> movies = getEm().createQuery(q)
+                                   .setParameter("actor", actor)
+                                   .getResultList();
+       return movies;
+    }*/
 
 }

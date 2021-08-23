@@ -16,6 +16,7 @@ public class Movie extends BaseEntity {
     private String country;
     private String language;
     private Integer budget;
+    private Double criticRating;
     @ManyToOne private CrewMember director;
     @Enumerated(EnumType.STRING) private Genre genre;
     @Enumerated(EnumType.STRING) private Rating rating;
@@ -117,6 +118,14 @@ public class Movie extends BaseEntity {
 
     public void setBudget(Integer budget) {
         this.budget = budget;
+    }
+
+    public Double getCriticRating() {
+        return criticRating;
+    }
+
+    public void setCriticRating(Double criticRating) {
+        this.criticRating = criticRating;
     }
 
     public CrewMember getDirector() {

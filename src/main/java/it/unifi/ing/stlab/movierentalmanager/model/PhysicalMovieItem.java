@@ -1,11 +1,9 @@
 package it.unifi.ing.stlab.movierentalmanager.model;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.*;
 import java.util.UUID;
 
+@Table(name = "movie_items")
 @Entity
 @DiscriminatorValue("physical")
 public class PhysicalMovieItem extends MovieItem {

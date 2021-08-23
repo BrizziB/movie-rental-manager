@@ -3,13 +3,13 @@ package it.unifi.ing.stlab.movierentalmanager.model;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.Date;
 
 @Embeddable
 public class Payment {
 
     @Transient private BigDecimal total;
-    // TODO temporal
-    private Timestamp timestamp;
+    @Temporal(TemporalType.TIMESTAMP) private Date timestamp;
     @Enumerated private PaymentStatus paymentStatus;
     private String details;
 
@@ -25,7 +25,7 @@ public class Payment {
         this.total = total;
     }
 
-    public Timestamp getTimestamp() {
+    public Date getTimestamp() {
         return timestamp;
     }
 

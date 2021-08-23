@@ -7,7 +7,7 @@ public interface Discounter {
 
     BigDecimal applyDiscount(BigDecimal amount);
 
-    /* Seasonal discounts */
+    // SEASONAL DISCOUNTS
     static Discounter easterDiscounter() {
         return amount -> amount.multiply(BigDecimal.valueOf(0.7));
     }
@@ -28,12 +28,12 @@ public interface Discounter {
         return amount -> amount.multiply(BigDecimal.valueOf(0.9));
     }
 
-    /* Membership discount */
+    // MEMBERSHIP DISCOUNT
     static Discounter premiumDiscounter() {
         return amount -> amount.multiply(BigDecimal.valueOf(0.9));
     }
 
-    /* Coupon discount */
+    // COUPON DISCOUNT
     static Discounter couponDiscounter(BigDecimal coupon) {
         return amount -> amount.multiply(coupon);
     }

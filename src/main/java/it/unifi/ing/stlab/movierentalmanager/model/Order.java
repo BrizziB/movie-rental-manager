@@ -25,15 +25,18 @@ public class Order extends BaseEntity {
     @Enumerated(EnumType.STRING) private RentalType rentalType;
     private BigDecimal total;
     @Embedded private Delivery delivery;
+    @Transient private List<Discounter> discounters;
 
     public Order() {
         super();
         items = new ArrayList<MovieItem>();
+        discounters = new ArrayList<Discounter>();
     }
 
     public Order(UUID uuid) {
         super(uuid);
         items = new ArrayList<MovieItem>();
+        discounters = new ArrayList<Discounter>();
     }
 
     public Customer getCustomer() {
