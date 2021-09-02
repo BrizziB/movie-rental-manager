@@ -2,8 +2,10 @@ package it.unifi.ing.stlab.movierentalmanager.dao;
 
 import it.unifi.ing.stlab.movierentalmanager.model.PaymentProfile;
 
+import javax.ejb.Stateless;
 import javax.transaction.Transactional;
 
+@Stateless
 public class PaymentProfileDao extends BaseDao<PaymentProfile> {
 
     public PaymentProfileDao() {
@@ -14,8 +16,8 @@ public class PaymentProfileDao extends BaseDao<PaymentProfile> {
     public void update(PaymentProfile pp) {
         PaymentProfile oldPaymentProfile = getEm().find(PaymentProfile.class, pp.getId());
         oldPaymentProfile.setCustomer(pp.getCustomer());
-        oldPaymentProfile.setCreditCartType(pp.getCreditCartType());
-        oldPaymentProfile.setCreditCartNumber(pp.getCreditCartNumber());
+        oldPaymentProfile.setCreditCardType(pp.getCreditCardType());
+        oldPaymentProfile.setCreditCardNumber(pp.getCreditCardNumber());
     }
 
 }

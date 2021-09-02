@@ -1,6 +1,6 @@
 package it.unifi.ing.stlab.movierentalmanager.model;
 
-public enum Role {
+public enum OfficeRole {
 
     FRONT_OFFICE, BACK_OFFICE;
 

@@ -17,9 +17,11 @@ public class Movie extends BaseEntity {
     private String language;
     private Integer budget;
     private Double criticRating;
-    @ManyToOne private CrewMember director;
+    private boolean disabled;
     @Enumerated(EnumType.STRING) private Genre genre;
     @Enumerated(EnumType.STRING) private Rating rating;
+
+    @ManyToOne private Director director;
 
     @ManyToMany
     @JoinTable(name="movies_characters",
@@ -54,6 +56,7 @@ public class Movie extends BaseEntity {
         this.crew = new ArrayList<CrewMember>();
         this.characters = new ArrayList<Character>();
         this.items = new ArrayList<MovieItem>();
+        disabled = false;
     }
 
     public Movie(UUID uuid) {
@@ -62,6 +65,7 @@ public class Movie extends BaseEntity {
         this.crew = new ArrayList<CrewMember>();
         this.characters = new ArrayList<Character>();
         this.items = new ArrayList<MovieItem>();
+        disabled = false;
     }
 
     public String getTitle() {
@@ -128,11 +132,21 @@ public class Movie extends BaseEntity {
         this.criticRating = criticRating;
     }
 
-    public CrewMember getDirector() {
+    @Override
+    public boolean isDisabled() {
+        return disabled;
+    }
+
+    @Override
+    public void setDisabled(boolean disabled) {
+        this.disabled = disabled;
+    }
+
+    public Director getDirector() {
         return director;
     }
 
-    public void setDirector(CrewMember director) {
+    public void setDirector(Director director) {
         this.director = director;
     }
 

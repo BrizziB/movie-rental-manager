@@ -1,7 +1,6 @@
 package it.unifi.ing.stlab.movierentalmanager.model;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
@@ -11,20 +10,19 @@ public abstract class BaseEntity {
 
     @Id @GeneratedValue private Long id;
     private UUID uuid;
-    // @Temporal(TemporalType.TIMESTAMP)
-    private Date creationTime;
-    // @Temporal(TemporalType.TIMESTAMP)
-    private Date lastUpdateTime;
+    @Temporal(TemporalType.TIMESTAMP) private Date creationTime;
+    @Temporal(TemporalType.TIMESTAMP) private Date lastUpdateTime;
+    private boolean disabled = false;
 
     public BaseEntity() {
-        this.creationTime = new Timestamp(System.currentTimeMillis());
-        this.lastUpdateTime = new Timestamp(System.currentTimeMillis());
+        this.creationTime = new Date(System.currentTimeMillis());
+        this.lastUpdateTime = new Date(System.currentTimeMillis());
     }
 
     public BaseEntity(UUID uuid) {
         this.uuid = uuid;
-        this.creationTime = new Timestamp(System.currentTimeMillis());
-        this.lastUpdateTime = new Timestamp(System.currentTimeMillis());
+        this.creationTime = new Date(System.currentTimeMillis());
+        this.lastUpdateTime = new Date(System.currentTimeMillis());
     }
 
     public Long getId() {
@@ -43,8 +41,16 @@ public abstract class BaseEntity {
         return lastUpdateTime;
     }
 
-    public void setLastUpdateTime(Timestamp lastUpdateTime) {
+    public void setLastUpdateTime(Date lastUpdateTime) {
         this.lastUpdateTime = lastUpdateTime;
+    }
+
+    public boolean isDisabled() {
+        return disabled;
+    }
+
+    public void setDisabled(boolean disabled) {
+        this.disabled = disabled;
     }
 
     @Override

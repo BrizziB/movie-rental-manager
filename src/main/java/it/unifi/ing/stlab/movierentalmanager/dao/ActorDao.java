@@ -1,14 +1,14 @@
 package it.unifi.ing.stlab.movierentalmanager.dao;
 
 import it.unifi.ing.stlab.movierentalmanager.model.Actor;
-import it.unifi.ing.stlab.movierentalmanager.model.Movie;
 
+import javax.ejb.Stateless;
 import javax.enterprise.context.RequestScoped;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import java.util.List;
 
-@RequestScoped
+@Stateless
 public class ActorDao extends BaseDao<Actor> {
 
     public ActorDao() {
@@ -30,9 +30,21 @@ public class ActorDao extends BaseDao<Actor> {
 
     @Transactional
     public Actor fetchActorWithMovies(Long id) {
-        TypedQuery<Actor> query = getEm().createQuery("FROM Actor a JOIN FETCH a.movies WHERE a.id = :id", Actor.class)
-                                         .setParameter("id", id);
+        TypedQuery<Actor> query = getEm().createQuery(
+                "FROM Actor a JOIN FETCH a.movies WHERE a.id = :id",
+                Actor.class
+        ).setParameter("id", id);
         return query.getSingleResult();
+    }
+
+    @Transactional
+    public List<Actor> retrieveActorsByName(String name) {
+        TypedQuery<Actor> query = getEm().createQuery(
+                "FROM Actor a WHERE a.name LIKE CONCAT('%', :name, '%') " +
+                        "OR a.surname LIKE CONCAT('%', :name, '%')",
+                Actor.class
+        ).setParameter("name", name);
+        return query.getResultList();
     }
 
 }

@@ -18,14 +18,6 @@ public class Actor extends Person {
 
     private String stageName;
 
-    public String getStageName() {
-        return stageName;
-    }
-
-    public void setStageName(String stageName) {
-        this.stageName = stageName;
-    }
-
     public Actor() {
         super();
         movies = new ArrayList<Movie>();
@@ -53,4 +45,13 @@ public class Actor extends Person {
     public void setCharacters(List<Character> characters) {
         this.characters = characters;
     }
+
+    public String getStageName() {
+        return stageName;
+    }
+
+    public void setStageName(String stageName) {
+        this.stageName = stageName;
+    }
+
 }

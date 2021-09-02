@@ -4,6 +4,7 @@ import it.unifi.ing.stlab.movierentalmanager.model.Actor;
 import it.unifi.ing.stlab.movierentalmanager.model.Movie;
 
 import javax.ejb.Stateless;
+import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -33,14 +34,21 @@ public class MovieDao extends BaseDao<Movie> {
         oldMovie.setItems(m.getItems());
     }
 
-    /*public List<Movie> findMoviesByActor(Actor actor) {
-       String q = "SELECT m FROM Movie m" +
-               "WHERE (:actor) in m.cast" +
-               "ORDER BY m.id DESC";
-       List<Movie> movies = getEm().createQuery(q)
-                                   .setParameter("actor", actor)
-                                   .getResultList();
-       return movies;
-    }*/
+    public List<Movie> retrieveMoviesByTitle(String title) {
+        TypedQuery<Movie> query = getEm().createQuery(
+                "FROM Movie m WHERE m.title LIKE CONCAT('%', :title, '%')",
+                Movie.class
+        ).setParameter("title", title);
+        return query.getResultList();
+    }
+
+    @Transactional
+    public Movie fetchMovieWithCast(Long id) {
+       TypedQuery<Movie> query = getEm().createQuery(
+               "FROM Movie m JOIN FETCH m.cast WHERE m.id = :id",
+               Movie.class
+       ).setParameter("id", id);
+       return query.getSingleResult();
+    }
 
 }

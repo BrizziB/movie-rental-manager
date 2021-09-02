@@ -27,6 +27,10 @@ public class ModelFactory {
         return new DigitalMovieItem(UUID.randomUUID());
     }
 
+    public static Director initDirector() {
+        return new Director(UUID.randomUUID());
+    }
+
     public static Employee initEmployee() {
         return new Employee(UUID.randomUUID());
     }

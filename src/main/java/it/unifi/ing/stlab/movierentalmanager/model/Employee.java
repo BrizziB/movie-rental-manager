@@ -11,7 +11,7 @@ public class Employee extends BaseEntity {
     private String address;
     private String phoneNumber;
     @Embedded private WebUser webUser;
-    @Enumerated(EnumType.STRING) private Role role;
+    @Enumerated(EnumType.STRING) private OfficeRole role;
 
     public Employee() {
         super();
@@ -53,11 +53,11 @@ public class Employee extends BaseEntity {
         this.webUser = webUser;
     }
 
-    public Role getRole() {
+    public OfficeRole getRole() {
         return role;
     }
 
-    public void setRole(Role role) {
+    public void setRole(OfficeRole role) {
         this.role = role;
     }
 

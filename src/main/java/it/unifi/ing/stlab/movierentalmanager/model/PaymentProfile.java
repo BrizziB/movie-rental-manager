@@ -1,7 +1,6 @@
 package it.unifi.ing.stlab.movierentalmanager.model;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -9,8 +8,8 @@ import java.util.UUID;
 public class PaymentProfile extends BaseEntity {
 
     @ManyToOne private Customer customer;
-    private String creditCartType;
-    private String creditCartNumber;
+    private String creditCardType;
+    private String creditCardNumber;
 
     public PaymentProfile() {
         super();
@@ -28,20 +27,20 @@ public class PaymentProfile extends BaseEntity {
         this.customer = customer;
     }
 
-    public String getCreditCartType() {
-        return creditCartType;
+    public String getCreditCardType() {
+        return creditCardType;
     }
 
-    public void setCreditCartType(String creditCartType) {
-        this.creditCartType = creditCartType;
+    public void setCreditCardType(String creditCartType) {
+        this.creditCardType = creditCartType;
     }
 
-    public String getCreditCartNumber() {
-        return creditCartNumber;
+    public String getCreditCardNumber() {
+        return creditCardNumber;
     }
 
-    public void setCreditCartNumber(String creditCartNumber) {
-        this.creditCartNumber = creditCartNumber;
+    public void setCreditCardNumber(String creditCartNumber) {
+        this.creditCardNumber = creditCartNumber;
     }
 
 }

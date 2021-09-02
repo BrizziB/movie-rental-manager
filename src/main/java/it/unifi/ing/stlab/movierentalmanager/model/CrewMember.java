@@ -10,7 +10,7 @@ import java.util.UUID;
 @DiscriminatorValue("crew_member")
 public class CrewMember extends Person {
 
-    private String role;
+    @Enumerated(EnumType.STRING) private CrewRole role;
 
     @ManyToMany(mappedBy = "crew")
     private List<Movie> movies;
@@ -25,11 +25,11 @@ public class CrewMember extends Person {
         movies = new ArrayList<Movie>();
     }
 
-    public String getRole() {
+    public CrewRole getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(CrewRole role) {
         this.role = role;
     }
 

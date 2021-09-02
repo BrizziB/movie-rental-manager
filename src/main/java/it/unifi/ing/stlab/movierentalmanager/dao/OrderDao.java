@@ -2,8 +2,13 @@ package it.unifi.ing.stlab.movierentalmanager.dao;
 
 import it.unifi.ing.stlab.movierentalmanager.model.Order;
 
+import javax.ejb.Stateless;
+import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
+import java.util.Date;
+import java.util.List;
 
+@Stateless
 public class OrderDao extends BaseDao<Order> {
 
     public OrderDao() {
@@ -21,6 +26,15 @@ public class OrderDao extends BaseDao<Order> {
         oldOrder.setRentalType(o.getRentalType());
         oldOrder.setTotal(o.getTotal());
         oldOrder.setDelivery(o.getDelivery());
+    }
+
+    public List<Order> retrieveOrdersBetweenDates(Date start, Date end) {
+        TypedQuery<Order> query = getEm().createQuery(
+                "FROM Order o WHERE o.lastUpdateTime > :start AND o.lastUpdateTime < :end",
+                Order.class
+        ).setParameter("start", start)
+         .setParameter("end", end);
+        return query.getResultList();
     }
 
 }

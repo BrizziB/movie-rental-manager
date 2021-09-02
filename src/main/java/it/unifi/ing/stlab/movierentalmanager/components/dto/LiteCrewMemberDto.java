@@ -1,6 +1,7 @@
 package it.unifi.ing.stlab.movierentalmanager.components.dto;
 
 import it.unifi.ing.stlab.movierentalmanager.model.CrewMember;
+import it.unifi.ing.stlab.movierentalmanager.model.CrewRole;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -11,17 +12,45 @@ public class LiteCrewMemberDto implements Serializable {
     private String surname;
     private Date birthDate;
     private String country;
-    private String role;
+    private CrewRole role;
 
-    public static LiteCrewMemberDto mapCrewMemberToLiteCrewMember(CrewMember crewMember) {
-        LiteCrewMemberDto liteMember = new LiteCrewMemberDto();
+    public String getName() {
+        return name;
+    }
 
-        liteMember.name = crewMember.getName();
-        liteMember.surname = crewMember.getSurname();
-        liteMember.birthDate = crewMember.getBirthDate();
-        liteMember.country = crewMember.getCountry();
-        liteMember.role = crewMember.getRole();
+    public void setName(String name) {
+        this.name = name;
+    }
 
-        return liteMember;
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public CrewRole getRole() {
+        return role;
+    }
+
+    public void setRole(CrewRole role) {
+        this.role = role;
     }
 }
