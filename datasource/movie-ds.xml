@@ -2,7 +2,7 @@
 <datasources>
     <datasource jndi-name="movieDatasource"
                 enabled="true" use-java-context="true" pool-name="MariaDBDS">
-        <connection-url>jdbc:mariadb://localhost:3306/testdb</connection-url>
+        <connection-url>jdbc:mariadb://localhost:3306/movie-manager-db</connection-url>
         <driver>mariadb</driver>
         <security>
             <user-name>root</user-name>

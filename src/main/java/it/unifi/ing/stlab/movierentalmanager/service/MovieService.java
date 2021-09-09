@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
 
 @Path("movies")
 public class MovieService {
@@ -116,6 +117,14 @@ public class MovieService {
             e.printStackTrace();
             return Response.notAcceptable(null).build();
         }
+    }
+
+    // TODO più filtri in un solo metodo
+    @GET
+    @Path("/multipleFilters")
+    @Produces({ MediaType.APPLICATION_JSON })
+    public Response multipleFilters(List<String> json) {
+        return Response.ok("").build();
     }
 
     @POST
