@@ -103,6 +103,21 @@ public class MovieService {
         }
     }
 
+    @GET
+    @Path("/list/all")
+    @Produces({ MediaType.APPLICATION_JSON })
+    public Response retrieveAllMovies() {
+        Gson gson = new Gson();
+        try {
+            return Response.ok(
+                    gson.toJson( movieController.getAllMovies(0, 25) )
+            ).build();
+        } catch(Exception e) {
+            e.printStackTrace();
+            return Response.notAcceptable(null).build();
+        }
+    }
+
     @POST
     @Path("/add")
     @Consumes({ MediaType.APPLICATION_JSON })
@@ -122,7 +137,7 @@ public class MovieService {
     @Consumes({ MediaType.APPLICATION_JSON })
     @Produces({ MediaType.TEXT_PLAIN })
     public Response updateMovie(String json, @QueryParam("id") Long id) {
-        //todo id nel anche, o forse no
+        //TODO aggiungere 'id' anche nel body
         try {
             movieController.updateMovieOnDb(json, id);
             return Response.ok("Movie " + id + " correctly updated").build();

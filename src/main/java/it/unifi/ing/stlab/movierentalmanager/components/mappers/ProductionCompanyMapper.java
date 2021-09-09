@@ -2,13 +2,20 @@ package it.unifi.ing.stlab.movierentalmanager.components.mappers;
 
 import it.unifi.ing.stlab.movierentalmanager.components.dto.LiteMovieDto;
 import it.unifi.ing.stlab.movierentalmanager.components.dto.LiteProductionCompanyDto;
-import it.unifi.ing.stlab.movierentalmanager.model.ProductionCompany;
+import it.unifi.ing.stlab.movierentalmanager.components.factory.ModelFactory;
+import it.unifi.ing.stlab.movierentalmanager.dao.MovieDao;
+import it.unifi.ing.stlab.movierentalmanager.model.movies.Movie;
+import it.unifi.ing.stlab.movierentalmanager.model.movies.ProductionCompany;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import java.util.List;
 
 @RequestScoped
 public class ProductionCompanyMapper {
+
+    @Inject private MovieMapper movieMapper;
+    @Inject private MovieDao movieDao;
 
     public LiteProductionCompanyDto convert(ProductionCompany pc) {
         if(pc == null)
@@ -20,6 +27,7 @@ public class ProductionCompanyMapper {
         dto.setCountry(pc.getCountry());
         dto.setFoundationDate(pc.getFoundationDate());
         dto.setWebSiteURL(pc.getWebSiteURL());
+        serializeMovies(dto, pc.getMovies());
 
         return dto;
     }
@@ -38,6 +46,30 @@ public class ProductionCompanyMapper {
             pc.setFoundationDate(dto.getFoundationDate());
         if(dto.getWebSiteURL() != null)
             pc.setWebSiteURL(dto.getWebSiteURL());
+        if(dto.getMovies() != null)
+            deSerializeMovies(pc, dto.getMovies());
+    }
+
+    private void serializeMovies(LiteProductionCompanyDto dto, List<Movie> movies) {
+        if(movies != null && movies.size() > 0)
+            for (Movie movie : movies)
+                dto.getMovies().add( movieMapper.convert(movie) );
+    }
+
+    private void deSerializeMovies(ProductionCompany pc, List<LiteMovieDto> liteMovies) {
+        pc.getMovies().clear();
+
+        if(liteMovies != null && liteMovies.size() > 0)
+            for (LiteMovieDto liteMovie : liteMovies) {
+                if ( movieDao.retrieveMoviesByTitle( liteMovie.getTitle() ).size() != 0 )
+                    System.out.println("Movies with similar titles do exist in database. Do you want to check them out?");
+                else {
+                    Movie movie = ModelFactory.initMovie();
+                    movieMapper.transfer(liteMovie, movie);
+                    movieDao.add(movie);
+                    pc.getMovies().add(movie);
+                }
+            }
     }
 
 }

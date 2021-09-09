@@ -6,7 +6,7 @@ import it.unifi.ing.stlab.movierentalmanager.components.factory.ModelFactory;
 import it.unifi.ing.stlab.movierentalmanager.components.mappers.ProductionCompanyMapper;
 import it.unifi.ing.stlab.movierentalmanager.dao.MovieDao;
 import it.unifi.ing.stlab.movierentalmanager.dao.ProductionCompanyDao;
-import it.unifi.ing.stlab.movierentalmanager.model.ProductionCompany;
+import it.unifi.ing.stlab.movierentalmanager.model.movies.ProductionCompany;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -34,6 +34,13 @@ public class ProductionCompanyController {
                                    .stream()
                                    .map(productionCompanyMapper::convert)
                                    .collect(Collectors.toList());
+    }
+
+    public List<LiteProductionCompanyDto> getAllProductionCompanies(Integer offset, Integer limit) {
+        return productionCompanyDao.findAll(offset, limit)
+                .stream()
+                .map(productionCompanyMapper::convert)
+                .collect(Collectors.toList());
     }
 
     public void addProductionCompanyToDb(String json) {

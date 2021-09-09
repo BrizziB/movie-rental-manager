@@ -2,8 +2,9 @@ package it.unifi.ing.stlab.movierentalmanager.components.mappers;
 
 import it.unifi.ing.stlab.movierentalmanager.components.dto.LiteDigitalMovieItemDto;
 import it.unifi.ing.stlab.movierentalmanager.components.factory.ModelFactory;
-import it.unifi.ing.stlab.movierentalmanager.model.DigitalMovieItem;
-import it.unifi.ing.stlab.movierentalmanager.model.Movie;
+import it.unifi.ing.stlab.movierentalmanager.dao.MovieDao;
+import it.unifi.ing.stlab.movierentalmanager.model.items.DigitalMovieItem;
+import it.unifi.ing.stlab.movierentalmanager.model.movies.Movie;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -12,6 +13,7 @@ import javax.inject.Inject;
 public class DigitalMovieItemMapper {
 
     @Inject private MovieMapper movieMapper;
+    @Inject private MovieDao movieDao;
 
     public LiteDigitalMovieItemDto convert(DigitalMovieItem dmi) {
         if(dmi == null)
@@ -35,9 +37,14 @@ public class DigitalMovieItemMapper {
             throw new MapperTransferException("The digital movie item Entity is NULL");
 
         if(dto.getMovie() != null) {
-            Movie movie = ModelFactory.initMovie();
-            movieMapper.transfer(dto.getMovie(), movie);
-            dmi.setMovie(movie);
+            if ( movieDao.retrieveMoviesByTitle(dto.getMovie().getTitle()).size() != 0)
+                System.out.println("Movies with similar names do exist in database. Do you want to check them out?");
+            else {
+                Movie movie = ModelFactory.initMovie();
+                movieMapper.transfer(dto.getMovie(), movie);
+                movieDao.add(movie);
+                dmi.setMovie(movie);
+            }
         }
         if(dto.getRentalPrice() != null)
             dmi.setRentalPrice(dto.getRentalPrice());

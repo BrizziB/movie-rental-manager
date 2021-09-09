@@ -6,7 +6,7 @@ import it.unifi.ing.stlab.movierentalmanager.components.factory.ModelFactory;
 import it.unifi.ing.stlab.movierentalmanager.components.mappers.CrewMemberMapper;
 import it.unifi.ing.stlab.movierentalmanager.dao.CrewMemberDao;
 import it.unifi.ing.stlab.movierentalmanager.dao.MovieDao;
-import it.unifi.ing.stlab.movierentalmanager.model.CrewMember;
+import it.unifi.ing.stlab.movierentalmanager.model.movies.CrewMember;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -34,6 +34,13 @@ public class CrewMemberController {
                             .stream()
                             .map(crewMemberMapper::convert)
                             .collect(Collectors.toList());
+    }
+
+    public List<LiteCrewMemberDto> getAllCrewMembers(Integer offset, Integer limit) {
+        return crewMemberDao.findAll(offset, limit)
+                .stream()
+                .map(crewMemberMapper::convert)
+                .collect(Collectors.toList());
     }
 
     public void addCrewMemberToDb(String json) {

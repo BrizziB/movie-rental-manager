@@ -5,7 +5,7 @@ import it.unifi.ing.stlab.movierentalmanager.components.dto.LiteOrderDto;
 import it.unifi.ing.stlab.movierentalmanager.components.factory.ModelFactory;
 import it.unifi.ing.stlab.movierentalmanager.components.mappers.OrderMapper;
 import it.unifi.ing.stlab.movierentalmanager.dao.OrderDao;
-import it.unifi.ing.stlab.movierentalmanager.model.Order;
+import it.unifi.ing.stlab.movierentalmanager.model.purchases.Order;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -32,6 +32,13 @@ public class OrderController {
                        .stream()
                        .map(orderMapper::convert)
                        .collect(Collectors.toList());
+    }
+
+    public List<LiteOrderDto> getAllOrders(Integer offset, Integer limit) {
+        return orderDao.findAll(offset, limit)
+                .stream()
+                .map(orderMapper::convert)
+                .collect(Collectors.toList());
     }
 
     public void addOrderToDb(String json) {

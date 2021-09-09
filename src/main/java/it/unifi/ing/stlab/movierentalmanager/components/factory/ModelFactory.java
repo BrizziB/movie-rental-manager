@@ -1,7 +1,13 @@
 package it.unifi.ing.stlab.movierentalmanager.components.factory;
 
-import it.unifi.ing.stlab.movierentalmanager.model.*;
-import it.unifi.ing.stlab.movierentalmanager.model.Character;
+import it.unifi.ing.stlab.movierentalmanager.model.items.DigitalMovieItem;
+import it.unifi.ing.stlab.movierentalmanager.model.items.PhysicalMovieItem;
+import it.unifi.ing.stlab.movierentalmanager.model.movies.*;
+import it.unifi.ing.stlab.movierentalmanager.model.movies.Character;
+import it.unifi.ing.stlab.movierentalmanager.model.purchases.Order;
+import it.unifi.ing.stlab.movierentalmanager.model.purchases.PaymentProfile;
+import it.unifi.ing.stlab.movierentalmanager.model.users.Customer;
+import it.unifi.ing.stlab.movierentalmanager.model.users.Employee;
 
 import java.util.UUID;
 

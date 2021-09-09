@@ -1,6 +1,8 @@
 package it.unifi.ing.stlab.movierentalmanager.components.dto;
 
-import it.unifi.ing.stlab.movierentalmanager.model.*;
+import it.unifi.ing.stlab.movierentalmanager.model.purchases.Delivery;
+import it.unifi.ing.stlab.movierentalmanager.model.purchases.OrderStatus;
+import it.unifi.ing.stlab.movierentalmanager.model.purchases.RentalType;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -9,15 +11,13 @@ import java.util.List;
 public class LiteOrderDto implements Serializable {
 
     private LiteCustomerDto customer;
-    // TODO riunire le due liste in una sola, se faccio gerarchia di DTOs
-    private List<LitePhysicalMovieItemDto> physicalItems;
-    private List<LiteDigitalMovieItemDto> digitalItems;
     private LitePaymentProfileDto paymentProfile;
-    private Payment payment;
     private OrderStatus orderStatus;
     private RentalType rentalType;
     private BigDecimal total;
     private Delivery delivery;
+    private List<LiteDigitalMovieItemDto> digitalItems;
+    private List<LitePhysicalMovieItemDto> physicalItems;
 
     public LiteCustomerDto getCustomer() {
         return customer;
@@ -27,36 +27,12 @@ public class LiteOrderDto implements Serializable {
         this.customer = customer;
     }
 
-    public List<LitePhysicalMovieItemDto> getPhysicalItems() {
-        return physicalItems;
-    }
-
-    public void setPhysicalItems(List<LitePhysicalMovieItemDto> physicalItems) {
-        this.physicalItems = physicalItems;
-    }
-
-    public List<LiteDigitalMovieItemDto> getDigitalItems() {
-        return digitalItems;
-    }
-
-    public void setDigitalItems(List<LiteDigitalMovieItemDto> digitalItems) {
-        this.digitalItems = digitalItems;
-    }
-
     public LitePaymentProfileDto getPaymentProfile() {
         return paymentProfile;
     }
 
     public void setPaymentProfile(LitePaymentProfileDto paymentProfile) {
         this.paymentProfile = paymentProfile;
-    }
-
-    public Payment getPayment() {
-        return payment;
-    }
-
-    public void setPayment(Payment payment) {
-        this.payment = payment;
     }
 
     public OrderStatus getOrderStatus() {
@@ -89,6 +65,22 @@ public class LiteOrderDto implements Serializable {
 
     public void setDelivery(Delivery delivery) {
         this.delivery = delivery;
+    }
+
+    public List<LiteDigitalMovieItemDto> getDigitalItems() {
+        return digitalItems;
+    }
+
+    public void setDigitalItems(List<LiteDigitalMovieItemDto> digitalItems) {
+        this.digitalItems = digitalItems;
+    }
+
+    public List<LitePhysicalMovieItemDto> getPhysicalItems() {
+        return physicalItems;
+    }
+
+    public void setPhysicalItems(List<LitePhysicalMovieItemDto> physicalItems) {
+        this.physicalItems = physicalItems;
     }
 
 }

@@ -13,8 +13,6 @@ public class DirectorService {
 
     @Inject private DirectorController directorController;
 
-    // TODO retrieveDirectorByMovie
-
     @GET
     @Path("/searchById")
     @Produces({ MediaType.APPLICATION_JSON })
@@ -31,6 +29,21 @@ public class DirectorService {
     }
 
     @GET
+    @Path("/searchByMovieId")
+    @Produces({ MediaType.APPLICATION_JSON })
+    public Response retrieveDirectorByMovieId(@QueryParam("id") Long id) {
+        Gson gson = new Gson();
+        try {
+            return Response.ok(
+                    gson.toJson( directorController.getDirectorByMovieId(id) )
+            ).build();
+        } catch(Exception e) {
+            e.printStackTrace();
+            return Response.notAcceptable(null).build();
+        }
+    }
+
+    @GET
     @Path("/list/searchByName")
     @Produces({ MediaType.APPLICATION_JSON })
     public Response retrieveDirectorsByName(@QueryParam("name") String name) {
@@ -38,6 +51,21 @@ public class DirectorService {
         try {
             return Response.ok(
                     gson.toJson( directorController.getDirectorsByName(name) )
+            ).build();
+        } catch(Exception e) {
+            e.printStackTrace();
+            return Response.notAcceptable(null).build();
+        }
+    }
+
+    @GET
+    @Path("/list/all")
+    @Produces({ MediaType.APPLICATION_JSON })
+    public Response retrieveAllDirectors() {
+        Gson gson = new Gson();
+        try {
+            return Response.ok(
+                    gson.toJson( directorController.getAllDirectors(0, 25) )
             ).build();
         } catch(Exception e) {
             e.printStackTrace();

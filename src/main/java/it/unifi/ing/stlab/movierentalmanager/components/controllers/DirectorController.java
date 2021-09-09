@@ -6,7 +6,8 @@ import it.unifi.ing.stlab.movierentalmanager.components.factory.ModelFactory;
 import it.unifi.ing.stlab.movierentalmanager.components.mappers.DirectorMapper;
 import it.unifi.ing.stlab.movierentalmanager.dao.DirectorDao;
 import it.unifi.ing.stlab.movierentalmanager.dao.MovieDao;
-import it.unifi.ing.stlab.movierentalmanager.model.Director;
+import it.unifi.ing.stlab.movierentalmanager.model.movies.Director;
+import it.unifi.ing.stlab.movierentalmanager.model.movies.Movie;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -29,11 +30,25 @@ public class DirectorController {
         return directorMapper.convert(director);
     }
 
+    public LiteDirectorDto getDirectorByMovieId(Long id) {
+        Movie movie = movieDao.findById(id).orElseThrow(
+                        () -> new IllegalArgumentException("Movie not found")
+        );
+        return directorMapper.convert(movie.getDirector());
+    }
+
     public List<LiteDirectorDto> getDirectorsByName(String name) {
         return directorDao.retrieveDirectorsByName(name)
                           .stream()
                           .map(directorMapper::convert)
                           .collect(Collectors.toList());
+    }
+
+    public List<LiteDirectorDto> getAllDirectors(Integer offset, Integer limit) {
+        return directorDao.findAll(offset, limit)
+                .stream()
+                .map(directorMapper::convert)
+                .collect(Collectors.toList());
     }
 
     public void addDirectorToDb(String json) {

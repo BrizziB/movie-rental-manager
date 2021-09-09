@@ -1,9 +1,10 @@
 package it.unifi.ing.stlab.movierentalmanager.components.dto;
 
-import it.unifi.ing.stlab.movierentalmanager.model.Genre;
-import it.unifi.ing.stlab.movierentalmanager.model.Rating;
+import it.unifi.ing.stlab.movierentalmanager.model.movies.Genre;
+import it.unifi.ing.stlab.movierentalmanager.model.movies.Rating;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class LiteMovieDto implements Serializable {
 
@@ -16,9 +17,15 @@ public class LiteMovieDto implements Serializable {
     private Integer budget;
     private Double criticRating;
     private boolean disabled;
-    private LiteDirectorDto director;
     private Genre genre;
     private Rating rating;
+    private LiteDirectorDto director;
+    private List<LiteCharacterDto> characters;
+    private List<LiteCrewMemberDto> crew;
+    private List<LiteActorDto> cast;
+    private List<LiteProductionCompanyDto> producers;
+    private List<LiteDigitalMovieItemDto> digitalItems;
+    private List<LitePhysicalMovieItemDto> physicalItems;
 
     public String getTitle() {
         return title;
@@ -116,4 +123,51 @@ public class LiteMovieDto implements Serializable {
         this.rating = rating;
     }
 
+    public List<LiteCharacterDto> getCharacters() {
+        return characters;
+    }
+
+    public void setCharacters(List<LiteCharacterDto> characters) {
+        this.characters = characters;
+    }
+
+    public List<LiteCrewMemberDto> getCrew() {
+        return crew;
+    }
+
+    public void setCrew(List<LiteCrewMemberDto> crew) {
+        this.crew = crew;
+    }
+
+    public List<LiteActorDto> getCast() {
+        return cast;
+    }
+
+    public void setCast(List<LiteActorDto> cast) {
+        this.cast = cast;
+    }
+
+    public List<LiteProductionCompanyDto> getProducers() {
+        return producers;
+    }
+
+    public void setProducers(List<LiteProductionCompanyDto> producers) {
+        this.producers = producers;
+    }
+
+    public List<LiteDigitalMovieItemDto> getDigitalItems() {
+        return digitalItems;
+    }
+
+    public void setDigitalItems(List<LiteDigitalMovieItemDto> digitalItems) {
+        this.digitalItems = digitalItems;
+    }
+
+    public List<LitePhysicalMovieItemDto> getPhysicalItems() {
+        return physicalItems;
+    }
+
+    public void setPhysicalItems(List<LitePhysicalMovieItemDto> physicalItems) {
+        this.physicalItems = physicalItems;
+    }
 }

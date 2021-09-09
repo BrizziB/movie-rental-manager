@@ -43,6 +43,21 @@ public class CrewMemberService {
         }
     }
 
+    @GET
+    @Path("/list/all")
+    @Produces({ MediaType.APPLICATION_JSON })
+    public Response retrieveAllCrewMembers() {
+        Gson gson = new Gson();
+        try {
+            return Response.ok(
+                    gson.toJson( crewMemberController.getAllCrewMembers(0, 25) )
+            ).build();
+        } catch(Exception e) {
+            e.printStackTrace();
+            return Response.notAcceptable(null).build();
+        }
+    }
+
     @POST
     @Path("/add")
     @Consumes({ MediaType.APPLICATION_JSON })

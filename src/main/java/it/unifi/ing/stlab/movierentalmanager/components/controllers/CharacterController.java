@@ -6,7 +6,7 @@ import it.unifi.ing.stlab.movierentalmanager.components.factory.ModelFactory;
 import it.unifi.ing.stlab.movierentalmanager.components.mappers.CharacterMapper;
 import it.unifi.ing.stlab.movierentalmanager.dao.CharacterDao;
 import it.unifi.ing.stlab.movierentalmanager.dao.MovieDao;
-import it.unifi.ing.stlab.movierentalmanager.model.Character;
+import it.unifi.ing.stlab.movierentalmanager.model.movies.Character;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -34,6 +34,13 @@ public class CharacterController {
                            .stream()
                            .map(characterMapper::convert)
                            .collect(Collectors.toList());
+    }
+
+    public List<LiteCharacterDto> getAllCharacters(Integer offset, Integer limit) {
+        return characterDao.findAll(offset, limit)
+                .stream()
+                .map(characterMapper::convert)
+                .collect(Collectors.toList());
     }
 
     public void addCharacterToDb(String json) {

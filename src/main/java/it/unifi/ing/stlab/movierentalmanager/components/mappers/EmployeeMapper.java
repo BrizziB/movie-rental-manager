@@ -1,7 +1,7 @@
 package it.unifi.ing.stlab.movierentalmanager.components.mappers;
 
 import it.unifi.ing.stlab.movierentalmanager.components.dto.LiteEmployeeDto;
-import it.unifi.ing.stlab.movierentalmanager.model.Employee;
+import it.unifi.ing.stlab.movierentalmanager.model.users.Employee;
 
 import javax.enterprise.context.RequestScoped;
 

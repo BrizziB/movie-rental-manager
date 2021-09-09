@@ -1,7 +1,7 @@
 package it.unifi.ing.stlab.movierentalmanager.components.dto;
 
-import it.unifi.ing.stlab.movierentalmanager.model.ItemState;
-import it.unifi.ing.stlab.movierentalmanager.model.MovieMedium;
+import it.unifi.ing.stlab.movierentalmanager.model.items.ItemState;
+import it.unifi.ing.stlab.movierentalmanager.model.items.MovieMedium;
 
 import java.io.Serializable;
 import java.math.BigDecimal;

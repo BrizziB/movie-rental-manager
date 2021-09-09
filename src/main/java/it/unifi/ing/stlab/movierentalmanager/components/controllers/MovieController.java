@@ -8,7 +8,7 @@ import it.unifi.ing.stlab.movierentalmanager.dao.ActorDao;
 import it.unifi.ing.stlab.movierentalmanager.dao.CrewMemberDao;
 import it.unifi.ing.stlab.movierentalmanager.dao.DirectorDao;
 import it.unifi.ing.stlab.movierentalmanager.dao.MovieDao;
-import it.unifi.ing.stlab.movierentalmanager.model.*;
+import it.unifi.ing.stlab.movierentalmanager.model.movies.*;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -70,6 +70,13 @@ public class MovieController {
                        .stream()
                        .map(movieMapper::convert)
                        .collect(Collectors.toList());
+    }
+
+    public List<LiteMovieDto> getAllMovies(Integer offset, Integer limit) {
+        return movieDao.findAll(offset, limit)
+                .stream()
+                .map(movieMapper::convert)
+                .collect(Collectors.toList());
     }
 
     public void addMovieToDb(String json) {

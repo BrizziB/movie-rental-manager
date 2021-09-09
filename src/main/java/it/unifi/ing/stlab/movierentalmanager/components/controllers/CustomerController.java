@@ -5,7 +5,7 @@ import it.unifi.ing.stlab.movierentalmanager.components.dto.LiteCustomerDto;
 import it.unifi.ing.stlab.movierentalmanager.components.factory.ModelFactory;
 import it.unifi.ing.stlab.movierentalmanager.components.mappers.CustomerMapper;
 import it.unifi.ing.stlab.movierentalmanager.dao.CustomerDao;
-import it.unifi.ing.stlab.movierentalmanager.model.Customer;
+import it.unifi.ing.stlab.movierentalmanager.model.users.Customer;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -31,6 +31,13 @@ public class CustomerController {
                           .stream()
                           .map(customerMapper::convert)
                           .collect(Collectors.toList());
+    }
+
+    public List<LiteCustomerDto> getAllCustomers(Integer offset, Integer limit) {
+        return customerDao.findAll(offset, limit)
+                .stream()
+                .map(customerMapper::convert)
+                .collect(Collectors.toList());
     }
 
     public void addCustomerToDb(String json) {

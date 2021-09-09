@@ -1,12 +1,14 @@
 package it.unifi.ing.stlab.movierentalmanager.dao;
 
-import it.unifi.ing.stlab.movierentalmanager.model.Employee;
-import it.unifi.ing.stlab.movierentalmanager.model.OfficeRole;
+import it.unifi.ing.stlab.movierentalmanager.model.users.Employee;
+import it.unifi.ing.stlab.movierentalmanager.model.users.OfficeRole;
 
+import javax.ejb.Stateless;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import java.util.List;
 
+@Stateless
 public class EmployeeDao extends BaseDao<Employee> {
 
     public EmployeeDao() {

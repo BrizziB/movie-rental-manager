@@ -2,6 +2,7 @@ package it.unifi.ing.stlab.movierentalmanager.components.dto;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class LiteProductionCompanyDto implements Serializable {
 
@@ -9,6 +10,7 @@ public class LiteProductionCompanyDto implements Serializable {
     private String country;
     private Date foundationDate;
     private String webSiteURL;
+    private List<LiteMovieDto> movies;
 
     public String getName() {
         return name;
@@ -40,5 +42,13 @@ public class LiteProductionCompanyDto implements Serializable {
 
     public void setWebSiteURL(String webSiteURL) {
         this.webSiteURL = webSiteURL;
+    }
+
+    public List<LiteMovieDto> getMovies() {
+        return movies;
+    }
+
+    public void setMovies(List<LiteMovieDto> movies) {
+        this.movies = movies;
     }
 }

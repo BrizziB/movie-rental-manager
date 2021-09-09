@@ -1,6 +1,6 @@
 package it.unifi.ing.stlab.movierentalmanager.dao;
 
-import it.unifi.ing.stlab.movierentalmanager.model.Order;
+import it.unifi.ing.stlab.movierentalmanager.model.purchases.Order;
 
 import javax.ejb.Stateless;
 import javax.persistence.TypedQuery;
@@ -21,11 +21,10 @@ public class OrderDao extends BaseDao<Order> {
         oldOrder.setCustomer(o.getCustomer());
         oldOrder.setItems(o.getItems());
         oldOrder.setPaymentProfile(o.getPaymentProfile());
-        oldOrder.setPayment(o.getPayment());
         oldOrder.setOrderStatus(o.getOrderStatus());
         oldOrder.setRentalType(o.getRentalType());
-        oldOrder.setTotal(o.getTotal());
         oldOrder.setDelivery(o.getDelivery());
+        oldOrder.computeDiscountedTotal();
     }
 
     public List<Order> retrieveOrdersBetweenDates(Date start, Date end) {

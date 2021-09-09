@@ -1,6 +1,6 @@
 package it.unifi.ing.stlab.movierentalmanager.dao;
 
-import it.unifi.ing.stlab.movierentalmanager.model.PaymentProfile;
+import it.unifi.ing.stlab.movierentalmanager.model.purchases.PaymentProfile;
 
 import javax.ejb.Stateless;
 import javax.transaction.Transactional;

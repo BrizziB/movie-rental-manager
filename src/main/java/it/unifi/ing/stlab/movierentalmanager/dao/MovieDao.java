@@ -1,7 +1,6 @@
 package it.unifi.ing.stlab.movierentalmanager.dao;
 
-import it.unifi.ing.stlab.movierentalmanager.model.Actor;
-import it.unifi.ing.stlab.movierentalmanager.model.Movie;
+import it.unifi.ing.stlab.movierentalmanager.model.movies.Movie;
 
 import javax.ejb.Stateless;
 import javax.persistence.TypedQuery;
@@ -25,6 +24,7 @@ public class MovieDao extends BaseDao<Movie> {
         oldMovie.setCountry(m.getCountry());
         oldMovie.setLanguage(m.getLanguage());
         oldMovie.setBudget(m.getBudget());
+        oldMovie.setCriticRating(m.getCriticRating());
         oldMovie.setDirector(m.getDirector());
         oldMovie.setGenre(m.getGenre());
         oldMovie.setRating(m.getRating());

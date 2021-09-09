@@ -1,9 +1,8 @@
 package it.unifi.ing.stlab.movierentalmanager.dao;
 
-import it.unifi.ing.stlab.movierentalmanager.model.Director;
+import it.unifi.ing.stlab.movierentalmanager.model.movies.Director;
 
 import javax.ejb.Stateless;
-import javax.enterprise.context.RequestScoped;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import java.util.List;
@@ -19,7 +18,6 @@ public class DirectorDao extends BaseDao<Director> {
     public void update(Director d) {
         Director oldDirector = getEm().find(Director.class, d.getId());
         oldDirector.setName(d.getName());
-        oldDirector.setSurname(d.getSurname());
         oldDirector.setBirthDate(d.getBirthDate());
         oldDirector.setCountry(d.getCountry());
         oldDirector.setBiography(d.getBiography());

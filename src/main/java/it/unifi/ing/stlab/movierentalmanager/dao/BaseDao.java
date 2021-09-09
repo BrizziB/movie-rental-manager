@@ -1,6 +1,6 @@
 package it.unifi.ing.stlab.movierentalmanager.dao;
 
-import it.unifi.ing.stlab.movierentalmanager.model.BaseEntity;
+import it.unifi.ing.stlab.movierentalmanager.model.entity.BaseEntity;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -23,6 +23,10 @@ public abstract class BaseDao<T extends BaseEntity> {
         return em;
     }
 
+    public Class<T> getEntityType() {
+        return entityType;
+    }
+
     @Transactional
     public void add(T t) {
         em.persist(t);
@@ -32,7 +36,7 @@ public abstract class BaseDao<T extends BaseEntity> {
         return Optional.ofNullable(em.find(entityType, id));
     }
 
-    public List<T> findAllCharacters(Integer offset, Integer limit) {
+    public List<T> findAll(Integer offset, Integer limit) {
         TypedQuery<T> query = em.createQuery("SELECT FROM " + entityType.getName(), entityType)
                                         .setFirstResult(offset)
                                         .setMaxResults(limit);

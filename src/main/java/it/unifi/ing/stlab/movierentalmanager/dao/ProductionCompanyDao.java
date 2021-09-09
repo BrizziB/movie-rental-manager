@@ -1,7 +1,6 @@
 package it.unifi.ing.stlab.movierentalmanager.dao;
 
-import it.unifi.ing.stlab.movierentalmanager.model.Movie;
-import it.unifi.ing.stlab.movierentalmanager.model.ProductionCompany;
+import it.unifi.ing.stlab.movierentalmanager.model.movies.ProductionCompany;
 
 import javax.ejb.Stateless;
 import javax.persistence.TypedQuery;

@@ -1,7 +1,7 @@
 package it.unifi.ing.stlab.movierentalmanager.components.dto;
 
-import it.unifi.ing.stlab.movierentalmanager.model.OfficeRole;
-import it.unifi.ing.stlab.movierentalmanager.model.WebUser;
+import it.unifi.ing.stlab.movierentalmanager.model.users.OfficeRole;
+import it.unifi.ing.stlab.movierentalmanager.model.users.WebUser;
 
 import java.io.Serializable;
 

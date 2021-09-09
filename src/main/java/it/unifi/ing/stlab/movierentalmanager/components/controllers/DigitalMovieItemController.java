@@ -2,17 +2,17 @@ package it.unifi.ing.stlab.movierentalmanager.components.controllers;
 
 import com.google.gson.Gson;
 import it.unifi.ing.stlab.movierentalmanager.components.dto.LiteDigitalMovieItemDto;
-import it.unifi.ing.stlab.movierentalmanager.components.dto.LitePhysicalMovieItemDto;
 import it.unifi.ing.stlab.movierentalmanager.components.factory.ModelFactory;
 import it.unifi.ing.stlab.movierentalmanager.components.mappers.DigitalMovieItemMapper;
 import it.unifi.ing.stlab.movierentalmanager.dao.DigitalMovieItemDao;
-import it.unifi.ing.stlab.movierentalmanager.model.DigitalMovieItem;
-import it.unifi.ing.stlab.movierentalmanager.model.PhysicalMovieItem;
+import it.unifi.ing.stlab.movierentalmanager.model.items.DigitalMovieItem;
 
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@RequestScoped
 public class DigitalMovieItemController {
 
     @Inject private DigitalMovieItemDao digitalMovieItemDao;
@@ -36,6 +36,13 @@ public class DigitalMovieItemController {
 
     public List<LiteDigitalMovieItemDto> getDigitalMovieItemsByMovieId(Long id) {
         return digitalMovieItemDao.retrieveDigitalMovieItemsByMovieId(id)
+                .stream()
+                .map(digitalMovieItemMapper::convert)
+                .collect(Collectors.toList());
+    }
+
+    public List<LiteDigitalMovieItemDto> getAllDigitalMovieItems(Integer offset, Integer limit) {
+        return digitalMovieItemDao.findAll(offset, limit)
                 .stream()
                 .map(digitalMovieItemMapper::convert)
                 .collect(Collectors.toList());

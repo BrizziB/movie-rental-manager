@@ -1,8 +1,11 @@
 package it.unifi.ing.stlab.movierentalmanager.components.dto;
 
-import it.unifi.ing.stlab.movierentalmanager.model.*;
+import it.unifi.ing.stlab.movierentalmanager.model.users.CustomerDetails;
+import it.unifi.ing.stlab.movierentalmanager.model.users.Membership;
+import it.unifi.ing.stlab.movierentalmanager.model.users.WebUser;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class LiteCustomerDto implements Serializable {
 
@@ -11,8 +14,9 @@ public class LiteCustomerDto implements Serializable {
     private String phoneNumber;
     private WebUser webUser;
     private Membership membership;
-//    private CustomerDetails customerDetails;
-//    private List<LitePaymentProfileDto> paymentProfiles;
+    private CustomerDetails customerDetails;
+    private List<LitePaymentProfileDto> paymentProfiles;
+//    private List<LiteOrderDto> orders;
 
     public String getName() {
         return name;
@@ -54,4 +58,19 @@ public class LiteCustomerDto implements Serializable {
         this.membership = membership;
     }
 
+    public CustomerDetails getCustomerDetails() {
+        return customerDetails;
+    }
+
+    public void setCustomerDetails(CustomerDetails customerDetails) {
+        this.customerDetails = customerDetails;
+    }
+
+    public List<LitePaymentProfileDto> getPaymentProfiles() {
+        return paymentProfiles;
+    }
+
+    public void setPaymentProfiles(List<LitePaymentProfileDto> paymentProfiles) {
+        this.paymentProfiles = paymentProfiles;
+    }
 }

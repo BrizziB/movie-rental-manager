@@ -1,7 +1,6 @@
 package it.unifi.ing.stlab.movierentalmanager.dao;
 
-import it.unifi.ing.stlab.movierentalmanager.model.Character;
-import it.unifi.ing.stlab.movierentalmanager.model.Director;
+import it.unifi.ing.stlab.movierentalmanager.model.movies.Character;
 
 import javax.ejb.Stateless;
 import javax.persistence.TypedQuery;

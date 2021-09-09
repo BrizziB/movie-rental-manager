@@ -6,13 +6,12 @@ import it.unifi.ing.stlab.movierentalmanager.components.factory.ModelFactory;
 import it.unifi.ing.stlab.movierentalmanager.components.mappers.ActorMapper;
 import it.unifi.ing.stlab.movierentalmanager.dao.ActorDao;
 import it.unifi.ing.stlab.movierentalmanager.dao.MovieDao;
-import it.unifi.ing.stlab.movierentalmanager.model.Actor;
-import it.unifi.ing.stlab.movierentalmanager.model.Movie;
+import it.unifi.ing.stlab.movierentalmanager.model.movies.Actor;
+import it.unifi.ing.stlab.movierentalmanager.model.movies.Movie;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequestScoped
@@ -43,6 +42,13 @@ public class ActorController {
                        .stream()
                        .map(actorMapper::convert)
                        .collect(Collectors.toList());
+    }
+
+    public List<LiteActorDto> getAllActors(Integer offset, Integer limit) {
+        return actorDao.findAll(offset, limit)
+                .stream()
+                .map(actorMapper::convert)
+                .collect(Collectors.toList());
     }
 
     public void addActorToDb(String json) {

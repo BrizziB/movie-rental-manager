@@ -1,18 +1,16 @@
 package it.unifi.ing.stlab.movierentalmanager.components.dto;
 
-import it.unifi.ing.stlab.movierentalmanager.model.CrewMember;
-import it.unifi.ing.stlab.movierentalmanager.model.CrewRole;
-import it.unifi.ing.stlab.movierentalmanager.model.Director;
-
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class LiteDirectorDto implements Serializable {
 
     private String name;
-    private String surname;
     private Date birthDate;
     private String country;
+//    private String biography;
+    private List<LiteMovieDto> movies;
 
     public String getName() {
         return name;
@@ -20,14 +18,6 @@ public class LiteDirectorDto implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
     }
 
     public Date getBirthDate() {
@@ -46,4 +36,11 @@ public class LiteDirectorDto implements Serializable {
         this.country = country;
     }
 
+    public List<LiteMovieDto> getMovies() {
+        return movies;
+    }
+
+    public void setMovies(List<LiteMovieDto> movies) {
+        this.movies = movies;
+    }
 }

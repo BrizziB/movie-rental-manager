@@ -5,7 +5,7 @@ import it.unifi.ing.stlab.movierentalmanager.components.dto.LiteEmployeeDto;
 import it.unifi.ing.stlab.movierentalmanager.components.factory.ModelFactory;
 import it.unifi.ing.stlab.movierentalmanager.components.mappers.EmployeeMapper;
 import it.unifi.ing.stlab.movierentalmanager.dao.EmployeeDao;
-import it.unifi.ing.stlab.movierentalmanager.model.Employee;
+import it.unifi.ing.stlab.movierentalmanager.model.users.Employee;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -28,6 +28,13 @@ public class EmployeeController {
 
     public List<LiteEmployeeDto> getEmployeesByName(String name) {
         return employeeDao.retrieveEmployeesByName(name)
+                .stream()
+                .map(employeeMapper::convert)
+                .collect(Collectors.toList());
+    }
+
+    public List<LiteEmployeeDto> getAllEmployees(Integer offset, Integer limit) {
+        return employeeDao.findAll(offset, limit)
                 .stream()
                 .map(employeeMapper::convert)
                 .collect(Collectors.toList());

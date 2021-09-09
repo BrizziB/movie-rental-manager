@@ -5,7 +5,7 @@ import it.unifi.ing.stlab.movierentalmanager.components.dto.LitePhysicalMovieIte
 import it.unifi.ing.stlab.movierentalmanager.components.factory.ModelFactory;
 import it.unifi.ing.stlab.movierentalmanager.components.mappers.PhysicalMovieItemMapper;
 import it.unifi.ing.stlab.movierentalmanager.dao.PhysicalMovieItemDao;
-import it.unifi.ing.stlab.movierentalmanager.model.PhysicalMovieItem;
+import it.unifi.ing.stlab.movierentalmanager.model.items.PhysicalMovieItem;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -37,6 +37,13 @@ public class PhysicalMovieItemController {
 
     public List<LitePhysicalMovieItemDto> getPhysicalMovieItemsByMovieId(Long id) {
         return physicalMovieItemDao.retrievePhysicalMovieItemsByMovieId(id)
+                .stream()
+                .map(physicalMovieItemMapper::convert)
+                .collect(Collectors.toList());
+    }
+
+    public List<LitePhysicalMovieItemDto> getAllPhysicalMovieItems(Integer offset, Integer limit) {
+        return physicalMovieItemDao.findAll(offset, limit)
                 .stream()
                 .map(physicalMovieItemMapper::convert)
                 .collect(Collectors.toList());

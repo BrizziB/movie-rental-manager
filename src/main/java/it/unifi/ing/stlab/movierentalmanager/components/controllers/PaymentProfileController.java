@@ -6,8 +6,8 @@ import it.unifi.ing.stlab.movierentalmanager.components.factory.ModelFactory;
 import it.unifi.ing.stlab.movierentalmanager.components.mappers.PaymentProfileMapper;
 import it.unifi.ing.stlab.movierentalmanager.dao.CustomerDao;
 import it.unifi.ing.stlab.movierentalmanager.dao.PaymentProfileDao;
-import it.unifi.ing.stlab.movierentalmanager.model.Customer;
-import it.unifi.ing.stlab.movierentalmanager.model.PaymentProfile;
+import it.unifi.ing.stlab.movierentalmanager.model.users.Customer;
+import it.unifi.ing.stlab.movierentalmanager.model.purchases.PaymentProfile;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -35,6 +35,13 @@ public class PaymentProfileController {
                        .stream()
                        .map(paymentProfileMapper::convert)
                        .collect(Collectors.toList());
+    }
+
+    public List<LitePaymentProfileDto> getAllPaymentProfiles(Integer offset, Integer limit) {
+        return paymentProfileDao.findAll(offset, limit)
+                .stream()
+                .map(paymentProfileMapper::convert)
+                .collect(Collectors.toList());
     }
 
     public void addPaymentProfileToDb(String json) {

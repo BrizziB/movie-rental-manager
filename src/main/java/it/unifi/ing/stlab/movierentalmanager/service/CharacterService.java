@@ -43,6 +43,21 @@ public class CharacterService {
         }
     }
 
+    @GET
+    @Path("/list/all")
+    @Produces({ MediaType.APPLICATION_JSON })
+    public Response retrieveAllCharacters() {
+        Gson gson = new Gson();
+        try {
+            return Response.ok(
+                    gson.toJson( characterController.getAllCharacters(0, 25) )
+            ).build();
+        } catch(Exception e) {
+            e.printStackTrace();
+            return Response.notAcceptable(null).build();
+        }
+    }
+
     @POST
     @Path("/add")
     @Consumes({ MediaType.APPLICATION_JSON })

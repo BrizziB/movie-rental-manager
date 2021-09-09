@@ -2,8 +2,9 @@ package it.unifi.ing.stlab.movierentalmanager.components.mappers;
 
 import it.unifi.ing.stlab.movierentalmanager.components.dto.LitePaymentProfileDto;
 import it.unifi.ing.stlab.movierentalmanager.components.factory.ModelFactory;
-import it.unifi.ing.stlab.movierentalmanager.model.Customer;
-import it.unifi.ing.stlab.movierentalmanager.model.PaymentProfile;
+import it.unifi.ing.stlab.movierentalmanager.dao.CustomerDao;
+import it.unifi.ing.stlab.movierentalmanager.model.users.Customer;
+import it.unifi.ing.stlab.movierentalmanager.model.purchases.PaymentProfile;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -12,6 +13,7 @@ import javax.inject.Inject;
 public class PaymentProfileMapper {
 
     @Inject private CustomerMapper customerMapper;
+    @Inject private CustomerDao customerDao;
 
     public LitePaymentProfileDto convert(PaymentProfile pp) {
         if(pp == null)
@@ -33,9 +35,15 @@ public class PaymentProfileMapper {
             throw new MapperTransferException("The payment profile Entity is NULL");
 
         if(dto.getCustomer() != null) {
-            Customer customer = ModelFactory.initCustomer();
-            customerMapper.transfer(dto.getCustomer(), customer);
-            pp.setCustomer(customer);
+            if ( customerDao.retrieveCustomersByName( dto.getCustomer().getName() ).size() != 0) {
+                System.out.println("Customers with similar names do exist in database. Do you want to check them out?");
+            }
+            else {
+                Customer customer = ModelFactory.initCustomer();
+                customerMapper.transfer(dto.getCustomer(), customer);
+                customerDao.add(customer);
+                pp.setCustomer(customer);
+            }
         }
         if(dto.getCreditCardType() != null)
             pp.setCreditCardType(dto.getCreditCardType());

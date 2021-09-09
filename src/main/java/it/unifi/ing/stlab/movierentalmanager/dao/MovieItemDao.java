@@ -1,6 +1,6 @@
 package it.unifi.ing.stlab.movierentalmanager.dao;
 
-import it.unifi.ing.stlab.movierentalmanager.model.MovieItem;
+import it.unifi.ing.stlab.movierentalmanager.model.items.MovieItem;
 
 import javax.transaction.Transactional;
 
