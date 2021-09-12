@@ -32,6 +32,7 @@ public class MovieDao extends BaseDao<Movie> {
         oldMovie.setCrew(m.getCrew());
         oldMovie.setCast(m.getCast());
         oldMovie.setItems(m.getItems());
+        oldMovie.setProducers(m.getProducers());
     }
 
     public List<Movie> retrieveMoviesByTitle(String title) {
@@ -39,6 +40,14 @@ public class MovieDao extends BaseDao<Movie> {
                 "FROM Movie m WHERE m.title LIKE CONCAT('%', :title, '%')",
                 Movie.class
         ).setParameter("title", title);
+        return query.getResultList();
+    }
+
+    public List<Movie> retrieveTopRatedMovies(Integer limit) {
+        TypedQuery<Movie> query = getEm().createQuery(
+                "FROM Movie m ORDER BY m.criticRating DESC",
+                Movie.class
+        ).setMaxResults(limit);
         return query.getResultList();
     }
 

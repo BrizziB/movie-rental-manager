@@ -72,6 +72,13 @@ public class MovieController {
                        .collect(Collectors.toList());
     }
 
+    public List<LiteMovieDto> getTopRatedMovies(Integer limit) {
+        return movieDao.retrieveTopRatedMovies(limit)
+                .stream()
+                .map(movieMapper::convert)
+                .collect(Collectors.toList());
+    }
+
     public List<LiteMovieDto> getAllMovies(Integer offset, Integer limit) {
         return movieDao.findAll(offset, limit)
                 .stream()

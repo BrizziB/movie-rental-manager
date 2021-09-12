@@ -1,11 +1,14 @@
 package it.unifi.ing.stlab.movierentalmanager.components.factory;
 
+import it.unifi.ing.stlab.movierentalmanager.model.statistics.MonthlyRecord;
+import it.unifi.ing.stlab.movierentalmanager.model.statistics.WeeklyRecord;
 import it.unifi.ing.stlab.movierentalmanager.model.items.DigitalMovieItem;
 import it.unifi.ing.stlab.movierentalmanager.model.items.PhysicalMovieItem;
 import it.unifi.ing.stlab.movierentalmanager.model.movies.*;
 import it.unifi.ing.stlab.movierentalmanager.model.movies.Character;
 import it.unifi.ing.stlab.movierentalmanager.model.purchases.Order;
 import it.unifi.ing.stlab.movierentalmanager.model.purchases.PaymentProfile;
+import it.unifi.ing.stlab.movierentalmanager.model.statistics.YearlyRecord;
 import it.unifi.ing.stlab.movierentalmanager.model.users.Customer;
 import it.unifi.ing.stlab.movierentalmanager.model.users.Employee;
 
@@ -59,6 +62,18 @@ public class ModelFactory {
 
     public static ProductionCompany initProductionCompany() {
         return new ProductionCompany(UUID.randomUUID());
+    }
+
+    public static WeeklyRecord initWeeklyRecord(Movie movie, Integer thisWeekPurchases, Long currentTotalPurchases) {
+        return new WeeklyRecord(UUID.randomUUID(), movie, thisWeekPurchases, currentTotalPurchases);
+    }
+
+    public static MonthlyRecord initMonthlyRecord(Movie movie, Integer thisMonthPurchases, Long currentTotalPurchases) {
+        return new MonthlyRecord(UUID.randomUUID(), movie, thisMonthPurchases, currentTotalPurchases);
+    }
+
+    public static YearlyRecord initYearlyRecord(Movie movie, Integer thisYearPurchases, Long currentTotalPurchases) {
+        return new YearlyRecord(UUID.randomUUID(), movie, thisYearPurchases, currentTotalPurchases);
     }
 
 }

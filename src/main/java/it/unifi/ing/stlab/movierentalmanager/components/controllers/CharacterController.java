@@ -5,7 +5,6 @@ import it.unifi.ing.stlab.movierentalmanager.components.dto.LiteCharacterDto;
 import it.unifi.ing.stlab.movierentalmanager.components.factory.ModelFactory;
 import it.unifi.ing.stlab.movierentalmanager.components.mappers.CharacterMapper;
 import it.unifi.ing.stlab.movierentalmanager.dao.CharacterDao;
-import it.unifi.ing.stlab.movierentalmanager.dao.MovieDao;
 import it.unifi.ing.stlab.movierentalmanager.model.movies.Character;
 
 import javax.enterprise.context.RequestScoped;
@@ -18,7 +17,6 @@ public class CharacterController {
 
     @Inject private CharacterDao characterDao;
     @Inject private CharacterMapper characterMapper;
-    @Inject private MovieDao movieDao;
     private Gson gson;
 
     public LiteCharacterDto getCharacterById(Long id) {

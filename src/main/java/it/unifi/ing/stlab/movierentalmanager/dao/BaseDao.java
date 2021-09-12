@@ -55,7 +55,7 @@ public abstract class BaseDao<T extends BaseEntity> {
 
     @Transactional
     public void deleteById(Long id) {
-        em.remove(em.contains(em.find(entityType, id)));
+        em.remove( em.contains( em.find(entityType, id) ) );
     }
 
 }

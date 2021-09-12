@@ -13,8 +13,7 @@ import java.util.UUID;
 public class Character extends BaseEntity {
 
     private String name;
-    // TODO ma questo a che serve?
-    @ManyToOne private Actor actor;
+    @ManyToOne private Actor actor; // TODO ma questo a che serve?
 
     @ManyToMany
     @JoinTable(name="characters_actors",

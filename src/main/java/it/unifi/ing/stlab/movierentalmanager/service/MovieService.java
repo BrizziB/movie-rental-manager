@@ -105,6 +105,21 @@ public class MovieService {
     }
 
     @GET
+    @Path("/list/top-rated")
+    @Produces({ MediaType.APPLICATION_JSON })
+    public Response retrieveTopRatedMovies(Integer limit) {
+        Gson gson = new Gson();
+        try {
+            return Response.ok(
+                    gson.toJson( movieController.getTopRatedMovies(limit) )
+            ).build();
+        } catch(Exception e) {
+            e.printStackTrace();
+            return Response.notAcceptable(null).build();
+        }
+    }
+
+    @GET
     @Path("/list/all")
     @Produces({ MediaType.APPLICATION_JSON })
     public Response retrieveAllMovies() {

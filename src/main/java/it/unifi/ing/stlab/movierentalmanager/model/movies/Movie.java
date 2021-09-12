@@ -1,9 +1,7 @@
 package it.unifi.ing.stlab.movierentalmanager.model.movies;
 
-import it.unifi.ing.stlab.movierentalmanager.model.WeekChart;
 import it.unifi.ing.stlab.movierentalmanager.model.entity.BaseEntity;
 import it.unifi.ing.stlab.movierentalmanager.model.items.MovieItem;
-import it.unifi.ing.stlab.movierentalmanager.model.movies.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -21,12 +19,10 @@ public class Movie extends BaseEntity {
     private String country;
     private String language;
     private Integer budget;
-    private Integer totalPurchases;
     private Double criticRating;
     private boolean disabled;
     @Enumerated(EnumType.STRING) private Genre genre;
     @Enumerated(EnumType.STRING) private Rating rating;
-
 
     @ManyToOne private Director director;
 
@@ -57,8 +53,10 @@ public class Movie extends BaseEntity {
     @OneToMany(mappedBy = "movie")
     private List<MovieItem> items;
 
-    @OneToMany(mappedBy = "movie")
-    private List<WeekChart> charts;
+    private Long totalPurchases = 0L;
+    private Integer thisWeekPurchases = 0;
+    private Integer thisMonthPurchases = 0;
+    private Integer thisYearPurchases = 0;
 
     public Movie() {
         super();
@@ -67,7 +65,6 @@ public class Movie extends BaseEntity {
         this.cast = new ArrayList<Actor>();
         this.producers = new ArrayList<ProductionCompany>();
         this.items = new ArrayList<MovieItem>();
-        this.totalPurchases = 0;
         disabled = false;
     }
 
@@ -78,7 +75,6 @@ public class Movie extends BaseEntity {
         this.cast = new ArrayList<Actor>();
         this.producers = new ArrayList<ProductionCompany>();
         this.items = new ArrayList<MovieItem>();
-        this.totalPurchases = 0;
         disabled = false;
     }
 
@@ -138,12 +134,46 @@ public class Movie extends BaseEntity {
         this.budget = budget;
     }
 
-    public Integer getTotalPurchases() {
+    public Long getTotalPurchases() {
         return totalPurchases;
     }
 
-    public void incrementTotalPurchases() {
+    public Integer getThisWeekPurchases() {
+        return thisWeekPurchases;
+    }
+
+    public Integer getThisMonthPurchases() {
+        return thisMonthPurchases;
+    }
+
+    public Integer getThisYearPurchases() {
+        return thisYearPurchases;
+    }
+
+    public void resetThisWeekPurchases() {
+        thisWeekPurchases = 0;
+    }
+
+    public void resetThisMonthPurchases() {
+        thisMonthPurchases = 0;
+    }
+
+    public void resetThisYearPurchases() {
+        thisYearPurchases = 0;
+    }
+
+    public void incrementPurchases() {
         totalPurchases++;
+        thisWeekPurchases++;
+        thisMonthPurchases++;
+        thisYearPurchases++;
+    }
+
+    public void decrementPurchases() {
+        totalPurchases--;
+        thisWeekPurchases--;
+        thisMonthPurchases--;
+        thisYearPurchases--;
     }
 
     public Double getCriticRating() {

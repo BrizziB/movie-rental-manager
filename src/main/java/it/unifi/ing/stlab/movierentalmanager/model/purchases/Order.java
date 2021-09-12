@@ -81,9 +81,11 @@ public class Order extends BaseEntity {
     }
 
     public void setOrderStatus(OrderStatus orderStatus) {
-        this.orderStatus = orderStatus;
+        if(this.orderStatus == OrderStatus.CLOSED && orderStatus != OrderStatus.CLOSED)
+            decrementPurchasesForEachItem();
         if(orderStatus == OrderStatus.CLOSED)
-            updatePurchases();
+            incrementPurchasesForEachItem();
+        this.orderStatus = orderStatus;
     }
 
     public RentalType getRentalType() {
@@ -134,9 +136,15 @@ public class Order extends BaseEntity {
         this.discounters = discounters;
     }
 
-    private void updatePurchases() {
+    private void incrementPurchasesForEachItem() {
         for(MovieItem mi : items) {
-            mi.getMovie().incrementTotalPurchases();
+            mi.getMovie().incrementPurchases();
+        }
+    }
+
+    private void decrementPurchasesForEachItem() {
+        for(MovieItem mi : items) {
+            mi.getMovie().decrementPurchases();
         }
     }
 
