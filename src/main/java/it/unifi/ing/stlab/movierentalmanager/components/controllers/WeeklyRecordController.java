@@ -1,7 +1,8 @@
 package it.unifi.ing.stlab.movierentalmanager.components.controllers;
 
 import com.google.gson.Gson;
-import it.unifi.ing.stlab.movierentalmanager.components.dto.LiteWeeklyRecordDto;
+import it.unifi.ing.stlab.movierentalmanager.components.dto.WeeklyRecordDto;
+import it.unifi.ing.stlab.movierentalmanager.components.litedto.LiteWeeklyRecordDto;
 import it.unifi.ing.stlab.movierentalmanager.components.mappers.WeeklyRecordMapper;
 import it.unifi.ing.stlab.movierentalmanager.dao.WeeklyRecordDao;
 import it.unifi.ing.stlab.movierentalmanager.model.statistics.WeeklyRecord;
@@ -65,7 +66,7 @@ public class WeeklyRecordController {
 
     public void updateWeeklyRecordOnDb(String json, Long id) {
         gson = new Gson();
-        LiteWeeklyRecordDto dto = gson.fromJson(json, LiteWeeklyRecordDto.class);
+        WeeklyRecordDto dto = gson.fromJson(json, WeeklyRecordDto.class);
         WeeklyRecord oldWeeklyRecord = weeklyRecordDao.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("ID not corresponding to any weekly record on database")
         );

@@ -1,6 +1,7 @@
 package it.unifi.ing.stlab.movierentalmanager.components.mappers;
 
-import it.unifi.ing.stlab.movierentalmanager.components.dto.LiteEmployeeDto;
+import it.unifi.ing.stlab.movierentalmanager.components.dto.EmployeeDto;
+import it.unifi.ing.stlab.movierentalmanager.components.litedto.LiteEmployeeDto;
 import it.unifi.ing.stlab.movierentalmanager.model.users.Employee;
 
 import javax.enterprise.context.RequestScoped;
@@ -23,7 +24,7 @@ public class EmployeeMapper {
         return dto;
     }
 
-    public void transfer(LiteEmployeeDto dto, Employee e) {
+    public void transfer(EmployeeDto dto, Employee e) {
         if(dto != null)
             throw new MapperTransferException("The employee DTO is NULL");
         if(e != null)

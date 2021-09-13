@@ -1,7 +1,8 @@
 package it.unifi.ing.stlab.movierentalmanager.components.controllers;
 
 import com.google.gson.Gson;
-import it.unifi.ing.stlab.movierentalmanager.components.dto.LiteMovieDto;
+import it.unifi.ing.stlab.movierentalmanager.components.dto.MovieDto;
+import it.unifi.ing.stlab.movierentalmanager.components.litedto.LiteMovieDto;
 import it.unifi.ing.stlab.movierentalmanager.components.factory.ModelFactory;
 import it.unifi.ing.stlab.movierentalmanager.components.mappers.MovieMapper;
 import it.unifi.ing.stlab.movierentalmanager.dao.ActorDao;
@@ -12,6 +13,7 @@ import it.unifi.ing.stlab.movierentalmanager.model.movies.*;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -49,20 +51,30 @@ public class MovieController {
                        .collect(Collectors.toList());
     }
 
-    public List<LiteMovieDto> getMoviesByCinematographerId(Long id) {
-        CrewMember crewMember = crewMemberDao.fetchCrewMemberWithMovies(id, CrewRole.CINEMATOGRAPHER);
-        return crewMember.getMovies()
-                         .stream()
-                         .map(movieMapper::convert)
-                         .collect(Collectors.toList());
-    }
+    // Togliere questo metodo
+//    public List<LiteMovieDto> getMoviesByCinematographerId(Long id) {
+//        CrewMember crewMember = crewMemberDao.fetchCrewMemberWithMovies(id, CrewRole.CINEMATOGRAPHER);
+//        return crewMember.getMovies()
+//                         .stream()
+//                         .map(movieMapper::convert)
+//                         .collect(Collectors.toList());
+//    }
+//
+//    // Togliere questo metodo
+//    public List<LiteMovieDto> getMoviesByWriterId(Long id) {
+//        CrewMember crewMember = crewMemberDao.fetchCrewMemberWithMovies(id, CrewRole.WRITER);
+//        return crewMember.getMovies()
+//                         .stream()
+//                         .map(movieMapper::convert)
+//                         .collect(Collectors.toList());
+//    }
 
-    public List<LiteMovieDto> getMoviesByWriterId(Long id) {
-        CrewMember crewMember = crewMemberDao.fetchCrewMemberWithMovies(id, CrewRole.WRITER);
+    public List<LiteMovieDto> getMoviesByCrewMemberIdAndRole(Long id, CrewRole role) {
+        CrewMember crewMember = crewMemberDao.fetchCrewMemberWithMovies(id, role);
         return crewMember.getMovies()
-                         .stream()
-                         .map(movieMapper::convert)
-                         .collect(Collectors.toList());
+                .stream()
+                .map(movieMapper::convert)
+                .collect(Collectors.toList());
     }
 
     public List<LiteMovieDto> getMoviesByTitle(String title) {
@@ -88,15 +100,16 @@ public class MovieController {
 
     public void addMovieToDb(String json) {
         gson = new Gson();
-        LiteMovieDto dto = gson.fromJson(json, LiteMovieDto.class);
+        MovieDto dto = gson.fromJson(json, MovieDto.class);
         Movie movie = ModelFactory.initMovie();
         movieMapper.transfer(dto, movie);
         movieDao.add(movie);
     }
 
+    @Transactional
     public void updateMovieOnDb(String json, Long id) {
         gson = new Gson();
-        LiteMovieDto dto = gson.fromJson(json, LiteMovieDto.class);
+        MovieDto dto = gson.fromJson(json, MovieDto.class);
         Movie oldMovie = movieDao.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("ID not corresponding to any movie on database")
         );

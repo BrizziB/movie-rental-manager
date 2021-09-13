@@ -1,6 +1,7 @@
 package it.unifi.ing.stlab.movierentalmanager.components.mappers;
 
-import it.unifi.ing.stlab.movierentalmanager.components.dto.LiteWeeklyRecordDto;
+import it.unifi.ing.stlab.movierentalmanager.components.dto.WeeklyRecordDto;
+import it.unifi.ing.stlab.movierentalmanager.components.litedto.LiteWeeklyRecordDto;
 import it.unifi.ing.stlab.movierentalmanager.components.factory.ModelFactory;
 import it.unifi.ing.stlab.movierentalmanager.dao.MovieDao;
 import it.unifi.ing.stlab.movierentalmanager.model.movies.Movie;
@@ -29,7 +30,7 @@ public class WeeklyRecordMapper {
         return dto;
     }
 
-    public void transfer(LiteWeeklyRecordDto dto, WeeklyRecord wr) {
+    public void transfer(WeeklyRecordDto dto, WeeklyRecord wr) {
         if(dto == null)
             throw new MapperTransferException("The weekly record DTO is NULL");
         if(wr == null)

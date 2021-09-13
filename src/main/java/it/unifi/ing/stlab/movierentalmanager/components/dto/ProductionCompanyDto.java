@@ -4,13 +4,13 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-public class LiteProductionCompanyDto implements Serializable {
+public class ProductionCompanyDto implements Serializable {
 
     private String name;
     private String country;
     private Date foundationDate;
     private String webSiteURL;
-    private List<LiteMovieDto> movies;
+    private List<MovieDto> movies;
 
     public String getName() {
         return name;
@@ -44,11 +44,11 @@ public class LiteProductionCompanyDto implements Serializable {
         this.webSiteURL = webSiteURL;
     }
 
-    public List<LiteMovieDto> getMovies() {
+    public List<MovieDto> getMovies() {
         return movies;
     }
 
-    public void setMovies(List<LiteMovieDto> movies) {
+    public void setMovies(List<MovieDto> movies) {
         this.movies = movies;
     }
 }

@@ -1,7 +1,9 @@
 package it.unifi.ing.stlab.movierentalmanager.components.mappers;
 
-import it.unifi.ing.stlab.movierentalmanager.components.dto.LiteMovieDto;
-import it.unifi.ing.stlab.movierentalmanager.components.dto.LiteProductionCompanyDto;
+import it.unifi.ing.stlab.movierentalmanager.components.dto.MovieDto;
+import it.unifi.ing.stlab.movierentalmanager.components.dto.ProductionCompanyDto;
+import it.unifi.ing.stlab.movierentalmanager.components.litedto.LiteMovieDto;
+import it.unifi.ing.stlab.movierentalmanager.components.litedto.LiteProductionCompanyDto;
 import it.unifi.ing.stlab.movierentalmanager.components.factory.ModelFactory;
 import it.unifi.ing.stlab.movierentalmanager.dao.MovieDao;
 import it.unifi.ing.stlab.movierentalmanager.model.movies.Movie;
@@ -27,12 +29,12 @@ public class ProductionCompanyMapper {
         dto.setCountry(pc.getCountry());
         dto.setFoundationDate(pc.getFoundationDate());
         dto.setWebSiteURL(pc.getWebSiteURL());
-        serializeMovies(dto, pc.getMovies());
+//        serializeMovies(dto, pc.getMovies());
 
         return dto;
     }
 
-    public void transfer(LiteProductionCompanyDto dto, ProductionCompany pc) {
+    public void transfer(ProductionCompanyDto dto, ProductionCompany pc) {
         if(dto == null)
             throw new MapperTransferException("The production company DTO is NULL");
         if(pc == null)
@@ -50,22 +52,22 @@ public class ProductionCompanyMapper {
             deSerializeMovies(pc, dto.getMovies());
     }
 
-    private void serializeMovies(LiteProductionCompanyDto dto, List<Movie> movies) {
-        if(movies != null && movies.size() > 0)
-            for (Movie movie : movies)
-                dto.getMovies().add( movieMapper.convert(movie) );
-    }
+//    private void serializeMovies(LiteProductionCompanyDto dto, List<Movie> movies) {
+//        if(movies != null && movies.size() > 0)
+//            for (Movie movie : movies)
+//                dto.getMovies().add( movieMapper.convert(movie) );
+//    }
 
-    private void deSerializeMovies(ProductionCompany pc, List<LiteMovieDto> liteMovies) {
+    private void deSerializeMovies(ProductionCompany pc, List<MovieDto> movieDtos) {
         pc.getMovies().clear();
 
-        if(liteMovies != null && liteMovies.size() > 0)
-            for (LiteMovieDto liteMovie : liteMovies) {
-                if ( movieDao.retrieveMoviesByTitle( liteMovie.getTitle() ).size() != 0 )
+        if(movieDtos != null && movieDtos.size() > 0)
+            for (MovieDto m : movieDtos) {
+                if ( movieDao.retrieveMoviesByTitle( m.getTitle() ).size() != 0 )
                     System.out.println("Movies with similar titles do exist in database. Do you want to check them out?");
                 else {
                     Movie movie = ModelFactory.initMovie();
-                    movieMapper.transfer(liteMovie, movie);
+                    movieMapper.transfer(m, movie);
                     movieDao.add(movie);
                     pc.getMovies().add(movie);
                 }

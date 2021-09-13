@@ -1,12 +1,14 @@
 package it.unifi.ing.stlab.movierentalmanager.components.controllers;
 
 import com.google.gson.Gson;
-import it.unifi.ing.stlab.movierentalmanager.components.dto.LiteCrewMemberDto;
+import it.unifi.ing.stlab.movierentalmanager.components.dto.CrewMemberDto;
+import it.unifi.ing.stlab.movierentalmanager.components.litedto.LiteCrewMemberDto;
 import it.unifi.ing.stlab.movierentalmanager.components.factory.ModelFactory;
 import it.unifi.ing.stlab.movierentalmanager.components.mappers.CrewMemberMapper;
 import it.unifi.ing.stlab.movierentalmanager.dao.CrewMemberDao;
 import it.unifi.ing.stlab.movierentalmanager.dao.MovieDao;
 import it.unifi.ing.stlab.movierentalmanager.model.movies.CrewMember;
+import it.unifi.ing.stlab.movierentalmanager.model.movies.Movie;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -29,6 +31,14 @@ public class CrewMemberController {
         return crewMemberMapper.convert(crewMember);
     }
 
+    public List<LiteCrewMemberDto> getCrewMembersByMovieId(Long id) {
+        Movie movie = movieDao.fetchMovieWithCrewMembers(id);
+        return movie.getCrew()
+                .stream()
+                .map(crewMemberMapper::convert)
+                .collect(Collectors.toList());
+    }
+
     public List<LiteCrewMemberDto> getCrewMembersByName(String name) {
         return crewMemberDao.retrieveCrewMembersByName(name)
                             .stream()
@@ -45,7 +55,7 @@ public class CrewMemberController {
 
     public void addCrewMemberToDb(String json) {
         gson = new Gson();
-        LiteCrewMemberDto dto = gson.fromJson(json, LiteCrewMemberDto.class);
+        CrewMemberDto dto = gson.fromJson(json, CrewMemberDto.class);
         CrewMember crewMember = ModelFactory.initCrewMember();
         crewMemberMapper.transfer(dto, crewMember);
         crewMemberDao.add(crewMember);
@@ -53,7 +63,7 @@ public class CrewMemberController {
 
     public void updateCrewMemberOnDb(String json, Long id) {
         gson = new Gson();
-        LiteCrewMemberDto dto = gson.fromJson(json, LiteCrewMemberDto.class);
+        CrewMemberDto dto = gson.fromJson(json, CrewMemberDto.class);
         CrewMember oldCrewMember = crewMemberDao.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("ID not corresponding to any crew member on database")
         );

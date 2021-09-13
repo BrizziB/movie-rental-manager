@@ -14,9 +14,9 @@ public class CustomerService {
     @Inject private CustomerController customerController;
 
     @GET
-    @Path("/searchById")
+    @Path("/{id}")
     @Produces({ MediaType.APPLICATION_JSON })
-    public Response retrieveCustomerById(@QueryParam("id") Long id) {
+    public Response retrieveCustomerById(@PathParam("id") Long id) {
         Gson gson = new Gson();
         try {
             return Response.ok(
@@ -29,7 +29,7 @@ public class CustomerService {
     }
 
     @GET
-    @Path("/list/searchByName")
+    @Path("/list/customers-names")
     @Produces({ MediaType.APPLICATION_JSON })
     public Response retrieveCustomerByName(@QueryParam("name") String name) {
         Gson gson = new Gson();

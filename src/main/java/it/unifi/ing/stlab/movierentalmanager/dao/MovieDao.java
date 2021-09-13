@@ -1,11 +1,14 @@
 package it.unifi.ing.stlab.movierentalmanager.dao;
 
+import com.sun.istack.Nullable;
+import it.unifi.ing.stlab.movierentalmanager.model.movies.CrewRole;
 import it.unifi.ing.stlab.movierentalmanager.model.movies.Movie;
 
 import javax.ejb.Stateless;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Stateless
 public class MovieDao extends BaseDao<Movie> {
@@ -14,7 +17,6 @@ public class MovieDao extends BaseDao<Movie> {
        super(Movie.class);
    }
 
-    @Transactional
     public void update(Movie m) {
         Movie oldMovie = getEm().find(Movie.class, m.getId());
         oldMovie.setTitle(m.getTitle());
@@ -58,6 +60,33 @@ public class MovieDao extends BaseDao<Movie> {
                Movie.class
        ).setParameter("id", id);
        return query.getSingleResult();
+    }
+
+    @Transactional
+    public Movie fetchMovieWithCharacters(Long id) {
+        TypedQuery<Movie> query = getEm().createQuery(
+                "FROM Movie m JOIN FETCH m.characters WHERE m.id = :id",
+                Movie.class
+        ).setParameter("id", id);
+        return query.getSingleResult();
+    }
+
+    @Transactional
+    public Movie fetchMovieWithCrewMembers(Long id) {
+        TypedQuery<Movie> query = getEm().createQuery(
+                "FROM Movie m JOIN FETCH m.crew WHERE m.id = :id",
+                Movie.class
+        ).setParameter("id", id);
+        return query.getSingleResult();
+    }
+
+    @Transactional
+    public Movie fetchMovieWithProductionCompanies(Long id) {
+        TypedQuery<Movie> query = getEm().createQuery(
+                "FROM Movie m JOIN FETCH m.producers WHERE m.id = :id",
+                Movie.class
+        ).setParameter("id", id);
+        return query.getSingleResult();
     }
 
 }

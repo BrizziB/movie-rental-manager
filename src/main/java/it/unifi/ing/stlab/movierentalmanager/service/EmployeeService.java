@@ -15,9 +15,9 @@ public class EmployeeService {
     private EmployeeController employeeController;
 
     @GET
-    @Path("/searchById")
+    @Path("/{id}")
     @Produces({ MediaType.APPLICATION_JSON })
-    public Response retrieveEmployeeById(@QueryParam("id") Long id) {
+    public Response retrieveEmployeeById(@PathParam("id") Long id) {
         Gson gson = new Gson();
         try {
             return Response.ok(
@@ -30,7 +30,7 @@ public class EmployeeService {
     }
 
     @GET
-    @Path("/list/searchByName")
+    @Path("/list/employees-names")
     @Produces({ MediaType.APPLICATION_JSON })
     public Response retrieveEmployeeByName(@QueryParam("name") String name) {
         Gson gson = new Gson();

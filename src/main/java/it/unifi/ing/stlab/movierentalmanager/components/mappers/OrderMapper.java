@@ -1,8 +1,11 @@
 package it.unifi.ing.stlab.movierentalmanager.components.mappers;
 
-import it.unifi.ing.stlab.movierentalmanager.components.dto.LiteDigitalMovieItemDto;
-import it.unifi.ing.stlab.movierentalmanager.components.dto.LiteOrderDto;
-import it.unifi.ing.stlab.movierentalmanager.components.dto.LitePhysicalMovieItemDto;
+import it.unifi.ing.stlab.movierentalmanager.components.dto.DigitalMovieItemDto;
+import it.unifi.ing.stlab.movierentalmanager.components.dto.OrderDto;
+import it.unifi.ing.stlab.movierentalmanager.components.dto.PhysicalMovieItemDto;
+import it.unifi.ing.stlab.movierentalmanager.components.litedto.LiteDigitalMovieItemDto;
+import it.unifi.ing.stlab.movierentalmanager.components.litedto.LiteOrderDto;
+import it.unifi.ing.stlab.movierentalmanager.components.litedto.LitePhysicalMovieItemDto;
 import it.unifi.ing.stlab.movierentalmanager.components.factory.ModelFactory;
 import it.unifi.ing.stlab.movierentalmanager.dao.CustomerDao;
 import it.unifi.ing.stlab.movierentalmanager.dao.DigitalMovieItemDao;
@@ -44,13 +47,13 @@ public class OrderMapper {
         dto.setRentalType(o.getRentalType());
         dto.setTotal(o.getFullTotal());
         dto.setDelivery(o.getDelivery());
-        serializeDigitalMovieItems(dto, o.getItems());
-        serializePhysicalMovieItems(dto, o.getItems());
+//        serializeDigitalMovieItems(dto, o.getItems());
+//        serializePhysicalMovieItems(dto, o.getItems());
 
         return dto;
     }
 
-    public void transfer(LiteOrderDto dto, Order o) {
+    public void transfer(OrderDto dto, Order o) {
         if(dto == null)
             throw new MapperTransferException("The order DTO is NULL");
         if(o == null)
@@ -90,48 +93,48 @@ public class OrderMapper {
         o.computeDiscountedTotal();
     }
 
-    private void serializeDigitalMovieItems(LiteOrderDto dto, List<MovieItem> items) {
-        if(items != null && items.size() > 0) {
-            for (MovieItem mi : items)
-                if (mi instanceof DigitalMovieItem)
-                    dto.getDigitalItems().add( digitalMovieItemMapper.convert( (DigitalMovieItem) mi ) );
-        }
-    }
+//    private void serializeDigitalMovieItems(LiteOrderDto dto, List<MovieItem> items) {
+//        if(items != null && items.size() > 0) {
+//            for (MovieItem mi : items)
+//                if (mi instanceof DigitalMovieItem)
+//                    dto.getDigitalItems().add( digitalMovieItemMapper.convert( (DigitalMovieItem) mi ) );
+//        }
+//    }
+//
+//    private void serializePhysicalMovieItems(LiteOrderDto dto, List<MovieItem> items) {
+//        if(items != null && items.size() > 0)
+//            for (MovieItem mi : items)
+//                if (mi instanceof PhysicalMovieItem)
+//                    dto.getPhysicalItems().add( physicalMovieItemMapper.convert( (PhysicalMovieItem) mi ) );
+//    }
 
-    private void serializePhysicalMovieItems(LiteOrderDto dto, List<MovieItem> items) {
-        if(items != null && items.size() > 0)
-            for (MovieItem mi : items)
-                if (mi instanceof PhysicalMovieItem)
-                    dto.getPhysicalItems().add( physicalMovieItemMapper.convert( (PhysicalMovieItem) mi ) );
-    }
-
-    private void deSerializeDigitalMovieItems(Order o, List<LiteDigitalMovieItemDto> items) {
+    private void deSerializeDigitalMovieItems(Order o, List<DigitalMovieItemDto> digitalMovieItemDtos) {
         o.getItems().clear();
 
-        if(items != null && items.size() > 0) {
-            for (LiteDigitalMovieItemDto liteDMI : items) {
-                if( digitalMovieItemDao.retrieveDigitalMovieItemsByMovieTitle( liteDMI.getMovie().getTitle() ) != null )
+        if(digitalMovieItemDtos != null && digitalMovieItemDtos.size() > 0) {
+            for (DigitalMovieItemDto dmi : digitalMovieItemDtos) {
+                if( digitalMovieItemDao.retrieveDigitalMovieItemsByMovieTitle( dmi.getMovie().getTitle() ) != null )
                     System.out.println("Digital items of movies with similar names do exist in database. Do you want to check them out?");
                 else {
-                    DigitalMovieItem dmi = ModelFactory.initDigitalMovieItem();
-                    digitalMovieItemMapper.transfer(liteDMI, dmi);
-                    o.getItems().add(dmi);
+                    DigitalMovieItem digitalMovieItem = ModelFactory.initDigitalMovieItem();
+                    digitalMovieItemMapper.transfer(dmi, digitalMovieItem);
+                    o.getItems().add(digitalMovieItem);
                 }
             }
         }
     }
 
-    private void deSerializePhysicalMovieItems(Order o, List<LitePhysicalMovieItemDto> items) {
+    private void deSerializePhysicalMovieItems(Order o, List<PhysicalMovieItemDto> physicalMovieItemDtos) {
         o.getItems().clear();
 
-        if(items != null && items.size() > 0) {
-            for (LitePhysicalMovieItemDto litePMI : items) {
-                if( physicalMovieItemDao.retrievePhysicalMovieItemsByMovieTitle( litePMI.getMovie().getTitle() ) != null )
+        if(physicalMovieItemDtos != null && physicalMovieItemDtos.size() > 0) {
+            for (PhysicalMovieItemDto pmi : physicalMovieItemDtos) {
+                if( physicalMovieItemDao.retrievePhysicalMovieItemsByMovieTitle( pmi.getMovie().getTitle() ) != null )
                     System.out.println("Physical items of movies with similar names do exist in database. Do you want to check them out?");
                 else {
-                    PhysicalMovieItem pmi = ModelFactory.initPhysicalMovieItem();
-                    physicalMovieItemMapper.transfer(litePMI, pmi);
-                    o.getItems().add(pmi);
+                    PhysicalMovieItem physicalMovieItem = ModelFactory.initPhysicalMovieItem();
+                    physicalMovieItemMapper.transfer(pmi, physicalMovieItem);
+                    o.getItems().add(physicalMovieItem);
                 }
             }
         }

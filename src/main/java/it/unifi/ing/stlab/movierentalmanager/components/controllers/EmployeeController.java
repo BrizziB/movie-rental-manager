@@ -1,7 +1,8 @@
 package it.unifi.ing.stlab.movierentalmanager.components.controllers;
 
 import com.google.gson.Gson;
-import it.unifi.ing.stlab.movierentalmanager.components.dto.LiteEmployeeDto;
+import it.unifi.ing.stlab.movierentalmanager.components.dto.EmployeeDto;
+import it.unifi.ing.stlab.movierentalmanager.components.litedto.LiteEmployeeDto;
 import it.unifi.ing.stlab.movierentalmanager.components.factory.ModelFactory;
 import it.unifi.ing.stlab.movierentalmanager.components.mappers.EmployeeMapper;
 import it.unifi.ing.stlab.movierentalmanager.dao.EmployeeDao;
@@ -42,7 +43,7 @@ public class EmployeeController {
 
     public void addEmployeeToDb(String json) {
         gson = new Gson();
-        LiteEmployeeDto dto = gson.fromJson(json, LiteEmployeeDto.class);
+        EmployeeDto dto = gson.fromJson(json, EmployeeDto.class);
         Employee employee = ModelFactory.initEmployee();
         employeeMapper.transfer(dto, employee);
         employeeDao.add(employee);
@@ -50,7 +51,7 @@ public class EmployeeController {
 
     public void updateEmployeeOnDb(String json, Long id) {
         gson = new Gson();
-        LiteEmployeeDto dto = gson.fromJson(json, LiteEmployeeDto.class);
+        EmployeeDto dto = gson.fromJson(json, EmployeeDto.class);
         Employee oldCustomer = employeeDao.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("ID not corresponding to any employee on database")
         );
@@ -65,6 +66,5 @@ public class EmployeeController {
         employee.setDisabled(disabled);
         employeeDao.save(employee);
     }
-
 
 }

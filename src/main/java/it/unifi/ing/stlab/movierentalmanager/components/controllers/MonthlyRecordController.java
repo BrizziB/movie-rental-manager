@@ -1,7 +1,8 @@
 package it.unifi.ing.stlab.movierentalmanager.components.controllers;
 
 import com.google.gson.Gson;
-import it.unifi.ing.stlab.movierentalmanager.components.dto.LiteMonthlyRecordDto;
+import it.unifi.ing.stlab.movierentalmanager.components.dto.MonthlyRecordDto;
+import it.unifi.ing.stlab.movierentalmanager.components.litedto.LiteMonthlyRecordDto;
 import it.unifi.ing.stlab.movierentalmanager.components.mappers.MonthlyRecordMapper;
 import it.unifi.ing.stlab.movierentalmanager.dao.MonthlyRecordDao;
 import it.unifi.ing.stlab.movierentalmanager.model.statistics.MonthlyRecord;
@@ -65,7 +66,7 @@ public class MonthlyRecordController {
 
     public void updateMonthlyRecordOnDb(String json, Long id) {
         gson = new Gson();
-        LiteMonthlyRecordDto dto = gson.fromJson(json, LiteMonthlyRecordDto.class);
+        MonthlyRecordDto dto = gson.fromJson(json, MonthlyRecordDto.class);
         MonthlyRecord oldMonthlyRecord = monthlyRecordDao.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("ID not corresponding to any monthly record on database")
         );

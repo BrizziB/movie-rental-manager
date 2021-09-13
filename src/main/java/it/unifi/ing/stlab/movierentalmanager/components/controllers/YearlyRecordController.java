@@ -1,7 +1,8 @@
 package it.unifi.ing.stlab.movierentalmanager.components.controllers;
 
 import com.google.gson.Gson;
-import it.unifi.ing.stlab.movierentalmanager.components.dto.LiteYearlyRecordDto;
+import it.unifi.ing.stlab.movierentalmanager.components.dto.YearlyRecordDto;
+import it.unifi.ing.stlab.movierentalmanager.components.litedto.LiteYearlyRecordDto;
 import it.unifi.ing.stlab.movierentalmanager.components.mappers.YearlyRecordMapper;
 import it.unifi.ing.stlab.movierentalmanager.dao.YearlyRecordDao;
 import it.unifi.ing.stlab.movierentalmanager.model.statistics.YearlyRecord;
@@ -65,7 +66,7 @@ public class YearlyRecordController {
 
     public void updateYearlyRecordOnDb(String json, Long id) {
         gson = new Gson();
-        LiteYearlyRecordDto dto = gson.fromJson(json, LiteYearlyRecordDto.class);
+        YearlyRecordDto dto = gson.fromJson(json, YearlyRecordDto.class);
         YearlyRecord oldYearlyRecord = yearlyRecordDao.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("ID not corresponding to any yearly record on database")
         );

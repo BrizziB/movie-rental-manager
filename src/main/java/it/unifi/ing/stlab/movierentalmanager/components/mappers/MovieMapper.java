@@ -1,6 +1,7 @@
 package it.unifi.ing.stlab.movierentalmanager.components.mappers;
 
 import it.unifi.ing.stlab.movierentalmanager.components.dto.*;
+import it.unifi.ing.stlab.movierentalmanager.components.litedto.*;
 import it.unifi.ing.stlab.movierentalmanager.components.factory.ModelFactory;
 import it.unifi.ing.stlab.movierentalmanager.dao.*;
 import it.unifi.ing.stlab.movierentalmanager.model.items.DigitalMovieItem;
@@ -24,6 +25,7 @@ public class MovieMapper {
     @Inject private DigitalMovieItemMapper digitalMovieItemMapper;
     @Inject private PhysicalMovieItemMapper physicalMovieItemMapper;
 
+    @Inject private MovieDao movieDao;
     @Inject private DirectorDao directorDao;
     @Inject private CharacterDao characterDao;
     @Inject private CrewMemberDao crewMemberDao;
@@ -49,17 +51,17 @@ public class MovieMapper {
         dto.setDirector( directorMapper.convert(m.getDirector()) );
         dto.setGenre(m.getGenre());
         dto.setRating(m.getRating());
-        serializeCharacters(dto, m.getCharacters());
-        serializeCrew(dto, m.getCrew());
-        serializeCast(dto, m.getCast());
-        serializeProducers(dto, m.getProducers());
-        serializeDigitalItems(dto, m.getItems());
-        serializePhysicalItems(dto, m.getItems());
+//        serializeCharacters(dto, m.getCharacters());
+//        serializeCrew(dto, m.getCrew());
+//        serializeCast(dto, m.getCast());
+//        serializeProducers(dto, m.getProducers());
+//        serializeDigitalItems(dto, m.getItems());
+//        serializePhysicalItems(dto, m.getItems());
 
         return dto;
     }
 
-    public void transfer(LiteMovieDto dto, Movie m) {
+    public void transfer(MovieDto dto, Movie m) {
         if(dto == null)
             throw new MapperTransferException("The movie DTO is NULL");
         if(m == null)
@@ -105,136 +107,136 @@ public class MovieMapper {
         deSerializePhysicalItems(m, dto.getPhysicalItems());
     }
 
-    private void serializeCharacters(LiteMovieDto dto, List<Character> characters) {
-        if(characters != null && characters.size() > 0)
-            for (Character c : characters)
-                dto.getCharacters().add( characterMapper.convert(c) );
-    }
+//    private void serializeCharacters(LiteMovieDto dto, List<Character> characters) {
+//        if(characters != null && characters.size() > 0)
+//            for (Character c : characters)
+//                dto.getCharacters().add( characterMapper.convert(c) );
+//    }
+//
+//    private void serializeCrew(LiteMovieDto dto, List<CrewMember> crew) {
+//        if(crew != null && crew.size() > 0)
+//            for (CrewMember c : crew)
+//                dto.getCrew().add( crewMemberMapper.convert(c) );
+//    }
+//
+//    private void serializeCast(LiteMovieDto dto, List<Actor> cast) {
+//        if(cast != null && cast.size() > 0)
+//            for (Actor a : cast)
+//                dto.getCast().add( actorMapper.convert(a) );
+//    }
+//
+//    private void serializeProducers(LiteMovieDto dto, List<ProductionCompany> producers) {
+//        if(producers != null && producers.size() > 0)
+//            for (ProductionCompany p : producers)
+//                dto.getProducers().add(productionCompanyMapper.convert(p) );
+//    }
+//
+//    private void serializeDigitalItems(LiteMovieDto dto, List<MovieItem> movieItems) {
+//        if(movieItems != null && movieItems.size() > 0)
+//            for (MovieItem mi : movieItems)
+//                if(mi instanceof DigitalMovieItem)
+//                    dto.getDigitalItems().add(digitalMovieItemMapper.convert( (DigitalMovieItem) mi) );
+//    }
+//
+//    private void serializePhysicalItems(LiteMovieDto dto, List<MovieItem> movieItems) {
+//        if(movieItems != null && movieItems.size() > 0)
+//            for (MovieItem mi : movieItems)
+//                if(mi instanceof PhysicalMovieItem)
+//                    dto.getPhysicalItems().add(physicalMovieItemMapper.convert( (PhysicalMovieItem) mi) );
+//    }
 
-    private void serializeCrew(LiteMovieDto dto, List<CrewMember> crew) {
-        if(crew != null && crew.size() > 0)
-            for (CrewMember c : crew)
-                dto.getCrew().add( crewMemberMapper.convert(c) );
-    }
-
-    private void serializeCast(LiteMovieDto dto, List<Actor> cast) {
-        if(cast != null && cast.size() > 0)
-            for (Actor a : cast)
-                dto.getCast().add( actorMapper.convert(a) );
-    }
-
-    private void serializeProducers(LiteMovieDto dto, List<ProductionCompany> producers) {
-        if(producers != null && producers.size() > 0)
-            for (ProductionCompany p : producers)
-                dto.getProducers().add(productionCompanyMapper.convert(p) );
-    }
-
-    private void serializeDigitalItems(LiteMovieDto dto, List<MovieItem> movieItems) {
-        if(movieItems != null && movieItems.size() > 0)
-            for (MovieItem mi : movieItems)
-                if(mi instanceof DigitalMovieItem)
-                    dto.getDigitalItems().add(digitalMovieItemMapper.convert( (DigitalMovieItem) mi) );
-    }
-
-    private void serializePhysicalItems(LiteMovieDto dto, List<MovieItem> movieItems) {
-        if(movieItems != null && movieItems.size() > 0)
-            for (MovieItem mi : movieItems)
-                if(mi instanceof PhysicalMovieItem)
-                    dto.getPhysicalItems().add(physicalMovieItemMapper.convert( (PhysicalMovieItem) mi) );
-    }
-
-    private void deSerializeCharacters(Movie m, List<LiteCharacterDto> liteCharacters) {
+    private void deSerializeCharacters(Movie m, List<CharacterDto> characterDtos) {
         m.getCharacters().clear();
 
-        if(liteCharacters != null && liteCharacters.size() > 0)
-            for (LiteCharacterDto liteCharacter : liteCharacters) {
-                if ( characterDao.retrieveCharactersByName( liteCharacter.getName() ).size() != 0 )
+        if(characterDtos != null && characterDtos.size() > 0)
+            for (CharacterDto c : characterDtos) {
+                if ( characterDao.retrieveCharactersByName( c.getName() ).size() != 0 )
                     System.out.println("Characters with similar names do exist in database. Do you want to check them out?");
                 else {
                     Character character = ModelFactory.initCharacter();
-                    characterMapper.transfer(liteCharacter, character);
+                    characterMapper.transfer(c, character);
                     characterDao.add(character);
                     m.getCharacters().add(character);
                 }
             }
     }
 
-    private void deSerializeCrew(Movie m, List<LiteCrewMemberDto> liteCrewMembers) {
+    private void deSerializeCrew(Movie m, List<CrewMemberDto> crewMemberDtos) {
         m.getCrew().clear();
 
-        if(liteCrewMembers != null && liteCrewMembers.size() > 0)
-            for (LiteCrewMemberDto liteCM : liteCrewMembers) {
-                if ( crewMemberDao.retrieveCrewMembersByNameAndRole( liteCM.getName(), liteCM.getRole() ).size() != 0 )
+        if(crewMemberDtos != null && crewMemberDtos.size() > 0)
+            for (CrewMemberDto cm : crewMemberDtos) {
+                if ( crewMemberDao.retrieveCrewMembersByNameAndRole( cm.getName(), cm.getRole() ).size() != 0 )
                     System.out.println("Crew member with similar names and roles do exist in database. Do you want to check them out?");
                 else {
                     CrewMember crewMember = ModelFactory.initCrewMember();
-                    crewMemberMapper.transfer(liteCM, crewMember);
+                    crewMemberMapper.transfer(cm, crewMember);
                     crewMemberDao.add(crewMember);
                     m.getCrew().add(crewMember);
                 }
             }
     }
 
-    private void deSerializeCast(Movie m, List<LiteActorDto> liteActors) {
+    private void deSerializeCast(Movie m, List<ActorDto> actorDtos) {
         m.getCast().clear();
 
-        if(liteActors != null && liteActors.size() > 0)
-            for (LiteActorDto liteActor : liteActors) {
-                if (actorDao.retrieveActorsByName(liteActor.getName()).size() != 0 )
+        if(actorDtos != null && actorDtos.size() > 0)
+            for (ActorDto a : actorDtos) {
+                if (actorDao.retrieveActorsByName(a.getName()).size() != 0 )
                     System.out.println("Actors with similar names do exist in database. Do you want to check them out?");
                 else {
                     Actor actor = ModelFactory.initActor();
-                    actorMapper.transfer(liteActor, actor);
+                    actorMapper.transfer(a, actor);
                     actorDao.add(actor);
                     m.getCast().add(actor);
                 }
             }
     }
 
-    private void deSerializeProducers(Movie m, List<LiteProductionCompanyDto> liteProducers) {
+    private void deSerializeProducers(Movie m, List<ProductionCompanyDto> productionCompanyDtos) {
         m.getProducers().clear();
 
-        if(liteProducers != null && liteProducers.size() > 0)
-            for (LiteProductionCompanyDto liteProducer : liteProducers) {
-                if ( productionCompanyDao.retrieveProductionCompaniesByName( liteProducer.getName() ).size() != 0)
+        if(productionCompanyDtos != null && productionCompanyDtos.size() > 0)
+            for (ProductionCompanyDto pc : productionCompanyDtos) {
+                if ( productionCompanyDao.retrieveProductionCompaniesByName( pc.getName() ).size() != 0)
                     System.out.println("Producers with similar names do exist in database. Do you want to check them out?");
                 else {
-                    ProductionCompany pc = ModelFactory.initProductionCompany();
-                    productionCompanyMapper.transfer(liteProducer, pc);
-                    productionCompanyDao.add(pc);
-                    m.getProducers().add(pc);
+                    ProductionCompany productionCompany = ModelFactory.initProductionCompany();
+                    productionCompanyMapper.transfer(pc, productionCompany);
+                    productionCompanyDao.add(productionCompany);
+                    m.getProducers().add(productionCompany);
                 }
             }
     }
 
-    private void deSerializeDigitalItems(Movie m, List<LiteDigitalMovieItemDto> liteDigitalItems) {
+    private void deSerializeDigitalItems(Movie m, List<DigitalMovieItemDto> digitalMovieItemDtos) {
         m.getItems().clear();
 
-        if(liteDigitalItems != null && liteDigitalItems.size() > 0)
-            for (LiteDigitalMovieItemDto liteDMI : liteDigitalItems) {
-                if ( digitalMovieItemDao.retrieveDigitalMovieItemsByMovieTitle( liteDMI.getMovie().getTitle() ).size() != 0)
+        if(digitalMovieItemDtos != null && digitalMovieItemDtos.size() > 0)
+            for (DigitalMovieItemDto dmi : digitalMovieItemDtos) {
+                if ( digitalMovieItemDao.retrieveDigitalMovieItemsByMovieTitle( dmi.getMovie().getTitle() ).size() != 0)
                     System.out.println("Digital movie items of movies with similar titles do exist in database. Do you want to check them out?");
                 else {
-                    DigitalMovieItem dmi = ModelFactory.initDigitalMovieItem();
-                    digitalMovieItemMapper.transfer(liteDMI, dmi);
-                    digitalMovieItemDao.add(dmi);
-                    m.getItems().add(dmi);
+                    DigitalMovieItem digitalMovieItem = ModelFactory.initDigitalMovieItem();
+                    digitalMovieItemMapper.transfer(dmi, digitalMovieItem);
+                    digitalMovieItemDao.add(digitalMovieItem);
+                    m.getItems().add(digitalMovieItem);
                 }
             }
     }
 
-    private void deSerializePhysicalItems(Movie m, List<LitePhysicalMovieItemDto> litePhysicalItems) {
+    private void deSerializePhysicalItems(Movie m, List<PhysicalMovieItemDto> physicalMovieItemDtos) {
         m.getItems().clear();
 
-        if(litePhysicalItems != null && litePhysicalItems.size() > 0)
-            for (LitePhysicalMovieItemDto litePMI : litePhysicalItems) {
-                if ( digitalMovieItemDao.retrieveDigitalMovieItemsByMovieTitle( litePMI.getMovie().getTitle() ).size() != 0)
+        if(physicalMovieItemDtos != null && physicalMovieItemDtos.size() > 0)
+            for (PhysicalMovieItemDto pmi : physicalMovieItemDtos) {
+                if ( digitalMovieItemDao.retrieveDigitalMovieItemsByMovieTitle( pmi.getMovie().getTitle() ).size() != 0)
                     System.out.println("Physical movie items of movies with similar titles do exist in database. Do you want to check them out?");
                 else {
-                    PhysicalMovieItem pmi = ModelFactory.initPhysicalMovieItem();
-                    physicalMovieItemMapper.transfer(litePMI, pmi);
-                    physicalMovieItemDao.add(pmi);
-                    m.getItems().add(pmi);
+                    PhysicalMovieItem physicalMovieItem = ModelFactory.initPhysicalMovieItem();
+                    physicalMovieItemMapper.transfer(pmi, physicalMovieItem);
+                    physicalMovieItemDao.add(physicalMovieItem);
+                    m.getItems().add(physicalMovieItem);
                 }
             }
     }

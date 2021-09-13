@@ -14,9 +14,9 @@ public class PaymentProfileService {
     @Inject private PaymentProfileController paymentProfileController;
 
     @GET
-    @Path("/searchById")
+    @Path("/{id}}")
     @Produces({ MediaType.APPLICATION_JSON })
-    public Response retrievePaymentProfileById(@QueryParam("id") Long id) {
+    public Response retrievePaymentProfileById(@PathParam("id") Long id) {
         Gson gson = new Gson();
         try {
             return Response.ok(
@@ -29,9 +29,9 @@ public class PaymentProfileService {
     }
 
     @GET
-    @Path("/list/searchByCustomer")
+    @Path("/list/customer-id/{id}")
     @Produces({ MediaType.APPLICATION_JSON })
-    public Response retrievePaymentProfilesByCustomerId(@QueryParam("id") Long id) {
+    public Response retrievePaymentProfilesByCustomerId(@PathParam("id") Long id) {
         Gson gson = new Gson();
         try {
             return Response.ok(

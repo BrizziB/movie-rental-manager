@@ -32,6 +32,7 @@ public abstract class BaseDao<T extends BaseEntity> {
         em.persist(t);
     }
 
+    @Transactional
     public Optional<T> findById(Long id) {
         return Optional.ofNullable(em.find(entityType, id));
     }

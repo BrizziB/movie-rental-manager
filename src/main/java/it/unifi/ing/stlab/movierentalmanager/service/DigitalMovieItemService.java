@@ -14,9 +14,9 @@ public class DigitalMovieItemService {
     @Inject private DigitalMovieItemController digitalMovieItemController;
 
     @GET
-    @Path("/searchById")
+    @Path("/{id}")
     @Produces({ MediaType.APPLICATION_JSON })
-    public Response retrieveDigitalMovieItemById(@QueryParam("id") Long id) {
+    public Response retrieveDigitalMovieItemById(@PathParam("id") Long id) {
         Gson gson = new Gson();
         try {
             return Response.ok(
@@ -29,9 +29,9 @@ public class DigitalMovieItemService {
     }
 
     @GET
-    @Path("/list/searchByMovieId")
+    @Path("/list/movies-id/{id}")
     @Produces({ MediaType.APPLICATION_JSON })
-    public Response retrieveDigitalMovieItemsByMovieId(@QueryParam("id") Long id) {
+    public Response retrieveDigitalMovieItemsByMovieId(@PathParam("id") Long id) {
         Gson gson = new Gson();
         try {
             return Response.ok(
@@ -44,7 +44,7 @@ public class DigitalMovieItemService {
     }
 
     @GET
-    @Path("/list/searchByMovieTitle")
+    @Path("/list/movies-titles")
     @Produces({ MediaType.APPLICATION_JSON })
     public Response retrieveDigitalMovieItemsByMovieTitle(@QueryParam("title") String title) {
         Gson gson = new Gson();

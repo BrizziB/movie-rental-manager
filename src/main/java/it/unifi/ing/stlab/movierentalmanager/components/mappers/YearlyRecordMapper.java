@@ -1,6 +1,7 @@
 package it.unifi.ing.stlab.movierentalmanager.components.mappers;
 
-import it.unifi.ing.stlab.movierentalmanager.components.dto.LiteYearlyRecordDto;
+import it.unifi.ing.stlab.movierentalmanager.components.dto.YearlyRecordDto;
+import it.unifi.ing.stlab.movierentalmanager.components.litedto.LiteYearlyRecordDto;
 import it.unifi.ing.stlab.movierentalmanager.components.factory.ModelFactory;
 import it.unifi.ing.stlab.movierentalmanager.dao.MovieDao;
 import it.unifi.ing.stlab.movierentalmanager.model.movies.Movie;
@@ -29,7 +30,7 @@ public class YearlyRecordMapper {
         return dto;
     }
 
-    public void transfer(LiteYearlyRecordDto dto, YearlyRecord yr) {
+    public void transfer(YearlyRecordDto dto, YearlyRecord yr) {
         if(dto == null)
             throw new MapperTransferException("The yearly record DTO is NULL");
         if(yr == null)

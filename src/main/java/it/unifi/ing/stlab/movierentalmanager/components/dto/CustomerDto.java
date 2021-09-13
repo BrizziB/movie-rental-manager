@@ -7,7 +7,7 @@ import it.unifi.ing.stlab.movierentalmanager.model.users.WebUser;
 import java.io.Serializable;
 import java.util.List;
 
-public class LiteCustomerDto implements Serializable {
+public class CustomerDto implements Serializable {
 
     private String name;
     private String address;
@@ -15,7 +15,7 @@ public class LiteCustomerDto implements Serializable {
     private WebUser webUser;
     private Membership membership;
     private CustomerDetails customerDetails;
-    private List<LitePaymentProfileDto> paymentProfiles;
+    private List<PaymentProfileDto> paymentProfiles;
 //    private List<LiteOrderDto> orders;
 
     public String getName() {
@@ -66,11 +66,11 @@ public class LiteCustomerDto implements Serializable {
         this.customerDetails = customerDetails;
     }
 
-    public List<LitePaymentProfileDto> getPaymentProfiles() {
+    public List<PaymentProfileDto> getPaymentProfiles() {
         return paymentProfiles;
     }
 
-    public void setPaymentProfiles(List<LitePaymentProfileDto> paymentProfiles) {
+    public void setPaymentProfiles(List<PaymentProfileDto> paymentProfiles) {
         this.paymentProfiles = paymentProfiles;
     }
 }

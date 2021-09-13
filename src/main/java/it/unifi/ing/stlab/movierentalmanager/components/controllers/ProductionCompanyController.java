@@ -1,11 +1,13 @@
 package it.unifi.ing.stlab.movierentalmanager.components.controllers;
 
 import com.google.gson.Gson;
-import it.unifi.ing.stlab.movierentalmanager.components.dto.LiteProductionCompanyDto;
+import it.unifi.ing.stlab.movierentalmanager.components.dto.ProductionCompanyDto;
+import it.unifi.ing.stlab.movierentalmanager.components.litedto.LiteProductionCompanyDto;
 import it.unifi.ing.stlab.movierentalmanager.components.factory.ModelFactory;
 import it.unifi.ing.stlab.movierentalmanager.components.mappers.ProductionCompanyMapper;
 import it.unifi.ing.stlab.movierentalmanager.dao.MovieDao;
 import it.unifi.ing.stlab.movierentalmanager.dao.ProductionCompanyDao;
+import it.unifi.ing.stlab.movierentalmanager.model.movies.Movie;
 import it.unifi.ing.stlab.movierentalmanager.model.movies.ProductionCompany;
 
 import javax.enterprise.context.RequestScoped;
@@ -36,6 +38,14 @@ public class ProductionCompanyController {
                                    .collect(Collectors.toList());
     }
 
+    public List<LiteProductionCompanyDto> getProductionCompaniesByMovieId(Long id) {
+        Movie movie = movieDao.fetchMovieWithProductionCompanies(id);
+        return movie.getProducers()
+                .stream()
+                .map(productionCompanyMapper::convert)
+                .collect(Collectors.toList());
+    }
+
     public List<LiteProductionCompanyDto> getAllProductionCompanies(Integer offset, Integer limit) {
         return productionCompanyDao.findAll(offset, limit)
                 .stream()
@@ -45,7 +55,7 @@ public class ProductionCompanyController {
 
     public void addProductionCompanyToDb(String json) {
         gson = new Gson();
-        LiteProductionCompanyDto dto = gson.fromJson(json, LiteProductionCompanyDto.class);
+        ProductionCompanyDto dto = gson.fromJson(json, ProductionCompanyDto.class);
         ProductionCompany productionCompany = ModelFactory.initProductionCompany();
         productionCompanyMapper.transfer(dto, productionCompany);
         productionCompanyDao.add(productionCompany);
@@ -53,7 +63,7 @@ public class ProductionCompanyController {
 
     public void updateProductionCompanyOnDb(String json, Long id) {
         gson = new Gson();
-        LiteProductionCompanyDto dto = gson.fromJson(json, LiteProductionCompanyDto.class);
+        ProductionCompanyDto dto = gson.fromJson(json, ProductionCompanyDto.class);
         ProductionCompany oldProductionCompany = productionCompanyDao.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("ID not corresponding to any production company on database")
         );

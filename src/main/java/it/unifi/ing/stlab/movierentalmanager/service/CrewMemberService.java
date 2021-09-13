@@ -14,9 +14,9 @@ public class CrewMemberService {
     @Inject private CrewMemberController crewMemberController;
 
     @GET
-    @Path("/searchById")
+    @Path("/{id}")
     @Produces({ MediaType.APPLICATION_JSON })
-    public Response retrieveCrewMemberById(@QueryParam("id") Long id) {
+    public Response retrieveCrewMemberById(@PathParam("id") Long id) {
         Gson gson = new Gson();
         try {
             return Response.ok(
@@ -29,7 +29,7 @@ public class CrewMemberService {
     }
 
     @GET
-    @Path("/list/searchByName")
+    @Path("/list/crew-members-names")
     @Produces({ MediaType.APPLICATION_JSON })
     public Response retrieveCrewMembersByName(@QueryParam("name") String name) {
         Gson gson = new Gson();
@@ -38,6 +38,21 @@ public class CrewMemberService {
                     gson.toJson( crewMemberController.getCrewMembersByName(name) )
             ).build();
         } catch(Exception e) {
+            e.printStackTrace();
+            return Response.notAcceptable(null).build();
+        }
+    }
+
+    @GET
+    @Path("/list/movie-id/{id}")
+    @Produces({ MediaType.APPLICATION_JSON })
+    public Response retrieveCrewMembersByMovie(@PathParam("id") Long id) {
+        Gson gson = new Gson();
+        try {
+            return Response.ok(
+                    gson.toJson( crewMemberController.getCrewMembersByMovieId(id) )
+            ).build();
+        } catch (Exception e) {
             e.printStackTrace();
             return Response.notAcceptable(null).build();
         }

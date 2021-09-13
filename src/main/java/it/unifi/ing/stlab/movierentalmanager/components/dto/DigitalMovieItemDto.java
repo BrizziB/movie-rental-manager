@@ -4,19 +4,19 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class LiteDigitalMovieItemDto implements Serializable {
+public class DigitalMovieItemDto implements Serializable {
 
-    private LiteMovieDto movie;
+    private MovieDto movie;
     private BigDecimal rentalPrice;
     private BigDecimal discountedPrice;
     private String url;
     private Date expirationDate;
 
-    public LiteMovieDto getMovie() {
+    public MovieDto getMovie() {
         return movie;
     }
 
-    public void setMovie(LiteMovieDto movie) {
+    public void setMovie(MovieDto movie) {
         this.movie = movie;
     }
 

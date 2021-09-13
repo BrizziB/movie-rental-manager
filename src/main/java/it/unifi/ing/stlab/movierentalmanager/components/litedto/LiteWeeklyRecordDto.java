@@ -1,12 +1,12 @@
-package it.unifi.ing.stlab.movierentalmanager.components.dto;
+package it.unifi.ing.stlab.movierentalmanager.components.litedto;
 
 import java.io.Serializable;
 
-public class LiteYearlyRecordDto implements Serializable {
+public class LiteWeeklyRecordDto implements Serializable {
 
     private String name;
     private LiteMovieDto movie;
-    private Integer thisYearPurchases;
+    private Integer thisWeekPurchases;
     private Long currentTotalPurchases;
 
     public String getName() {
@@ -25,12 +25,12 @@ public class LiteYearlyRecordDto implements Serializable {
         this.movie = movie;
     }
 
-    public Integer getThisYearPurchases() {
-        return thisYearPurchases;
+    public Integer getThisWeekPurchases() {
+        return thisWeekPurchases;
     }
 
-    public void setThisYearPurchases(Integer thisYearPurchases) {
-        this.thisYearPurchases = thisYearPurchases;
+    public void setThisWeekPurchases(Integer thisWeekPurchases) {
+        this.thisWeekPurchases = thisWeekPurchases;
     }
 
     public Long getCurrentTotalPurchases() {

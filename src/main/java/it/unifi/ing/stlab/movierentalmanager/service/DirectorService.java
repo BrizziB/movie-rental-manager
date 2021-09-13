@@ -14,9 +14,9 @@ public class DirectorService {
     @Inject private DirectorController directorController;
 
     @GET
-    @Path("/searchById")
+    @Path("/{id}")
     @Produces({ MediaType.APPLICATION_JSON })
-    public Response retrieveDirectorById(@QueryParam("id") Long id) {
+    public Response retrieveDirectorById(@PathParam("id") Long id) {
         Gson gson = new Gson();
         try {
             return Response.ok(
@@ -29,13 +29,13 @@ public class DirectorService {
     }
 
     @GET
-    @Path("/searchByMovieId")
+    @Path("/list/directors-names")
     @Produces({ MediaType.APPLICATION_JSON })
-    public Response retrieveDirectorByMovieId(@QueryParam("id") Long id) {
+    public Response retrieveDirectorsByName(@QueryParam("name") String name) {
         Gson gson = new Gson();
         try {
             return Response.ok(
-                    gson.toJson( directorController.getDirectorByMovieId(id) )
+                    gson.toJson( directorController.getDirectorsByName(name) )
             ).build();
         } catch(Exception e) {
             e.printStackTrace();
@@ -44,13 +44,13 @@ public class DirectorService {
     }
 
     @GET
-    @Path("/list/searchByName")
+    @Path("/movies-id/{id}")
     @Produces({ MediaType.APPLICATION_JSON })
-    public Response retrieveDirectorsByName(@QueryParam("name") String name) {
+    public Response retrieveDirectorByMovieId(@PathParam("id") Long id) {
         Gson gson = new Gson();
         try {
             return Response.ok(
-                    gson.toJson( directorController.getDirectorsByName(name) )
+                    gson.toJson( directorController.getDirectorByMovieId(id) )
             ).build();
         } catch(Exception e) {
             e.printStackTrace();

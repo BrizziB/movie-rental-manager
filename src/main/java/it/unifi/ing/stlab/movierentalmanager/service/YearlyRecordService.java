@@ -16,9 +16,9 @@ public class YearlyRecordService {
     private YearlyRecordController yearlyRecordController;
 
     @GET
-    @Path("/searchById")
+    @Path("/{id}")
     @Produces({ MediaType.APPLICATION_JSON })
-    public Response retrieveYearlyRecordById(@QueryParam("id") Long id) {
+    public Response retrieveYearlyRecordById(@PathParam("id") Long id) {
         Gson gson = new Gson();
         try {
             return Response.ok(
@@ -31,7 +31,7 @@ public class YearlyRecordService {
     }
 
     @GET
-    @Path("/list/searchByName")
+    @Path("/list/yearlies-names")
     @Produces({ MediaType.APPLICATION_JSON })
     public Response retrieveYearlyRecordsByName(@QueryParam("name") String name) {
         Gson gson = new Gson();
@@ -46,9 +46,9 @@ public class YearlyRecordService {
     }
 
     @GET
-    @Path("/list/searchByName")
+    @Path("/list/movie-id/{id}")
     @Produces({ MediaType.APPLICATION_JSON })
-    public Response retrieveYearlyRecordsByMovieId(@QueryParam("id") Long id) {
+    public Response retrieveYearlyRecordsByMovieId(@PathParam("id") Long id) {
         Gson gson = new Gson();
         try {
             return Response.ok(
@@ -61,7 +61,7 @@ public class YearlyRecordService {
     }
 
     @GET
-    @Path("/list/searchByName")
+    @Path("/list/movies-titles")
     @Produces({ MediaType.APPLICATION_JSON })
     public Response retrieveYearlyRecordsByMovieTitle(@QueryParam("title") String title) {
         Gson gson = new Gson();
@@ -76,7 +76,7 @@ public class YearlyRecordService {
     }
 
     @GET
-    @Path("/list/searchByDate")
+    @Path("/list/yearlies-dates")
     @Produces({ MediaType.APPLICATION_JSON })
     public Response retrieveYearlyRecordsByDate(@QueryParam("start") Date start, @QueryParam("end") Date end) {
         Gson gson = new Gson();

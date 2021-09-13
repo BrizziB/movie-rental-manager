@@ -2,11 +2,11 @@ package it.unifi.ing.stlab.movierentalmanager.components.dto;
 
 import java.io.Serializable;
 
-public class LiteMonthlyRecordDto implements Serializable {
+public class YearlyRecordDto implements Serializable {
 
     private String name;
-    private LiteMovieDto movie;
-    private Integer thisMonthPurchases;
+    private MovieDto movie;
+    private Integer thisYearPurchases;
     private Long currentTotalPurchases;
 
     public String getName() {
@@ -17,20 +17,20 @@ public class LiteMonthlyRecordDto implements Serializable {
         this.name = name;
     }
 
-    public LiteMovieDto getMovie() {
+    public MovieDto getMovie() {
         return movie;
     }
 
-    public void setMovie(LiteMovieDto movie) {
+    public void setMovie(MovieDto movie) {
         this.movie = movie;
     }
 
-    public Integer getThisMonthPurchases() {
-        return thisMonthPurchases;
+    public Integer getThisYearPurchases() {
+        return thisYearPurchases;
     }
 
-    public void setThisMonthPurchases(Integer thisMonthPurchases) {
-        this.thisMonthPurchases = thisMonthPurchases;
+    public void setThisYearPurchases(Integer thisYearPurchases) {
+        this.thisYearPurchases = thisYearPurchases;
     }
 
     public Long getCurrentTotalPurchases() {

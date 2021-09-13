@@ -1,7 +1,8 @@
 package it.unifi.ing.stlab.movierentalmanager.components.controllers;
 
 import com.google.gson.Gson;
-import it.unifi.ing.stlab.movierentalmanager.components.dto.LiteActorDto;
+import it.unifi.ing.stlab.movierentalmanager.components.dto.ActorDto;
+import it.unifi.ing.stlab.movierentalmanager.components.litedto.LiteActorDto;
 import it.unifi.ing.stlab.movierentalmanager.components.factory.ModelFactory;
 import it.unifi.ing.stlab.movierentalmanager.components.mappers.ActorMapper;
 import it.unifi.ing.stlab.movierentalmanager.dao.ActorDao;
@@ -53,7 +54,7 @@ public class ActorController {
 
     public void addActorToDb(String json) {
         gson = new Gson();
-        LiteActorDto dto = gson.fromJson(json, LiteActorDto.class);
+        ActorDto dto = gson.fromJson(json, ActorDto.class);
         Actor actor = ModelFactory.initActor();
         actorMapper.transfer(dto, actor);
         actorDao.add(actor);
@@ -61,7 +62,7 @@ public class ActorController {
 
     public void updateActorOnDb(String json, Long id) {
         gson = new Gson();
-        LiteActorDto dto = gson.fromJson(json, LiteActorDto.class);
+        ActorDto dto = gson.fromJson(json, ActorDto.class);
         Actor oldActor = actorDao.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("ID not corresponding to any actor on database")
         );

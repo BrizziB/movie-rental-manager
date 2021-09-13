@@ -1,6 +1,7 @@
 package it.unifi.ing.stlab.movierentalmanager.components.mappers;
 
-import it.unifi.ing.stlab.movierentalmanager.components.dto.LiteMonthlyRecordDto;
+import it.unifi.ing.stlab.movierentalmanager.components.dto.MonthlyRecordDto;
+import it.unifi.ing.stlab.movierentalmanager.components.litedto.LiteMonthlyRecordDto;
 import it.unifi.ing.stlab.movierentalmanager.components.factory.ModelFactory;
 import it.unifi.ing.stlab.movierentalmanager.dao.MovieDao;
 import it.unifi.ing.stlab.movierentalmanager.model.movies.Movie;
@@ -29,7 +30,7 @@ public class MonthlyRecordMapper {
         return dto;
     }
 
-    public void transfer(LiteMonthlyRecordDto dto, MonthlyRecord mr) {
+    public void transfer(MonthlyRecordDto dto, MonthlyRecord mr) {
         if(dto == null)
             throw new MapperTransferException("The monthly record DTO is NULL");
         if(mr == null)

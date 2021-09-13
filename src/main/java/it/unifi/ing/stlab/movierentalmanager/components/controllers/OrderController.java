@@ -1,7 +1,8 @@
 package it.unifi.ing.stlab.movierentalmanager.components.controllers;
 
 import com.google.gson.Gson;
-import it.unifi.ing.stlab.movierentalmanager.components.dto.LiteOrderDto;
+import it.unifi.ing.stlab.movierentalmanager.components.dto.OrderDto;
+import it.unifi.ing.stlab.movierentalmanager.components.litedto.LiteOrderDto;
 import it.unifi.ing.stlab.movierentalmanager.components.factory.ModelFactory;
 import it.unifi.ing.stlab.movierentalmanager.components.mappers.OrderMapper;
 import it.unifi.ing.stlab.movierentalmanager.dao.OrderDao;
@@ -43,7 +44,7 @@ public class OrderController {
 
     public void addOrderToDb(String json) {
         gson = new Gson();
-        LiteOrderDto dto = gson.fromJson(json, LiteOrderDto.class);
+        OrderDto dto = gson.fromJson(json, OrderDto.class);
         Order order = ModelFactory.initOrder();
         orderMapper.transfer(dto, order);
         orderDao.add(order);
@@ -51,7 +52,7 @@ public class OrderController {
 
     public void updateOrderOnDb(String json, Long id) {
         gson = new Gson();
-        LiteOrderDto dto = gson.fromJson(json, LiteOrderDto.class);
+        OrderDto dto = gson.fromJson(json, OrderDto.class);
         Order oldOrder = orderDao.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("ID not corresponding to any order on database")
         );

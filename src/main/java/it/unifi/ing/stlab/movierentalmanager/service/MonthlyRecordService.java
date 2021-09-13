@@ -15,9 +15,9 @@ public class MonthlyRecordService {
     @Inject private MonthlyRecordController monthlyRecordController;
 
     @GET
-    @Path("/searchById")
+    @Path("/{id}")
     @Produces({ MediaType.APPLICATION_JSON })
-    public Response retrieveMonthlyRecordById(@QueryParam("id") Long id) {
+    public Response retrieveMonthlyRecordById(@PathParam("id") Long id) {
         Gson gson = new Gson();
         try {
             return Response.ok(
@@ -30,7 +30,7 @@ public class MonthlyRecordService {
     }
 
     @GET
-    @Path("/list/searchByName")
+    @Path("/list/monthlies-names")
     @Produces({ MediaType.APPLICATION_JSON })
     public Response retrieveMonthlyRecordsByName(@QueryParam("name") String name) {
         Gson gson = new Gson();
@@ -45,9 +45,9 @@ public class MonthlyRecordService {
     }
 
     @GET
-    @Path("/list/searchByMovieId")
+    @Path("/list/movie-id/{id}")
     @Produces({ MediaType.APPLICATION_JSON })
-    public Response retrieveMonthlyRecordsByMovieId(@QueryParam("id") Long id) {
+    public Response retrieveMonthlyRecordsByMovieId(@PathParam("id") Long id) {
         Gson gson = new Gson();
         try {
             return Response.ok(
@@ -60,7 +60,7 @@ public class MonthlyRecordService {
     }
 
     @GET
-    @Path("/list/searchByMovieTitle")
+    @Path("/list/movies-titles")
     @Produces({ MediaType.APPLICATION_JSON })
     public Response retrieveMonthlyRecordsByMovieTitle(@QueryParam("title") String title) {
         Gson gson = new Gson();
@@ -75,7 +75,7 @@ public class MonthlyRecordService {
     }
 
     @GET
-    @Path("/list/searchByDate")
+    @Path("/list/monthlies-dates")
     @Produces({ MediaType.APPLICATION_JSON })
     public Response retrieveMonthlyRecordsByDate(@QueryParam("start") Date start, @QueryParam("end") Date end) {
         Gson gson = new Gson();

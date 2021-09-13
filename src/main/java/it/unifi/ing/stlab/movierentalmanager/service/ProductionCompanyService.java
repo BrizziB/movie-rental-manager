@@ -14,9 +14,9 @@ public class ProductionCompanyService {
     @Inject private ProductionCompanyController productionCompanyController;
 
     @GET
-    @Path("/searchById")
+    @Path("/{id}")
     @Produces({ MediaType.APPLICATION_JSON })
-    public Response retrieveProductionCompanyById(@QueryParam("id") Long id) {
+    public Response retrieveProductionCompanyById(@PathParam("id") Long id) {
         Gson gson = new Gson();
         try {
             return Response.ok(
@@ -29,7 +29,7 @@ public class ProductionCompanyService {
     }
 
     @GET
-    @Path("/list/searchByName")
+    @Path("/list/producer-name")
     @Produces({ MediaType.APPLICATION_JSON })
     public Response retrieveProductionCompaniesByName(@QueryParam("name") String name) {
         Gson gson = new Gson();
@@ -38,6 +38,21 @@ public class ProductionCompanyService {
                     gson.toJson( productionCompanyController.getProductionCompaniesByName(name) )
             ).build();
         } catch(Exception e) {
+            e.printStackTrace();
+            return Response.notAcceptable(null).build();
+        }
+    }
+
+    @GET
+    @Path("/list/movie-id/{id}")
+    @Produces({ MediaType.APPLICATION_JSON })
+    public Response retrieveProductionCompaniesByMovie(@PathParam("id") Long id) {
+        Gson gson = new Gson();
+        try {
+            return Response.ok(
+                    gson.toJson( productionCompanyController.getProductionCompaniesByMovieId(id) )
+            ).build();
+        } catch (Exception e) {
             e.printStackTrace();
             return Response.notAcceptable(null).build();
         }

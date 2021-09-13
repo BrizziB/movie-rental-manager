@@ -3,12 +3,12 @@ package it.unifi.ing.stlab.movierentalmanager.components.dto;
 import java.io.Serializable;
 import java.util.List;
 
-public class LiteCharacterDto implements Serializable {
+public class CharacterDto implements Serializable {
 
     private String name;
-    private LiteActorDto actor;
-    private List<LiteActorDto> actors;
-    private List<LiteMovieDto> movies;
+    private ActorDto actor;
+    private List<ActorDto> actors;
+    private List<MovieDto> movies;
 
     public String getName() {
         return name;
@@ -18,27 +18,27 @@ public class LiteCharacterDto implements Serializable {
         this.name = name;
     }
 
-    public LiteActorDto getActor() {
+    public ActorDto getActor() {
         return actor;
     }
 
-    public void setActor(LiteActorDto actor) {
+    public void setActor(ActorDto actor) {
         this.actor = actor;
     }
 
-    public List<LiteActorDto> getActors() {
+    public List<ActorDto> getActors() {
         return actors;
     }
 
-    public void setActors(List<LiteActorDto> actors) {
+    public void setActors(List<ActorDto> actors) {
         this.actors = actors;
     }
 
-    public List<LiteMovieDto> getMovies() {
+    public List<MovieDto> getMovies() {
         return movies;
     }
 
-    public void setMovies(List<LiteMovieDto> movies) {
+    public void setMovies(List<MovieDto> movies) {
         this.movies = movies;
     }
 }

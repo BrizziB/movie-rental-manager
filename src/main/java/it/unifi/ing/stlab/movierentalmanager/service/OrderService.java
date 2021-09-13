@@ -15,9 +15,9 @@ public class OrderService {
     @Inject private OrderController orderController;
 
     @GET
-    @Path("/searchById")
+    @Path("/{id}")
     @Produces({ MediaType.APPLICATION_JSON })
-    public Response retrieveOrderById(@QueryParam("id") Long id) {
+    public Response retrieveOrderById(@PathParam("id") Long id) {
         Gson gson = new Gson();
         try {
             return Response.ok(
@@ -30,7 +30,7 @@ public class OrderService {
     }
 
     @GET
-    @Path("/list/searchByDate")
+    @Path("/list/orders-dates")
     @Produces({ MediaType.APPLICATION_JSON })
     public Response retrieveOrderByDate(@QueryParam("start") Date start, @QueryParam("end") Date end) {
         Gson gson = new Gson();

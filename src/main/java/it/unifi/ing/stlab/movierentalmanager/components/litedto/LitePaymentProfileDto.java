@@ -1,4 +1,4 @@
-package it.unifi.ing.stlab.movierentalmanager.components.dto;
+package it.unifi.ing.stlab.movierentalmanager.components.litedto;
 
 import java.io.Serializable;
 

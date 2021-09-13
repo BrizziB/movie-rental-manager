@@ -6,19 +6,19 @@ import it.unifi.ing.stlab.movierentalmanager.model.items.MovieMedium;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class LitePhysicalMovieItemDto implements Serializable {
+public class PhysicalMovieItemDto implements Serializable {
 
-    private LiteMovieDto movie;
+    private MovieDto movie;
     private BigDecimal rentalPrice;
     private BigDecimal discountedPrice;
     private MovieMedium medium;
     private ItemState state;
 
-    public LiteMovieDto getMovie() {
+    public MovieDto getMovie() {
         return movie;
     }
 
-    public void setMovie(LiteMovieDto movie) {
+    public void setMovie(MovieDto movie) {
         this.movie = movie;
     }
 

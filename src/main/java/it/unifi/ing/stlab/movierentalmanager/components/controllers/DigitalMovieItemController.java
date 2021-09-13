@@ -1,7 +1,8 @@
 package it.unifi.ing.stlab.movierentalmanager.components.controllers;
 
 import com.google.gson.Gson;
-import it.unifi.ing.stlab.movierentalmanager.components.dto.LiteDigitalMovieItemDto;
+import it.unifi.ing.stlab.movierentalmanager.components.dto.DigitalMovieItemDto;
+import it.unifi.ing.stlab.movierentalmanager.components.litedto.LiteDigitalMovieItemDto;
 import it.unifi.ing.stlab.movierentalmanager.components.factory.ModelFactory;
 import it.unifi.ing.stlab.movierentalmanager.components.mappers.DigitalMovieItemMapper;
 import it.unifi.ing.stlab.movierentalmanager.dao.DigitalMovieItemDao;
@@ -50,7 +51,7 @@ public class DigitalMovieItemController {
 
     public void addDigitalMovieItemToDb(String json) {
         gson = new Gson();
-        LiteDigitalMovieItemDto dto = gson.fromJson(json, LiteDigitalMovieItemDto.class);
+        DigitalMovieItemDto dto = gson.fromJson(json, DigitalMovieItemDto.class);
         DigitalMovieItem dmi = ModelFactory.initDigitalMovieItem();
         digitalMovieItemMapper.transfer(dto, dmi);
         digitalMovieItemDao.add(dmi);
@@ -58,7 +59,7 @@ public class DigitalMovieItemController {
 
     public void updateDigitalMovieItemOnDb(String json, Long id) {
         gson = new Gson();
-        LiteDigitalMovieItemDto dto = gson.fromJson(json, LiteDigitalMovieItemDto.class);
+        DigitalMovieItemDto dto = gson.fromJson(json, DigitalMovieItemDto.class);
         DigitalMovieItem oldPMI = digitalMovieItemDao.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("ID not corresponding to any digital movie item on database")
         );

@@ -1,7 +1,8 @@
 package it.unifi.ing.stlab.movierentalmanager.components.controllers;
 
 import com.google.gson.Gson;
-import it.unifi.ing.stlab.movierentalmanager.components.dto.LitePhysicalMovieItemDto;
+import it.unifi.ing.stlab.movierentalmanager.components.dto.PhysicalMovieItemDto;
+import it.unifi.ing.stlab.movierentalmanager.components.litedto.LitePhysicalMovieItemDto;
 import it.unifi.ing.stlab.movierentalmanager.components.factory.ModelFactory;
 import it.unifi.ing.stlab.movierentalmanager.components.mappers.PhysicalMovieItemMapper;
 import it.unifi.ing.stlab.movierentalmanager.dao.PhysicalMovieItemDao;
@@ -51,7 +52,7 @@ public class PhysicalMovieItemController {
 
     public void addPhysicalMovieItemToDb(String json) {
         gson = new Gson();
-        LitePhysicalMovieItemDto dto = gson.fromJson(json, LitePhysicalMovieItemDto.class);
+        PhysicalMovieItemDto dto = gson.fromJson(json, PhysicalMovieItemDto.class);
         PhysicalMovieItem pmi = ModelFactory.initPhysicalMovieItem();
         physicalMovieItemMapper.transfer(dto, pmi);
         physicalMovieItemDao.add(pmi);
@@ -59,7 +60,7 @@ public class PhysicalMovieItemController {
 
     public void updatePhysicalMovieItemOnDb(String json, Long id) {
         gson = new Gson();
-        LitePhysicalMovieItemDto dto = gson.fromJson(json, LitePhysicalMovieItemDto.class);
+        PhysicalMovieItemDto dto = gson.fromJson(json, PhysicalMovieItemDto.class);
         PhysicalMovieItem oldPMI = physicalMovieItemDao.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("ID not corresponding to any physical movie item on database")
         );

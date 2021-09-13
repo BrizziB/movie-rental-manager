@@ -15,9 +15,9 @@ public class WeeklyRecordService {
     @Inject private WeeklyRecordController weeklyRecordController;
 
     @GET
-    @Path("/searchById")
+    @Path("/{id}")
     @Produces({ MediaType.APPLICATION_JSON })
-    public Response retrieveWeeklyRecordById(@QueryParam("id") Long id) {
+    public Response retrieveWeeklyRecordById(@PathParam("id") Long id) {
         Gson gson = new Gson();
         try {
             return Response.ok(
@@ -30,7 +30,7 @@ public class WeeklyRecordService {
     }
 
     @GET
-    @Path("/list/searchByName")
+    @Path("/list/weeklies-names")
     @Produces({ MediaType.APPLICATION_JSON })
     public Response retrieveWeeklyRecordsByName(@QueryParam("name") String name) {
         Gson gson = new Gson();
@@ -45,9 +45,9 @@ public class WeeklyRecordService {
     }
 
     @GET
-    @Path("/list/searchByMovieId")
+    @Path("/list/movie-id/{id}")
     @Produces({ MediaType.APPLICATION_JSON })
-    public Response retrieveWeeklyRecordsByMovieId(@QueryParam("id") Long id) {
+    public Response retrieveWeeklyRecordsByMovieId(@PathParam("id") Long id) {
         Gson gson = new Gson();
         try {
             return Response.ok(
@@ -60,7 +60,7 @@ public class WeeklyRecordService {
     }
 
     @GET
-    @Path("/list/searchByMovieTitle")
+    @Path("/list/movies-titles")
     @Produces({ MediaType.APPLICATION_JSON })
     public Response retrieveWeeklyRecordsByMovieTitle(@QueryParam("title") String title) {
         Gson gson = new Gson();
@@ -75,7 +75,7 @@ public class WeeklyRecordService {
     }
 
     @GET
-    @Path("/list/searchByDate")
+    @Path("/list/weeklies-dates")
     @Produces({ MediaType.APPLICATION_JSON })
     public Response retrieveWeeklyRecordsByDate(@QueryParam("start") Date start, @QueryParam("end") Date end) {
         Gson gson = new Gson();

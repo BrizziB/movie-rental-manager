@@ -1,6 +1,7 @@
 package it.unifi.ing.stlab.movierentalmanager.components.mappers;
 
-import it.unifi.ing.stlab.movierentalmanager.components.dto.LitePaymentProfileDto;
+import it.unifi.ing.stlab.movierentalmanager.components.dto.PaymentProfileDto;
+import it.unifi.ing.stlab.movierentalmanager.components.litedto.LitePaymentProfileDto;
 import it.unifi.ing.stlab.movierentalmanager.components.factory.ModelFactory;
 import it.unifi.ing.stlab.movierentalmanager.dao.CustomerDao;
 import it.unifi.ing.stlab.movierentalmanager.model.users.Customer;
@@ -28,7 +29,7 @@ public class PaymentProfileMapper {
         return dto;
     }
 
-    public void transfer(LitePaymentProfileDto dto, PaymentProfile pp) {
+    public void transfer(PaymentProfileDto dto, PaymentProfile pp) {
         if(dto == null)
             throw new MapperTransferException("The payment profile DTO is NULL");
         if(pp == null)

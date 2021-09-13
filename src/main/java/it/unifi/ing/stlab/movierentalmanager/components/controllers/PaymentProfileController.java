@@ -1,7 +1,8 @@
 package it.unifi.ing.stlab.movierentalmanager.components.controllers;
 
 import com.google.gson.Gson;
-import it.unifi.ing.stlab.movierentalmanager.components.dto.LitePaymentProfileDto;
+import it.unifi.ing.stlab.movierentalmanager.components.dto.PaymentProfileDto;
+import it.unifi.ing.stlab.movierentalmanager.components.litedto.LitePaymentProfileDto;
 import it.unifi.ing.stlab.movierentalmanager.components.factory.ModelFactory;
 import it.unifi.ing.stlab.movierentalmanager.components.mappers.PaymentProfileMapper;
 import it.unifi.ing.stlab.movierentalmanager.dao.CustomerDao;
@@ -46,7 +47,7 @@ public class PaymentProfileController {
 
     public void addPaymentProfileToDb(String json) {
         gson = new Gson();
-        LitePaymentProfileDto dto = gson.fromJson(json, LitePaymentProfileDto.class);
+        PaymentProfileDto dto = gson.fromJson(json, PaymentProfileDto.class);
         PaymentProfile pp = ModelFactory.initPaymentProfile();
         paymentProfileMapper.transfer(dto, pp);
         paymentProfileDao.add(pp);
@@ -54,7 +55,7 @@ public class PaymentProfileController {
 
     public void updatePaymentProfileOnDb(String json, Long id) {
         gson = new Gson();
-        LitePaymentProfileDto dto = gson.fromJson(json, LitePaymentProfileDto.class);
+        PaymentProfileDto dto = gson.fromJson(json, PaymentProfileDto.class);
         PaymentProfile oldPP = paymentProfileDao.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("ID not corresponding to any payment profile on database")
         );

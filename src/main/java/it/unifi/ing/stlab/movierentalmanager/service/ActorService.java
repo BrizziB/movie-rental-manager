@@ -14,24 +14,9 @@ public class ActorService {
     @Inject private ActorController actorController;
 
     @GET
-    @Path("/list/movie")
+    @Path("/{id}")
     @Produces({ MediaType.APPLICATION_JSON })
-    public Response retrieveCastByMovie(@QueryParam("id") Long id) {
-        Gson gson = new Gson();
-        try {
-            return Response.ok(
-                    gson.toJson( actorController.getCastByMovieId(id) )
-            ).build();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return Response.notAcceptable(null).build();
-        }
-    }
-
-    @GET
-    @Path("/searchById")
-    @Produces({ MediaType.APPLICATION_JSON })
-    public Response retrieveActorById(@QueryParam("id") Long id) {
+    public Response retrieveActorById(@PathParam("id") Long id) {
         Gson gson = new Gson();
         try {
             return Response.ok(
@@ -44,7 +29,7 @@ public class ActorService {
     }
 
     @GET
-    @Path("/list/searchByName")
+    @Path("/list/actors-name")
     @Produces({ MediaType.APPLICATION_JSON })
     public Response retrieveActorsByName(@QueryParam("name") String name) {
         Gson gson = new Gson();
@@ -53,6 +38,21 @@ public class ActorService {
                     gson.toJson( actorController.getActorsByName(name) )
             ).build();
         } catch(Exception e) {
+            e.printStackTrace();
+            return Response.notAcceptable(null).build();
+        }
+    }
+
+    @GET
+    @Path("/list/movies-id/{id}")
+    @Produces({ MediaType.APPLICATION_JSON })
+    public Response retrieveCastByMovie(@PathParam("id") Long id) {
+        Gson gson = new Gson();
+        try {
+            return Response.ok(
+                    gson.toJson( actorController.getCastByMovieId(id) )
+            ).build();
+        } catch (Exception e) {
             e.printStackTrace();
             return Response.notAcceptable(null).build();
         }

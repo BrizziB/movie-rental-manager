@@ -1,7 +1,8 @@
 package it.unifi.ing.stlab.movierentalmanager.components.controllers;
 
 import com.google.gson.Gson;
-import it.unifi.ing.stlab.movierentalmanager.components.dto.LiteCustomerDto;
+import it.unifi.ing.stlab.movierentalmanager.components.dto.CustomerDto;
+import it.unifi.ing.stlab.movierentalmanager.components.litedto.LiteCustomerDto;
 import it.unifi.ing.stlab.movierentalmanager.components.factory.ModelFactory;
 import it.unifi.ing.stlab.movierentalmanager.components.mappers.CustomerMapper;
 import it.unifi.ing.stlab.movierentalmanager.dao.CustomerDao;
@@ -42,7 +43,7 @@ public class CustomerController {
 
     public void addCustomerToDb(String json) {
         gson = new Gson();
-        LiteCustomerDto dto = gson.fromJson(json, LiteCustomerDto.class);
+        CustomerDto dto = gson.fromJson(json, CustomerDto.class);
         Customer customer = ModelFactory.initCustomer();
         customerMapper.transfer(dto, customer);
         customerDao.add(customer);
@@ -50,7 +51,7 @@ public class CustomerController {
 
     public void updateCustomerOnDb(String json, Long id) {
         gson = new Gson();
-        LiteCustomerDto dto = gson.fromJson(json, LiteCustomerDto.class);
+        CustomerDto dto = gson.fromJson(json, CustomerDto.class);
         Customer oldCustomer = customerDao.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("ID not corresponding to any customer on database")
         );

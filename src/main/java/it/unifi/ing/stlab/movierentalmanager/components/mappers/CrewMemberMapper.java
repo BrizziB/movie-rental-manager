@@ -1,7 +1,9 @@
 package it.unifi.ing.stlab.movierentalmanager.components.mappers;
 
-import it.unifi.ing.stlab.movierentalmanager.components.dto.LiteCrewMemberDto;
-import it.unifi.ing.stlab.movierentalmanager.components.dto.LiteMovieDto;
+import it.unifi.ing.stlab.movierentalmanager.components.dto.CrewMemberDto;
+import it.unifi.ing.stlab.movierentalmanager.components.dto.MovieDto;
+import it.unifi.ing.stlab.movierentalmanager.components.litedto.LiteCrewMemberDto;
+import it.unifi.ing.stlab.movierentalmanager.components.litedto.LiteMovieDto;
 import it.unifi.ing.stlab.movierentalmanager.components.factory.ModelFactory;
 import it.unifi.ing.stlab.movierentalmanager.dao.CrewMemberDao;
 import it.unifi.ing.stlab.movierentalmanager.dao.MovieDao;
@@ -29,12 +31,12 @@ public class CrewMemberMapper {
         dto.setBirthDate(cm.getBirthDate());
         dto.setCountry(cm.getCountry());
         dto.setRole(cm.getRole());
-        serializeMovies(dto, cm.getMovies());
+//        serializeMovies(dto, cm.getMovies());
 
         return dto;
     }
 
-    public void transfer(LiteCrewMemberDto dto, CrewMember cm) {
+    public void transfer(CrewMemberDto dto, CrewMember cm) {
         if(dto == null)
             throw new MapperTransferException("The crew member DTO is NULL");
         if(cm == null)
@@ -52,22 +54,22 @@ public class CrewMemberMapper {
             deSerializeMovies(cm, dto.getMovies());
     }
 
-    private void serializeMovies(LiteCrewMemberDto dto, List<Movie> movies) {
-        if(movies != null && movies.size() > 0)
-            for (Movie m : movies)
-                dto.getMovies().add( movieMapper.convert(m) );
-    }
+//    private void serializeMovies(LiteCrewMemberDto dto, List<Movie> movies) {
+//        if(movies != null && movies.size() > 0)
+//            for (Movie m : movies)
+//                dto.getMovies().add( movieMapper.convert(m) );
+//    }
 
-    private void deSerializeMovies(CrewMember cm, List<LiteMovieDto> liteMovies) {
+    private void deSerializeMovies(CrewMember cm, List<MovieDto> movieDtos) {
         cm.getMovies().clear();
 
-        if(liteMovies != null && liteMovies.size() > 0)
-            for (LiteMovieDto liteMovie : liteMovies) {
-                if ( movieDao.retrieveMoviesByTitle( liteMovie.getTitle() ).size() != 0 )
+        if(movieDtos != null && movieDtos.size() > 0)
+            for (MovieDto m : movieDtos) {
+                if ( movieDao.retrieveMoviesByTitle( m.getTitle() ).size() != 0 )
                     System.out.println("Movies with similar names do exist in database. Do you want to check them out?");
                 else {
                     Movie movie = ModelFactory.initMovie();
-                    movieMapper.transfer(liteMovie, movie);
+                    movieMapper.transfer(m, movie);
                     movieDao.add(movie);
                     cm.getMovies().add(movie);
                 }

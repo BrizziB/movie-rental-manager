@@ -2,10 +2,10 @@ package it.unifi.ing.stlab.movierentalmanager.components.dto;
 
 import java.io.Serializable;
 
-public class LiteWeeklyRecordDto implements Serializable {
+public class WeeklyRecordDto implements Serializable {
 
     private String name;
-    private LiteMovieDto movie;
+    private MovieDto movie;
     private Integer thisWeekPurchases;
     private Long currentTotalPurchases;
 
@@ -17,11 +17,11 @@ public class LiteWeeklyRecordDto implements Serializable {
         this.name = name;
     }
 
-    public LiteMovieDto getMovie() {
+    public MovieDto getMovie() {
         return movie;
     }
 
-    public void setMovie(LiteMovieDto movie) {
+    public void setMovie(MovieDto movie) {
         this.movie = movie;
     }
 

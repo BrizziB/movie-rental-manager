@@ -14,9 +14,9 @@ public class PhysicalMovieItemService {
     @Inject private PhysicalMovieItemController physicalMovieItemController;
 
     @GET
-    @Path("/searchById")
+    @Path("/{id}")
     @Produces({ MediaType.APPLICATION_JSON })
-    public Response retrievePhysicalMovieItemById(@QueryParam("id") Long id) {
+    public Response retrievePhysicalMovieItemById(@PathParam("id") Long id) {
         Gson gson = new Gson();
         try {
             return Response.ok(
@@ -29,9 +29,9 @@ public class PhysicalMovieItemService {
     }
 
     @GET
-    @Path("/list/searchByMovieId")
+    @Path("/list/movies-id/{id}")
     @Produces({ MediaType.APPLICATION_JSON })
-    public Response retrievePhysicalMovieItemsByMovieId(@QueryParam("id") Long id) {
+    public Response retrievePhysicalMovieItemsByMovieId(@PathParam("id") Long id) {
         Gson gson = new Gson();
         try {
             return Response.ok(
@@ -44,7 +44,7 @@ public class PhysicalMovieItemService {
     }
 
     @GET
-    @Path("/list/searchByMovieTitle")
+    @Path("/list/movies-titles")
     @Produces({ MediaType.APPLICATION_JSON })
     public Response retrievePhysicalMovieItemsByMovieTitle(@QueryParam("title") String title) {
         Gson gson = new Gson();

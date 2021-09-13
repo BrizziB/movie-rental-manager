@@ -14,9 +14,9 @@ public class CharacterService {
     @Inject private CharacterController characterController;
 
     @GET
-    @Path("/searchById")
+    @Path("/{id}")
     @Produces({ MediaType.APPLICATION_JSON })
-    public Response retrieveCharacterById(@QueryParam("id") Long id) {
+    public Response retrieveCharacterById(@PathParam("id") Long id) {
         Gson gson = new Gson();
         try {
             return Response.ok(
@@ -29,7 +29,7 @@ public class CharacterService {
     }
 
     @GET
-    @Path("/list/searchByName")
+    @Path("/list/chars-name")
     @Produces({ MediaType.APPLICATION_JSON })
     public Response retrieveCharactersByName(@QueryParam("name") String name) {
         Gson gson = new Gson();
@@ -38,6 +38,21 @@ public class CharacterService {
                     gson.toJson( characterController.getCharactersByName(name) )
             ).build();
         } catch(Exception e) {
+            e.printStackTrace();
+            return Response.notAcceptable(null).build();
+        }
+    }
+
+    @GET
+    @Path("/list/movies-id")
+    @Produces({ MediaType.APPLICATION_JSON })
+    public Response retrieveCharactersByMovie(@QueryParam("id") Long id) {
+        Gson gson = new Gson();
+        try {
+            return Response.ok(
+                    gson.toJson( characterController.getCharactersByMovieId(id) )
+            ).build();
+        } catch (Exception e) {
             e.printStackTrace();
             return Response.notAcceptable(null).build();
         }

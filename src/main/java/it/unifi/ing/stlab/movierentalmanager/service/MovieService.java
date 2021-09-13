@@ -2,6 +2,7 @@ package it.unifi.ing.stlab.movierentalmanager.service;
 
 import com.google.gson.Gson;
 import it.unifi.ing.stlab.movierentalmanager.components.controllers.MovieController;
+import it.unifi.ing.stlab.movierentalmanager.model.movies.CrewRole;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -15,9 +16,9 @@ public class MovieService {
     @Inject private MovieController movieController;
 
     @GET
-    @Path("/searchById")
+    @Path("/{id}")
     @Produces({ MediaType.APPLICATION_JSON })
-    public Response retrieveMovieById(@QueryParam("id") Long id) {
+    public Response retrieveMovieById(@PathParam("id") Long id) {
         Gson gson = new Gson();
         try {
             return Response.ok(
@@ -30,7 +31,7 @@ public class MovieService {
     }
 
     @GET
-    @Path("/list/searchByTitle")
+    @Path("/list/movie-title")
     @Produces({ MediaType.APPLICATION_JSON })
     public Response retrieveMoviesByTitle(@QueryParam("title") String title) {
         Gson gson = new Gson();
@@ -45,9 +46,9 @@ public class MovieService {
     }
 
     @GET
-    @Path("/list/actor")
+    @Path("/list/actor-id/{id}")
     @Produces({ MediaType.APPLICATION_JSON })
-    public Response retrieveMoviesByActor(@QueryParam("id") Long id) {
+    public Response retrieveMoviesByActor(@PathParam("id") Long id) {
         Gson gson = new Gson();
         try {
             return Response.ok(
@@ -60,9 +61,9 @@ public class MovieService {
     }
 
     @GET
-    @Path("/list/director")
+    @Path("/list/director-id/{id}")
     @Produces({ MediaType.APPLICATION_JSON })
-    public Response retrieveMoviesByDirector(@QueryParam("id") Long id) {
+    public Response retrieveMoviesByDirector(@PathParam("id") Long id) {
         Gson gson = new Gson();
         try {
             return Response.ok(
@@ -74,29 +75,44 @@ public class MovieService {
         }
     }
 
-    @GET
-    @Path("/list/cinematographer")
-    @Produces({ MediaType.APPLICATION_JSON })
-    public Response retrieveMoviesByCinematographer(@QueryParam("id") Long id) {
-        Gson gson = new Gson();
-        try {
-            return Response.ok(
-                    gson.toJson( movieController.getMoviesByCinematographerId(id) )
-            ).build();
-        } catch(Exception e) {
-            e.printStackTrace();
-            return Response.notAcceptable(null).build();
-        }
-    }
+//    @GET
+//    @Path("/list/cinematographer-id/{id}")
+//    @Produces({ MediaType.APPLICATION_JSON })
+//    public Response retrieveMoviesByCinematographer(@PathParam("id") Long id) {
+//        Gson gson = new Gson();
+//        try {
+//            return Response.ok(
+//                    gson.toJson( movieController.getMoviesByCinematographerId(id) )
+//            ).build();
+//        } catch(Exception e) {
+//            e.printStackTrace();
+//            return Response.notAcceptable(null).build();
+//        }
+//    }
+//
+//    @GET
+//    @Path("/list/writer-id/{id}")
+//    @Produces({ MediaType.APPLICATION_JSON })
+//    public Response retrieveMoviesByWriter(@PathParam("id") Long id) {
+//        Gson gson = new Gson();
+//        try {
+//            return Response.ok(
+//                    gson.toJson( movieController.getMoviesByWriterId(id) )
+//            ).build();
+//        } catch(Exception e) {
+//            e.printStackTrace();
+//            return Response.notAcceptable(null).build();
+//        }
+//    }
 
     @GET
-    @Path("/list/writer")
+    @Path("/list/crew-id-role")
     @Produces({ MediaType.APPLICATION_JSON })
-    public Response retrieveMoviesByWriter(@QueryParam("id") Long id) {
+    public Response retrieveMoviesByCrewMember(@QueryParam("id") Long id, @QueryParam("role") CrewRole role) {
         Gson gson = new Gson();
         try {
             return Response.ok(
-                    gson.toJson( movieController.getMoviesByWriterId(id) )
+                    gson.toJson( movieController.getMoviesByCrewMemberIdAndRole(id, role) )
             ).build();
         } catch(Exception e) {
             e.printStackTrace();
@@ -107,7 +123,7 @@ public class MovieService {
     @GET
     @Path("/list/top-rated")
     @Produces({ MediaType.APPLICATION_JSON })
-    public Response retrieveTopRatedMovies(Integer limit) {
+    public Response retrieveTopRatedMovies(@QueryParam("limit") Integer limit) {
         Gson gson = new Gson();
         try {
             return Response.ok(
@@ -134,13 +150,15 @@ public class MovieService {
         }
     }
 
-    // TODO più filtri in un solo metodo
+
     @GET
-    @Path("/multipleFilters")
+    @Path("/list/multipleFilters")
     @Produces({ MediaType.APPLICATION_JSON })
-    public Response multipleFilters(List<String> json) {
+    public Response multipleFilters(@QueryParam(value = "") List<String> json) {
         return Response.ok("").build();
     }
+
+    // CRUD methods
 
     @POST
     @Path("/add")

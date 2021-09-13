@@ -1,6 +1,7 @@
 package it.unifi.ing.stlab.movierentalmanager.components.mappers;
 
-import it.unifi.ing.stlab.movierentalmanager.components.dto.LiteDigitalMovieItemDto;
+import it.unifi.ing.stlab.movierentalmanager.components.dto.DigitalMovieItemDto;
+import it.unifi.ing.stlab.movierentalmanager.components.litedto.LiteDigitalMovieItemDto;
 import it.unifi.ing.stlab.movierentalmanager.components.factory.ModelFactory;
 import it.unifi.ing.stlab.movierentalmanager.dao.MovieDao;
 import it.unifi.ing.stlab.movierentalmanager.model.items.DigitalMovieItem;
@@ -30,7 +31,7 @@ public class DigitalMovieItemMapper {
         return dto;
     }
 
-    public void transfer(LiteDigitalMovieItemDto dto, DigitalMovieItem dmi) {
+    public void transfer(DigitalMovieItemDto dto, DigitalMovieItem dmi) {
         if(dto == null)
             throw new MapperTransferException("The digital movie item DTO is NULL");
         if(dmi == null)

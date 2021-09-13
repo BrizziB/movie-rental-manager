@@ -1,7 +1,8 @@
 package it.unifi.ing.stlab.movierentalmanager.components.controllers;
 
 import com.google.gson.Gson;
-import it.unifi.ing.stlab.movierentalmanager.components.dto.LiteDirectorDto;
+import it.unifi.ing.stlab.movierentalmanager.components.dto.DirectorDto;
+import it.unifi.ing.stlab.movierentalmanager.components.litedto.LiteDirectorDto;
 import it.unifi.ing.stlab.movierentalmanager.components.factory.ModelFactory;
 import it.unifi.ing.stlab.movierentalmanager.components.mappers.DirectorMapper;
 import it.unifi.ing.stlab.movierentalmanager.dao.DirectorDao;
@@ -53,7 +54,7 @@ public class DirectorController {
 
     public void addDirectorToDb(String json) {
         gson = new Gson();
-        LiteDirectorDto dto = gson.fromJson(json, LiteDirectorDto.class);
+        DirectorDto dto = gson.fromJson(json, DirectorDto.class);
         Director director = ModelFactory.initDirector();
         directorMapper.transfer(dto, director);
         directorDao.add(director);
@@ -61,7 +62,7 @@ public class DirectorController {
 
     public void updateDirectorOnDb(String json, Long id) {
         gson = new Gson();
-        LiteDirectorDto dto = gson.fromJson(json, LiteDirectorDto.class);
+        DirectorDto dto = gson.fromJson(json, DirectorDto.class);
         Director oldDirector = directorDao.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("ID not corresponding to any director on database")
         );

@@ -1,4 +1,4 @@
-package it.unifi.ing.stlab.movierentalmanager.components.dto;
+package it.unifi.ing.stlab.movierentalmanager.components.litedto;
 
 import it.unifi.ing.stlab.movierentalmanager.model.purchases.Delivery;
 import it.unifi.ing.stlab.movierentalmanager.model.purchases.OrderStatus;
@@ -16,8 +16,6 @@ public class LiteOrderDto implements Serializable {
     private RentalType rentalType;
     private BigDecimal total;
     private Delivery delivery;
-    private List<LiteDigitalMovieItemDto> digitalItems;
-    private List<LitePhysicalMovieItemDto> physicalItems;
 
     public LiteCustomerDto getCustomer() {
         return customer;
@@ -65,22 +63,6 @@ public class LiteOrderDto implements Serializable {
 
     public void setDelivery(Delivery delivery) {
         this.delivery = delivery;
-    }
-
-    public List<LiteDigitalMovieItemDto> getDigitalItems() {
-        return digitalItems;
-    }
-
-    public void setDigitalItems(List<LiteDigitalMovieItemDto> digitalItems) {
-        this.digitalItems = digitalItems;
-    }
-
-    public List<LitePhysicalMovieItemDto> getPhysicalItems() {
-        return physicalItems;
-    }
-
-    public void setPhysicalItems(List<LitePhysicalMovieItemDto> physicalItems) {
-        this.physicalItems = physicalItems;
     }
 
 }

@@ -1,17 +1,21 @@
-package it.unifi.ing.stlab.movierentalmanager.components.dto;
+package it.unifi.ing.stlab.movierentalmanager.components.litedto;
 
-import it.unifi.ing.stlab.movierentalmanager.model.users.OfficeRole;
+import it.unifi.ing.stlab.movierentalmanager.model.users.CustomerDetails;
+import it.unifi.ing.stlab.movierentalmanager.model.users.Membership;
 import it.unifi.ing.stlab.movierentalmanager.model.users.WebUser;
 
 import java.io.Serializable;
+import java.util.List;
 
-public class LiteEmployeeDto implements Serializable {
+public class LiteCustomerDto implements Serializable {
 
     private String name;
     private String address;
     private String phoneNumber;
     private WebUser webUser;
-    private OfficeRole role;
+    private Membership membership;
+    private CustomerDetails customerDetails;
+
 
     public String getName() {
         return name;
@@ -45,12 +49,20 @@ public class LiteEmployeeDto implements Serializable {
         this.webUser = webUser;
     }
 
-    public OfficeRole getRole() {
-        return role;
+    public Membership getMembership() {
+        return membership;
     }
 
-    public void setRole(OfficeRole role) {
-        this.role = role;
+    public void setMembership(Membership membership) {
+        this.membership = membership;
+    }
+
+    public CustomerDetails getCustomerDetails() {
+        return customerDetails;
+    }
+
+    public void setCustomerDetails(CustomerDetails customerDetails) {
+        this.customerDetails = customerDetails;
     }
 
 }
