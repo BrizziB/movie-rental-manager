@@ -1,12 +1,15 @@
 package it.unifi.ing.stlab.movierentalmanager.dao;
 
+import it.unifi.ing.stlab.movierentalmanager.model.users.Customer;
 import it.unifi.ing.stlab.movierentalmanager.model.users.Employee;
 import it.unifi.ing.stlab.movierentalmanager.model.users.OfficeRole;
+import it.unifi.ing.stlab.movierentalmanager.model.users.WebUser;
 
 import javax.ejb.Stateless;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Stateless
 public class EmployeeDao extends BaseDao<Employee> {
@@ -23,6 +26,36 @@ public class EmployeeDao extends BaseDao<Employee> {
         oldEmployee.setPhoneNumber(e.getPhoneNumber());
         oldEmployee.setWebUser(e.getWebUser());
         oldEmployee.setRole(e.getRole());
+    }
+
+    public Employee findByUsername(String username) {
+        TypedQuery<Employee> query = getEm().createQuery(
+                "SELECT e FROM Employee e WHERE e.webUser.username = :username",
+                Employee.class
+        ).setParameter("username", username);
+        return query.getResultList()
+                .stream()
+                .findFirst()
+                .orElse(null);
+    }
+
+    public Optional<Long> retrieveEmployeeIDByUsername(String username) {
+        TypedQuery<Long> query = getEm().createQuery(
+                "SELECT e.id FROM Employee e WHERE e.webUser.username = :username",
+                Long.class
+        ).setParameter("username", username);
+        return Optional.ofNullable( query.getSingleResult() );
+    }
+
+    public WebUser retrieveWebUserByUsername(String username) {
+        TypedQuery<WebUser> query = getEm().createQuery(
+                "SELECT e.webUser FROM Employee e WHERE e.webUser.username = :username",
+                WebUser.class
+        ).setParameter("username", username);
+        return query.getResultList()
+                .stream()
+                .findFirst()
+                .orElse(null);
     }
 
     public List<Employee> retrieveEmployeesByName(String name) {

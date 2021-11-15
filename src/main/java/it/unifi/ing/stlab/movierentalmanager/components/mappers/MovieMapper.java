@@ -103,8 +103,8 @@ public class MovieMapper {
         deSerializeCrew(m, dto.getCrew());
         deSerializeCast(m, dto.getCast());
         deSerializeProducers(m, dto.getProducers());
-        deSerializeDigitalItems(m, dto.getDigitalItems());
-        deSerializePhysicalItems(m, dto.getPhysicalItems());
+//        deSerializeDigitalItems(m, dto.getDigitalItems());
+//        deSerializePhysicalItems(m, dto.getPhysicalItems());
     }
 
 //    private void serializeCharacters(LiteMovieDto dto, List<Character> characters) {
@@ -209,36 +209,36 @@ public class MovieMapper {
             }
     }
 
-    private void deSerializeDigitalItems(Movie m, List<DigitalMovieItemDto> digitalMovieItemDtos) {
-        m.getItems().clear();
-
-        if(digitalMovieItemDtos != null && digitalMovieItemDtos.size() > 0)
-            for (DigitalMovieItemDto dmi : digitalMovieItemDtos) {
-                if ( digitalMovieItemDao.retrieveDigitalMovieItemsByMovieTitle( dmi.getMovie().getTitle() ).size() != 0)
-                    System.out.println("Digital movie items of movies with similar titles do exist in database. Do you want to check them out?");
-                else {
-                    DigitalMovieItem digitalMovieItem = ModelFactory.initDigitalMovieItem();
-                    digitalMovieItemMapper.transfer(dmi, digitalMovieItem);
-                    digitalMovieItemDao.add(digitalMovieItem);
-                    m.getItems().add(digitalMovieItem);
-                }
-            }
-    }
-
-    private void deSerializePhysicalItems(Movie m, List<PhysicalMovieItemDto> physicalMovieItemDtos) {
-        m.getItems().clear();
-
-        if(physicalMovieItemDtos != null && physicalMovieItemDtos.size() > 0)
-            for (PhysicalMovieItemDto pmi : physicalMovieItemDtos) {
-                if ( digitalMovieItemDao.retrieveDigitalMovieItemsByMovieTitle( pmi.getMovie().getTitle() ).size() != 0)
-                    System.out.println("Physical movie items of movies with similar titles do exist in database. Do you want to check them out?");
-                else {
-                    PhysicalMovieItem physicalMovieItem = ModelFactory.initPhysicalMovieItem();
-                    physicalMovieItemMapper.transfer(pmi, physicalMovieItem);
-                    physicalMovieItemDao.add(physicalMovieItem);
-                    m.getItems().add(physicalMovieItem);
-                }
-            }
-    }
+//    private void deSerializeDigitalItems(Movie m, List<DigitalMovieItemDto> digitalMovieItemDtos) {
+//        m.getItems().clear();
+//
+//        if(digitalMovieItemDtos != null && digitalMovieItemDtos.size() > 0)
+//            for (DigitalMovieItemDto dmi : digitalMovieItemDtos) {
+//                if ( digitalMovieItemDao.retrieveDigitalMovieItemsByMovieTitle( dmi.getMovie().getTitle() ).size() != 0)
+//                    System.out.println("Digital movie items of movies with similar titles do exist in database. Do you want to check them out?");
+//                else {
+//                    DigitalMovieItem digitalMovieItem = ModelFactory.initDigitalMovieItem();
+//                    digitalMovieItemMapper.transfer(dmi, digitalMovieItem);
+//                    digitalMovieItemDao.add(digitalMovieItem);
+//                    m.getItems().add(digitalMovieItem);
+//                }
+//            }
+//    }
+//
+//    private void deSerializePhysicalItems(Movie m, List<PhysicalMovieItemDto> physicalMovieItemDtos) {
+//        m.getItems().clear();
+//
+//        if(physicalMovieItemDtos != null && physicalMovieItemDtos.size() > 0)
+//            for (PhysicalMovieItemDto pmi : physicalMovieItemDtos) {
+//                if ( digitalMovieItemDao.retrieveDigitalMovieItemsByMovieTitle( pmi.getMovie().getTitle() ).size() != 0)
+//                    System.out.println("Physical movie items of movies with similar titles do exist in database. Do you want to check them out?");
+//                else {
+//                    PhysicalMovieItem physicalMovieItem = ModelFactory.initPhysicalMovieItem();
+//                    physicalMovieItemMapper.transfer(pmi, physicalMovieItem);
+//                    physicalMovieItemDao.add(physicalMovieItem);
+//                    m.getItems().add(physicalMovieItem);
+//                }
+//            }
+//    }
 
 }

@@ -25,9 +25,9 @@ public class EmployeeMapper {
     }
 
     public void transfer(EmployeeDto dto, Employee e) {
-        if(dto != null)
+        if(dto == null)
             throw new MapperTransferException("The employee DTO is NULL");
-        if(e != null)
+        if(e == null)
             throw new MapperTransferException("The employee Entity is NULL");
 
         if(dto.getName() != null)

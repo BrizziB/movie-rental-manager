@@ -35,17 +35,10 @@ public class PaymentProfileMapper {
         if(pp == null)
             throw new MapperTransferException("The payment profile Entity is NULL");
 
-        if(dto.getCustomer() != null) {
-            if ( customerDao.retrieveCustomersByName( dto.getCustomer().getName() ).size() != 0) {
-                System.out.println("Customers with similar names do exist in database. Do you want to check them out?");
-            }
-            else {
-                Customer customer = ModelFactory.initCustomer();
-                customerMapper.transfer(dto.getCustomer(), customer);
-                customerDao.add(customer);
-                pp.setCustomer(customer);
-            }
-        }
+        pp.setCustomer(
+                customerDao.findById( dto.getCustomerID() )
+                           .orElseThrow( () -> new IllegalArgumentException("Customer not found"))
+        );
         if(dto.getCreditCardType() != null)
             pp.setCreditCardType(dto.getCreditCardType());
         if(dto.getCreditCardNumber() != null)

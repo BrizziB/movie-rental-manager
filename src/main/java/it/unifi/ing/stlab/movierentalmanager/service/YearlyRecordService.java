@@ -21,12 +21,14 @@ public class YearlyRecordService {
     public Response retrieveYearlyRecordById(@PathParam("id") Long id) {
         Gson gson = new Gson();
         try {
-            return Response.ok(
+            return Response.status(Response.Status.OK).entity(
                     gson.toJson( yearlyRecordController.getYearlyRecordById(id) )
             ).build();
         } catch(Exception e) {
             e.printStackTrace();
-            return Response.notAcceptable(null).build();
+            return Response.status(Response.Status.NOT_ACCEPTABLE)
+                    .entity(null)
+                    .build();
         }
     }
 
@@ -36,12 +38,14 @@ public class YearlyRecordService {
     public Response retrieveYearlyRecordsByName(@QueryParam("name") String name) {
         Gson gson = new Gson();
         try {
-            return Response.ok(
+            return Response.status(Response.Status.OK).entity(
                     gson.toJson( yearlyRecordController.getYearlyRecordsByName(name) )
             ).build();
         } catch(Exception e) {
             e.printStackTrace();
-            return Response.notAcceptable(null).build();
+            return Response.status(Response.Status.NOT_ACCEPTABLE)
+                    .entity(null)
+                    .build();
         }
     }
 
@@ -51,12 +55,14 @@ public class YearlyRecordService {
     public Response retrieveYearlyRecordsByMovieId(@PathParam("id") Long id) {
         Gson gson = new Gson();
         try {
-            return Response.ok(
+            return Response.status(Response.Status.OK).entity(
                     gson.toJson( yearlyRecordController.getYearlyRecordsByMovieId(id) )
             ).build();
         } catch(Exception e) {
             e.printStackTrace();
-            return Response.notAcceptable(null).build();
+            return Response.status(Response.Status.NOT_ACCEPTABLE)
+                    .entity(null)
+                    .build();
         }
     }
 
@@ -66,12 +72,14 @@ public class YearlyRecordService {
     public Response retrieveYearlyRecordsByMovieTitle(@QueryParam("title") String title) {
         Gson gson = new Gson();
         try {
-            return Response.ok(
+            return Response.status(Response.Status.OK).entity(
                     gson.toJson( yearlyRecordController.getYearlyRecordsByMovieTitle(title) )
             ).build();
         } catch(Exception e) {
             e.printStackTrace();
-            return Response.notAcceptable(null).build();
+            return Response.status(Response.Status.NOT_ACCEPTABLE)
+                    .entity(null)
+                    .build();
         }
     }
 
@@ -81,12 +89,14 @@ public class YearlyRecordService {
     public Response retrieveYearlyRecordsByDate(@QueryParam("start") Date start, @QueryParam("end") Date end) {
         Gson gson = new Gson();
         try {
-            return Response.ok(
+            return Response.status(Response.Status.OK).entity(
                     gson.toJson( yearlyRecordController.getYearlyRecordsBetweenDates(start, end) )
             ).build();
         } catch(Exception e) {
             e.printStackTrace();
-            return Response.notAcceptable(null).build();
+            return Response.status(Response.Status.NOT_ACCEPTABLE)
+                    .entity(null)
+                    .build();
         }
     }
 
@@ -96,12 +106,14 @@ public class YearlyRecordService {
     public Response retrieveAllYearlyRecords() {
         Gson gson = new Gson();
         try {
-            return Response.ok(
+            return Response.status(Response.Status.OK).entity(
                     gson.toJson( yearlyRecordController.getAllYearlyRecords(0, 25) )
             ).build();
         } catch(Exception e) {
             e.printStackTrace();
-            return Response.notAcceptable(null).build();
+            return Response.status(Response.Status.NOT_ACCEPTABLE)
+                    .entity(null)
+                    .build();
         }
     }
 
@@ -114,10 +126,12 @@ public class YearlyRecordService {
     public Response updateYearlyRecord(String json, @QueryParam("id") Long id) {
         try {
             yearlyRecordController.updateYearlyRecordOnDb(json, id);
-            return Response.ok("Yearly record " + id + " correctly updated").build();
+            return Response.status(Response.Status.OK).entity("Yearly record " + id + " correctly updated").build();
         } catch(Exception e) {
             e.printStackTrace();
-            return Response.notAcceptable(null).build();
+            return Response.status(Response.Status.NOT_ACCEPTABLE)
+                    .entity(null)
+                    .build();
         }
     }
 
@@ -127,10 +141,12 @@ public class YearlyRecordService {
     public Response disableYearlyRecord(@QueryParam("id") Long id) {
         try {
             yearlyRecordController.disableYearlyRecordOnDb(true, id);
-            return Response.ok("Yearly record " + id + " correctly disabled").build();
+            return Response.status(Response.Status.OK).entity("Yearly record " + id + " correctly disabled").build();
         } catch(Exception e) {
             e.printStackTrace();
-            return Response.notAcceptable(null).build();
+            return Response.status(Response.Status.NOT_ACCEPTABLE)
+                    .entity(null)
+                    .build();
         }
     }
 
@@ -140,10 +156,12 @@ public class YearlyRecordService {
     public Response restoreYearlyRecord(@QueryParam("id") Long id) {
         try {
             yearlyRecordController.disableYearlyRecordOnDb(false, id);
-            return Response.ok("Yearly record " + id + " correctly restored").build();
+            return Response.status(Response.Status.OK).entity("Yearly record " + id + " correctly restored").build();
         } catch(Exception e) {
             e.printStackTrace();
-            return Response.notAcceptable(null).build();
+            return Response.status(Response.Status.NOT_ACCEPTABLE)
+                    .entity(null)
+                    .build();
         }
     }
 

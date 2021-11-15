@@ -9,6 +9,9 @@ import it.unifi.ing.stlab.movierentalmanager.model.movies.*;
 import it.unifi.ing.stlab.movierentalmanager.model.purchases.Order;
 import it.unifi.ing.stlab.movierentalmanager.model.purchases.OrderStatus;
 import it.unifi.ing.stlab.movierentalmanager.model.statistics.YearlyRecord;
+import it.unifi.ing.stlab.movierentalmanager.model.users.Employee;
+import it.unifi.ing.stlab.movierentalmanager.model.users.OfficeRole;
+import it.unifi.ing.stlab.movierentalmanager.model.users.WebUser;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;

@@ -1,17 +1,17 @@
-package it.unifi.ing.stlab.movierentalmanager.model.users;
+package it.unifi.ing.stlab.movierentalmanager.model.filters;
 
-import javax.persistence.Embeddable;
-
-@Embeddable
-public class WebUser {
+public class AuthenticationRequest {
 
     private String username;
-    private String email;
     private String password;
-    private String secret;
 
-    public WebUser() {
+    // Empty constructor for serialization purposes
+    public AuthenticationRequest() {
+    }
 
+    public AuthenticationRequest(String username, String password) {
+        this.username = username;
+        this.password = password;
     }
 
     public String getUsername() {
@@ -20,14 +20,6 @@ public class WebUser {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getPassword() {

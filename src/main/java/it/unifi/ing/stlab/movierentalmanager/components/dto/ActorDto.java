@@ -10,8 +10,8 @@ public class ActorDto implements Serializable {
     private Date birthDate;
     private String country;
     private String stageName;
-    private List<MovieDto> movies;
-    private List<CharacterDto> characters;
+    private List<Long> moviesIDs;
+//    private List<CharacterDto> characters;
 
     public String getName() {
         return name;
@@ -45,19 +45,19 @@ public class ActorDto implements Serializable {
         this.stageName = stageName;
     }
 
-    public List<MovieDto> getMovies() {
-        return movies;
+    public List<Long> getMoviesIDs() {
+        return moviesIDs;
     }
 
-    public void setMovies(List<MovieDto> movies) {
-        this.movies = movies;
+    public void setMoviesIDs(List<Long> moviesIDs) {
+        this.moviesIDs = moviesIDs;
     }
 
-    public List<CharacterDto> getCharacters() {
-        return characters;
-    }
-
-    public void setCharacters(List<CharacterDto> characters) {
-        this.characters = characters;
-    }
+//    public List<CharacterDto> getCharacters() {
+//        return characters;
+//    }
+//
+//    public void setCharacters(List<CharacterDto> characters) {
+//        this.characters = characters;
+//    }
 }

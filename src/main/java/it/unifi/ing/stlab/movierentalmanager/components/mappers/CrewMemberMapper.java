@@ -50,8 +50,8 @@ public class CrewMemberMapper {
             cm.setCountry(dto.getCountry());
         if(dto.getRole() != null)
             cm.setRole(dto.getRole());
-        if(dto.getMovies() != null)
-            deSerializeMovies(cm, dto.getMovies());
+        if(dto.getMoviesIDs() != null)
+            deSerializeMovies(cm, dto.getMoviesIDs());
     }
 
 //    private void serializeMovies(LiteCrewMemberDto dto, List<Movie> movies) {
@@ -60,20 +60,17 @@ public class CrewMemberMapper {
 //                dto.getMovies().add( movieMapper.convert(m) );
 //    }
 
-    private void deSerializeMovies(CrewMember cm, List<MovieDto> movieDtos) {
+    private void deSerializeMovies(CrewMember cm, List<Long> moviesIDs) {
         cm.getMovies().clear();
 
-        if(movieDtos != null && movieDtos.size() > 0)
-            for (MovieDto m : movieDtos) {
-                if ( movieDao.retrieveMoviesByTitle( m.getTitle() ).size() != 0 )
-                    System.out.println("Movies with similar names do exist in database. Do you want to check them out?");
-                else {
-                    Movie movie = ModelFactory.initMovie();
-                    movieMapper.transfer(m, movie);
-                    movieDao.add(movie);
-                    cm.getMovies().add(movie);
-                }
+        if(moviesIDs != null || moviesIDs.size() > 0) {
+            for (Long ID : moviesIDs) {
+                cm.getMovies().add(
+                        movieDao.findById(ID)
+                                .orElseThrow(() -> new IllegalArgumentException("Movie not found"))
+                );
             }
+        }
     }
 
 }

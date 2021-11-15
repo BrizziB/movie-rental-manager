@@ -38,7 +38,10 @@ public class ProductionCompanyDao extends BaseDao<ProductionCompany> {
                 "FROM ProductionCompany pc JOIN FETCH pc.movies WHERE pc.id = :id",
                 ProductionCompany.class
         ).setParameter("id", id);
-        return query.getSingleResult();
+        return query.getResultList()
+                .stream()
+                .findFirst()
+                .orElse(null);
     }
 
 }

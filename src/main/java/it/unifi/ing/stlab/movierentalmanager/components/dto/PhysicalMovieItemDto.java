@@ -8,18 +8,18 @@ import java.math.BigDecimal;
 
 public class PhysicalMovieItemDto implements Serializable {
 
-    private MovieDto movie;
+    private Long movieID;
     private BigDecimal rentalPrice;
     private BigDecimal discountedPrice;
     private MovieMedium medium;
     private ItemState state;
 
-    public MovieDto getMovie() {
-        return movie;
+    public Long getMovieID() {
+        return movieID;
     }
 
-    public void setMovie(MovieDto movie) {
-        this.movie = movie;
+    public void setMovieID(Long movieID) {
+        this.movieID = movieID;
     }
 
     public BigDecimal getRentalPrice() {

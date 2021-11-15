@@ -38,7 +38,7 @@ public abstract class BaseDao<T extends BaseEntity> {
     }
 
     public List<T> findAll(Integer offset, Integer limit) {
-        TypedQuery<T> query = em.createQuery("SELECT FROM " + entityType.getName(), entityType)
+        TypedQuery<T> query = em.createQuery("FROM " + entityType.getName(), entityType)
                                         .setFirstResult(offset)
                                         .setMaxResults(limit);
         return query.getResultList();

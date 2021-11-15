@@ -45,8 +45,8 @@ public class DirectorMapper {
             d.setBirthDate(dto.getBirthDate());
         if(dto.getCountry() != null)
             d.setCountry(dto.getCountry());
-        if(dto.getMovies() != null)
-            deSerializeMovies(d, dto.getMovies());
+        if(dto.getMoviesIDs() != null)
+            deSerializeMovies(d, dto.getMoviesIDs());
     }
 
 //    private void serializeMovies(LiteDirectorDto dto, List<Movie> movies) {
@@ -55,20 +55,17 @@ public class DirectorMapper {
 //                dto.getMovies().add(movieMapper.convert(m) );
 //    }
 
-    private void deSerializeMovies(Director d, List<MovieDto> movieDtos) {
+    private void deSerializeMovies(Director d, List<Long> moviesIDs) {
         d.getMovies().clear();
 
-        if(movieDtos != null && movieDtos.size() > 0)
-            for (MovieDto m : movieDtos) {
-                if ( movieDao.retrieveMoviesByTitle(m.getTitle()).size() != 0)
-                    System.out.println("Movies with similar titles do exist in database. Do you want to check them out?");
-                else {
-                    Movie movie = ModelFactory.initMovie();
-                    movieMapper.transfer(m, movie);
-                    movieDao.add(movie);
-                    d.getMovies().add(movie);
-                }
+        if(moviesIDs != null || moviesIDs.size() > 0) {
+            for (Long ID : moviesIDs) {
+                d.getMovies().add(
+                        movieDao.findById(ID)
+                                .orElseThrow(() -> new IllegalArgumentException("Movie not found"))
+                );
             }
+        }
     }
 
 }

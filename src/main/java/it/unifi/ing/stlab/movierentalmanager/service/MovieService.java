@@ -2,8 +2,10 @@ package it.unifi.ing.stlab.movierentalmanager.service;
 
 import com.google.gson.Gson;
 import it.unifi.ing.stlab.movierentalmanager.components.controllers.MovieController;
+import it.unifi.ing.stlab.movierentalmanager.model.filters.JWTAuthNeeded;
 import it.unifi.ing.stlab.movierentalmanager.model.movies.CrewRole;
 
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -11,6 +13,7 @@ import javax.ws.rs.core.Response;
 import java.util.List;
 
 @Path("movies")
+@RolesAllowed("BACK-OFFICE")
 public class MovieService {
 
     @Inject private MovieController movieController;
@@ -18,15 +21,19 @@ public class MovieService {
     @GET
     @Path("/{id}")
     @Produces({ MediaType.APPLICATION_JSON })
+    @JWTAuthNeeded
+    @RolesAllowed("BACK_OFFICE")
     public Response retrieveMovieById(@PathParam("id") Long id) {
         Gson gson = new Gson();
         try {
-            return Response.ok(
+            return Response.status(Response.Status.OK).entity(
                     gson.toJson( movieController.getMovieById(id) )
             ).build();
         } catch(Exception e) {
             e.printStackTrace();
-            return Response.notAcceptable(null).build();
+            return Response.status(Response.Status.NOT_ACCEPTABLE)
+                    .entity(null)
+                    .build();
         }
     }
 
@@ -36,12 +43,14 @@ public class MovieService {
     public Response retrieveMoviesByTitle(@QueryParam("title") String title) {
         Gson gson = new Gson();
         try {
-            return Response.ok(
+            return Response.status(Response.Status.OK).entity(
                     gson.toJson( movieController.getMoviesByTitle(title) )
             ).build();
         } catch(Exception e) {
             e.printStackTrace();
-            return Response.notAcceptable(null).build();
+            return Response.status(Response.Status.NOT_ACCEPTABLE)
+                    .entity(null)
+                    .build();
         }
     }
 
@@ -51,12 +60,14 @@ public class MovieService {
     public Response retrieveMoviesByActor(@PathParam("id") Long id) {
         Gson gson = new Gson();
         try {
-            return Response.ok(
+            return Response.status(Response.Status.OK).entity(
                     gson.toJson( movieController.getMoviesByActorId(id) )
             ).build();
         } catch(Exception e) {
             e.printStackTrace();
-            return Response.notAcceptable(null).build();
+            return Response.status(Response.Status.NOT_ACCEPTABLE)
+                    .entity(null)
+                    .build();
         }
     }
 
@@ -66,12 +77,14 @@ public class MovieService {
     public Response retrieveMoviesByDirector(@PathParam("id") Long id) {
         Gson gson = new Gson();
         try {
-            return Response.ok(
+            return Response.status(Response.Status.OK).entity(
                     gson.toJson( movieController.getMoviesByDirectorId(id) )
             ).build();
         } catch(Exception e) {
             e.printStackTrace();
-            return Response.notAcceptable(null).build();
+            return Response.status(Response.Status.NOT_ACCEPTABLE)
+                    .entity(null)
+                    .build();
         }
     }
 
@@ -81,12 +94,14 @@ public class MovieService {
 //    public Response retrieveMoviesByCinematographer(@PathParam("id") Long id) {
 //        Gson gson = new Gson();
 //        try {
-//            return Response.ok(
+//            return Response.status(Response.Status.OK).entity(
 //                    gson.toJson( movieController.getMoviesByCinematographerId(id) )
 //            ).build();
 //        } catch(Exception e) {
 //            e.printStackTrace();
-//            return Response.notAcceptable(null).build();
+//            return Response.status(Response.Status.NOT_ACCEPTABLE)
+//                    .entity(null)
+//                    .build();
 //        }
 //    }
 //
@@ -96,12 +111,14 @@ public class MovieService {
 //    public Response retrieveMoviesByWriter(@PathParam("id") Long id) {
 //        Gson gson = new Gson();
 //        try {
-//            return Response.ok(
+//            return Response.status(Response.Status.OK).entity(
 //                    gson.toJson( movieController.getMoviesByWriterId(id) )
 //            ).build();
 //        } catch(Exception e) {
 //            e.printStackTrace();
-//            return Response.notAcceptable(null).build();
+//            return Response.status(Response.Status.NOT_ACCEPTABLE)
+//                    .entity(null)
+//                    .build();
 //        }
 //    }
 
@@ -111,12 +128,14 @@ public class MovieService {
     public Response retrieveMoviesByCrewMember(@QueryParam("id") Long id, @QueryParam("role") CrewRole role) {
         Gson gson = new Gson();
         try {
-            return Response.ok(
+            return Response.status(Response.Status.OK).entity(
                     gson.toJson( movieController.getMoviesByCrewMemberIdAndRole(id, role) )
             ).build();
         } catch(Exception e) {
             e.printStackTrace();
-            return Response.notAcceptable(null).build();
+            return Response.status(Response.Status.NOT_ACCEPTABLE)
+                    .entity(null)
+                    .build();
         }
     }
 
@@ -126,12 +145,14 @@ public class MovieService {
     public Response retrieveTopRatedMovies(@QueryParam("limit") Integer limit) {
         Gson gson = new Gson();
         try {
-            return Response.ok(
+            return Response.status(Response.Status.OK).entity(
                     gson.toJson( movieController.getTopRatedMovies(limit) )
             ).build();
         } catch(Exception e) {
             e.printStackTrace();
-            return Response.notAcceptable(null).build();
+            return Response.status(Response.Status.NOT_ACCEPTABLE)
+                    .entity(null)
+                    .build();
         }
     }
 
@@ -141,12 +162,14 @@ public class MovieService {
     public Response retrieveAllMovies() {
         Gson gson = new Gson();
         try {
-            return Response.ok(
+            return Response.status(Response.Status.OK).entity(
                     gson.toJson( movieController.getAllMovies(0, 25) )
             ).build();
         } catch(Exception e) {
             e.printStackTrace();
-            return Response.notAcceptable(null).build();
+            return Response.status(Response.Status.NOT_ACCEPTABLE)
+                    .entity(null)
+                    .build();
         }
     }
 
@@ -155,7 +178,7 @@ public class MovieService {
     @Path("/list/multipleFilters")
     @Produces({ MediaType.APPLICATION_JSON })
     public Response multipleFilters(@QueryParam(value = "") List<String> json) {
-        return Response.ok("").build();
+        return Response.status(Response.Status.OK).entity("").build();
     }
 
     // CRUD methods
@@ -164,13 +187,17 @@ public class MovieService {
     @Path("/add")
     @Consumes({ MediaType.APPLICATION_JSON })
     @Produces({ MediaType.TEXT_PLAIN })
+    @JWTAuthNeeded
+    @RolesAllowed("BACK_OFFICE")
     public Response addNewMovie(String json) {
         try {
             movieController.addMovieToDb(json);
-            return Response.ok("New movie added").build();
+            return Response.status(Response.Status.OK).entity("New movie added").build();
         } catch(Exception e) {
             e.printStackTrace();
-            return Response.notAcceptable(null).build();
+            return Response.status(Response.Status.NOT_ACCEPTABLE)
+                    .entity(null)
+                    .build();
         }
     }
 
@@ -178,40 +205,52 @@ public class MovieService {
     @Path("/update")
     @Consumes({ MediaType.APPLICATION_JSON })
     @Produces({ MediaType.TEXT_PLAIN })
+    @JWTAuthNeeded
+    @RolesAllowed("BACK_OFFICE")
     public Response updateMovie(String json, @QueryParam("id") Long id) {
         //TODO aggiungere 'id' anche nel body
         try {
             movieController.updateMovieOnDb(json, id);
-            return Response.ok("Movie " + id + " correctly updated").build();
+            return Response.status(Response.Status.OK).entity("Movie " + id + " correctly updated").build();
         } catch(Exception e) {
             e.printStackTrace();
-            return Response.notAcceptable(null).build();
+            return Response.status(Response.Status.NOT_ACCEPTABLE)
+                    .entity(null)
+                    .build();
         }
     }
 
     @POST
     @Path("/disable")
     @Produces({ MediaType.TEXT_PLAIN })
+    @JWTAuthNeeded
+    @RolesAllowed("BACK_OFFICE")
     public Response disableMovie(@QueryParam("id") Long id) {
         try {
             movieController.disableMovieOnDb(true, id);
-            return Response.ok("Movie " + id + " correctly disabled").build();
+            return Response.status(Response.Status.OK).entity("Movie " + id + " correctly disabled").build();
         } catch(Exception e) {
             e.printStackTrace();
-            return Response.notAcceptable(null).build();
+            return Response.status(Response.Status.NOT_ACCEPTABLE)
+                    .entity(null)
+                    .build();
         }
     }
 
     @POST
     @Path("/restore")
     @Produces({ MediaType.TEXT_PLAIN })
+    @JWTAuthNeeded
+    @RolesAllowed("BACK_OFFICE")
     public Response restoreMovie(@QueryParam("id") Long id) {
         try {
             movieController.disableMovieOnDb(false, id);
-            return Response.ok("Movie " + id + " correctly restored").build();
+            return Response.status(Response.Status.OK).entity("Movie " + id + " correctly restored").build();
         } catch(Exception e) {
             e.printStackTrace();
-            return Response.notAcceptable(null).build();
+            return Response.status(Response.Status.NOT_ACCEPTABLE)
+                    .entity(null)
+                    .build();
         }
     }
 

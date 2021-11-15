@@ -30,7 +30,10 @@ public class DirectorDao extends BaseDao<Director> {
                 "FROM Director d JOIN FETCH d.movies WHERE d.id = :id",
                 Director.class
         ).setParameter("id", id);
-        return query.getSingleResult();
+        return query.getResultList()
+                .stream()
+                .findFirst()
+                .orElse(null);
     }
 
     @Transactional

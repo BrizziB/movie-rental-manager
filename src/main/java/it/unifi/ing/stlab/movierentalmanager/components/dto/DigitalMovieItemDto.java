@@ -6,18 +6,18 @@ import java.util.Date;
 
 public class DigitalMovieItemDto implements Serializable {
 
-    private MovieDto movie;
+    private Long movieID;
     private BigDecimal rentalPrice;
     private BigDecimal discountedPrice;
     private String url;
     private Date expirationDate;
 
-    public MovieDto getMovie() {
-        return movie;
+    public Long getMovieID() {
+        return movieID;
     }
 
-    public void setMovie(MovieDto movie) {
-        this.movie = movie;
+    public void setMovieID(Long movieID) {
+        this.movieID = movieID;
     }
 
     public BigDecimal getRentalPrice() {

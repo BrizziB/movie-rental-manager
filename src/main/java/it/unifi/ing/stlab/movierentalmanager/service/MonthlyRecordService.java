@@ -20,12 +20,14 @@ public class MonthlyRecordService {
     public Response retrieveMonthlyRecordById(@PathParam("id") Long id) {
         Gson gson = new Gson();
         try {
-            return Response.ok(
+            return Response.status(Response.Status.OK).entity(
                     gson.toJson( monthlyRecordController.getMonthlyRecordById(id) )
             ).build();
         } catch(Exception e) {
             e.printStackTrace();
-            return Response.notAcceptable(null).build();
+            return Response.status(Response.Status.NOT_ACCEPTABLE)
+                    .entity(null)
+                    .build();
         }
     }
 
@@ -35,12 +37,14 @@ public class MonthlyRecordService {
     public Response retrieveMonthlyRecordsByName(@QueryParam("name") String name) {
         Gson gson = new Gson();
         try {
-            return Response.ok(
+            return Response.status(Response.Status.OK).entity(
                     gson.toJson( monthlyRecordController.getMonthlyRecordsByName(name) )
             ).build();
         } catch(Exception e) {
             e.printStackTrace();
-            return Response.notAcceptable(null).build();
+            return Response.status(Response.Status.NOT_ACCEPTABLE)
+                    .entity(null)
+                    .build();
         }
     }
 
@@ -50,12 +54,14 @@ public class MonthlyRecordService {
     public Response retrieveMonthlyRecordsByMovieId(@PathParam("id") Long id) {
         Gson gson = new Gson();
         try {
-            return Response.ok(
+            return Response.status(Response.Status.OK).entity(
                     gson.toJson( monthlyRecordController.getMonthlyRecordsByMovieId(id) )
             ).build();
         } catch(Exception e) {
             e.printStackTrace();
-            return Response.notAcceptable(null).build();
+            return Response.status(Response.Status.NOT_ACCEPTABLE)
+                    .entity(null)
+                    .build();
         }
     }
 
@@ -65,12 +71,14 @@ public class MonthlyRecordService {
     public Response retrieveMonthlyRecordsByMovieTitle(@QueryParam("title") String title) {
         Gson gson = new Gson();
         try {
-            return Response.ok(
+            return Response.status(Response.Status.OK).entity(
                     gson.toJson( monthlyRecordController.getMonthlyRecordsByMovieTitle(title) )
             ).build();
         } catch(Exception e) {
             e.printStackTrace();
-            return Response.notAcceptable(null).build();
+            return Response.status(Response.Status.NOT_ACCEPTABLE)
+                    .entity(null)
+                    .build();
         }
     }
 
@@ -80,12 +88,14 @@ public class MonthlyRecordService {
     public Response retrieveMonthlyRecordsByDate(@QueryParam("start") Date start, @QueryParam("end") Date end) {
         Gson gson = new Gson();
         try {
-            return Response.ok(
+            return Response.status(Response.Status.OK).entity(
                     gson.toJson( monthlyRecordController.getMonthlyRecordsBetweenDates(start, end) )
             ).build();
         } catch(Exception e) {
             e.printStackTrace();
-            return Response.notAcceptable(null).build();
+            return Response.status(Response.Status.NOT_ACCEPTABLE)
+                    .entity(null)
+                    .build();
         }
     }
 
@@ -95,12 +105,14 @@ public class MonthlyRecordService {
     public Response retrieveAllMonthlyRecords() {
         Gson gson = new Gson();
         try {
-            return Response.ok(
+            return Response.status(Response.Status.OK).entity(
                     gson.toJson( monthlyRecordController.getAllMonthlyRecords(0, 25) )
             ).build();
         } catch(Exception e) {
             e.printStackTrace();
-            return Response.notAcceptable(null).build();
+            return Response.status(Response.Status.NOT_ACCEPTABLE)
+                    .entity(null)
+                    .build();
         }
     }
 
@@ -113,10 +125,12 @@ public class MonthlyRecordService {
     public Response updateMonthlyRecord(String json, @QueryParam("id") Long id) {
         try {
             monthlyRecordController.updateMonthlyRecordOnDb(json, id);
-            return Response.ok("Monthly record " + id + " correctly updated").build();
+            return Response.status(Response.Status.OK).entity("Monthly record " + id + " correctly updated").build();
         } catch(Exception e) {
             e.printStackTrace();
-            return Response.notAcceptable(null).build();
+            return Response.status(Response.Status.NOT_ACCEPTABLE)
+                    .entity(null)
+                    .build();
         }
     }
 
@@ -126,10 +140,12 @@ public class MonthlyRecordService {
     public Response disableMonthlyRecord(@QueryParam("id") Long id) {
         try {
             monthlyRecordController.disableMonthlyRecordOnDb(true, id);
-            return Response.ok("Monthly record " + id + " correctly disabled").build();
+            return Response.status(Response.Status.OK).entity("Monthly record " + id + " correctly disabled").build();
         } catch(Exception e) {
             e.printStackTrace();
-            return Response.notAcceptable(null).build();
+            return Response.status(Response.Status.NOT_ACCEPTABLE)
+                    .entity(null)
+                    .build();
         }
     }
 
@@ -139,10 +155,12 @@ public class MonthlyRecordService {
     public Response restoreMonthlyRecord(@QueryParam("id") Long id) {
         try {
             monthlyRecordController.disableMonthlyRecordOnDb(false, id);
-            return Response.ok("Monthly record " + id + " correctly restored").build();
+            return Response.status(Response.Status.OK).entity("Monthly record " + id + " correctly restored").build();
         } catch(Exception e) {
             e.printStackTrace();
-            return Response.notAcceptable(null).build();
+            return Response.status(Response.Status.NOT_ACCEPTABLE)
+                    .entity(null)
+                    .build();
         }
     }
 

@@ -54,8 +54,7 @@ public class CustomerMapper {
             c.setMembership(dto.getMembership());
         if(dto.getCustomerDetails() != null)
             c.setCustomerDetails(dto.getCustomerDetails());
-        if(dto.getPaymentProfiles() != null)
-            deSerializePaymentProfiles(c, dto.getPaymentProfiles());
+//        deSerializePaymentProfiles(c, dto.getPaymentProfiles());
     }
 
 //    private void serializePaymentProfiles(LiteCustomerDto dto, List<PaymentProfile> paymentProfiles) {

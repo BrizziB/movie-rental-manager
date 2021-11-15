@@ -55,10 +55,10 @@ public class ActorMapper {
             a.setCountry(dto.getCountry());
         if(dto.getStageName() != null)
             a.setStageName(dto.getStageName());
-        if(dto.getMovies() != null)
-            deSerializeMovies(a, dto.getMovies());
-        if(dto.getCharacters() != null)
-            deSerializeCharacters(a, dto.getCharacters());
+        if(dto.getMoviesIDs() != null)
+            deSerializeMovies(a, dto.getMoviesIDs());
+//        if(dto.getCharacters() != null)
+//            deSerializeCharacters(a, dto.getCharacters());
     }
 
 //    private void serializeMovies(LiteActorDto dto, List<Movie> movies) {
@@ -73,20 +73,17 @@ public class ActorMapper {
 //                dto.getCharacters().add( characterMapper.convert(c) );
 //    }
 
-    private void deSerializeMovies(Actor a, List<MovieDto> movieDtos) {
+    private void deSerializeMovies(Actor a, List<Long> moviesIDs) {
         a.getMovies().clear();
 
-        if(movieDtos != null || movieDtos.size() > 0)
-            for (MovieDto liteMovie : movieDtos) {
-                if ( movieDao.retrieveMoviesByTitle( liteMovie.getTitle() ).size() != 0 )
-                    System.out.println("Movies with similar names do exist in database. Do you want to check them out?");
-                else {
-                    Movie movie = ModelFactory.initMovie();
-                    movieMapper.transfer(liteMovie, movie);
-                    movieDao.add(movie);
-                    a.getMovies().add(movie);
-                }
+        if(moviesIDs != null || moviesIDs.size() > 0) {
+            for (Long ID : moviesIDs) {
+                a.getMovies().add(
+                        movieDao.findById(ID)
+                                .orElseThrow(() -> new IllegalArgumentException("Movie not found"))
+                );
             }
+        }
     }
 
     private void deSerializeCharacters(Actor a, List<CharacterDto> characterDtos) {

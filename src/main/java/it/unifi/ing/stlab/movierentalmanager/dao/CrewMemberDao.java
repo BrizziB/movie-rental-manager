@@ -34,7 +34,10 @@ public class CrewMemberDao extends BaseDao<CrewMember> {
                 CrewMember.class
         ).setParameter("id", id)
          .setParameter("role", role);
-        return query.getSingleResult();
+        return query.getResultList()
+                .stream()
+                .findFirst()
+                .orElse(null);
     }
 
     @Transactional

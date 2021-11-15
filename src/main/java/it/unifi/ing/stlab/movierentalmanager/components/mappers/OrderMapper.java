@@ -41,8 +41,14 @@ public class OrderMapper {
 
         LiteOrderDto dto = new LiteOrderDto();
 
-        dto.setCustomer( customerMapper.convert(o.getCustomer()) );
-        dto.setPaymentProfile( paymentProfileMapper.convert(o.getPaymentProfile()) );
+        if(o.getCustomer() != null)
+            dto.setCustomer( customerMapper.convert(o.getCustomer()) );
+        else
+            System.out.println("Customer missing");
+        if(o.getPaymentProfile() != null)
+            dto.setPaymentProfile( paymentProfileMapper.convert(o.getPaymentProfile()) );
+        else if(o.getCustomer() != null)
+            System.out.println("Check if customer has any payment profile assigned");
         dto.setOrderStatus(o.getOrderStatus());
         dto.setRentalType(o.getRentalType());
         dto.setTotal(o.getFullTotal());
@@ -59,37 +65,26 @@ public class OrderMapper {
         if(o == null)
             throw new MapperTransferException("The order Entity is NULL");
 
-        if(dto.getCustomer() != null) {
-            if( customerDao.retrieveCustomersByName( dto.getCustomer().getName() ).size() != 0 )
-                System.out.println("Customers with similar names do exist in database. Do you want to check them out?");
-            else {
-                Customer customer = ModelFactory.initCustomer();
-                customerMapper.transfer(dto.getCustomer(), customer);
-                customerDao.add(customer);
-                o.setCustomer(customer);
-            }
-        }
-        if(dto.getPaymentProfile() != null) {
-            if( paymentProfileDao.findAll(0, 25).size() != 0) {
-                System.out.println("Do you want to check out if this payment profile already exists inside the database");
-            }
-            else {
-                PaymentProfile pp = ModelFactory.initPaymentProfile();
-                paymentProfileMapper.transfer(dto.getPaymentProfile(), pp);
-                paymentProfileDao.add(pp);
-                o.setPaymentProfile(pp);
-            }
-        }
+//        o.setCustomer(
+//                    customerDao.findById( dto.getCustomerID() )
+//                               .orElseThrow( () -> new IllegalArgumentException("Customer not found"))
+//        );
+
+        o.setPaymentProfile(
+                paymentProfileDao.findById( dto.getPaymentProfileID() )
+                        .orElseThrow( () -> new IllegalArgumentException("Payment profile not found"))
+        );
+
         if(dto.getOrderStatus() != null)
             o.setOrderStatus(dto.getOrderStatus());
         if(dto.getRentalType() != null)
             o.setRentalType(dto.getRentalType());
         if(dto.getDelivery() != null)
             o.setDelivery(dto.getDelivery());
-        if(dto.getDigitalItems() != null)
-            deSerializeDigitalMovieItems(o, dto.getDigitalItems());
-        if(dto.getPhysicalItems() != null)
-            deSerializePhysicalMovieItems(o, dto.getPhysicalItems());
+        if(dto.getDigitalItemsIDs() != null)
+            deSerializeDigitalMovieItems(o, dto.getDigitalItemsIDs());
+        if(dto.getPhysicalItemsIDs() != null)
+            deSerializePhysicalMovieItems(o, dto.getPhysicalItemsIDs());
         o.computeDiscountedTotal();
     }
 
@@ -108,34 +103,28 @@ public class OrderMapper {
 //                    dto.getPhysicalItems().add( physicalMovieItemMapper.convert( (PhysicalMovieItem) mi ) );
 //    }
 
-    private void deSerializeDigitalMovieItems(Order o, List<DigitalMovieItemDto> digitalMovieItemDtos) {
+    private void deSerializeDigitalMovieItems(Order o, List<Long> digitalMovieItemIDs) {
         o.getItems().clear();
 
-        if(digitalMovieItemDtos != null && digitalMovieItemDtos.size() > 0) {
-            for (DigitalMovieItemDto dmi : digitalMovieItemDtos) {
-                if( digitalMovieItemDao.retrieveDigitalMovieItemsByMovieTitle( dmi.getMovie().getTitle() ) != null )
-                    System.out.println("Digital items of movies with similar names do exist in database. Do you want to check them out?");
-                else {
-                    DigitalMovieItem digitalMovieItem = ModelFactory.initDigitalMovieItem();
-                    digitalMovieItemMapper.transfer(dmi, digitalMovieItem);
-                    o.getItems().add(digitalMovieItem);
-                }
+        if(digitalMovieItemIDs != null && digitalMovieItemIDs.size() > 0) {
+            for (Long ID : digitalMovieItemIDs) {
+                o.getItems().add(
+                        digitalMovieItemDao.findById(ID)
+                                           .orElseThrow( () -> new IllegalArgumentException("Digital item not found") )
+                );
             }
         }
     }
 
-    private void deSerializePhysicalMovieItems(Order o, List<PhysicalMovieItemDto> physicalMovieItemDtos) {
+    private void deSerializePhysicalMovieItems(Order o, List<Long> physicalMovieItemIDs) {
         o.getItems().clear();
 
-        if(physicalMovieItemDtos != null && physicalMovieItemDtos.size() > 0) {
-            for (PhysicalMovieItemDto pmi : physicalMovieItemDtos) {
-                if( physicalMovieItemDao.retrievePhysicalMovieItemsByMovieTitle( pmi.getMovie().getTitle() ) != null )
-                    System.out.println("Physical items of movies with similar names do exist in database. Do you want to check them out?");
-                else {
-                    PhysicalMovieItem physicalMovieItem = ModelFactory.initPhysicalMovieItem();
-                    physicalMovieItemMapper.transfer(pmi, physicalMovieItem);
-                    o.getItems().add(physicalMovieItem);
-                }
+        if(physicalMovieItemIDs != null && physicalMovieItemIDs.size() > 0) {
+            for (Long ID : physicalMovieItemIDs) {
+                o.getItems().add(
+                        physicalMovieItemDao.findById(ID)
+                                .orElseThrow( () -> new IllegalArgumentException("Physical item not found") )
+                );
             }
         }
 

@@ -7,8 +7,8 @@ public class CharacterDto implements Serializable {
 
     private String name;
     private ActorDto actor;
-    private List<ActorDto> actors;
-    private List<MovieDto> movies;
+    private List<Long> moviesIDs;
+    private List<Long> actorsIDs;
 
     public String getName() {
         return name;
@@ -26,19 +26,19 @@ public class CharacterDto implements Serializable {
         this.actor = actor;
     }
 
-    public List<ActorDto> getActors() {
-        return actors;
+    public List<Long> getMoviesIDs() {
+        return moviesIDs;
     }
 
-    public void setActors(List<ActorDto> actors) {
-        this.actors = actors;
+    public void setMoviesIDs(List<Long> moviesIDs) {
+        this.moviesIDs = moviesIDs;
     }
 
-    public List<MovieDto> getMovies() {
-        return movies;
+    public List<Long> getActorsIDs() {
+        return actorsIDs;
     }
 
-    public void setMovies(List<MovieDto> movies) {
-        this.movies = movies;
+    public void setActorsIDs(List<Long> actorsIDs) {
+        this.actorsIDs = actorsIDs;
     }
 }

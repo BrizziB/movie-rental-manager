@@ -58,10 +58,10 @@ public class CharacterMapper {
                 c.setActor(actor);
             }
         }
-        if(dto.getActors() != null)
-            deSerializeActors(c, dto.getActors());
-        if(dto.getMovies() != null)
-            deSerializeMovies(c, dto.getMovies());
+        if(dto.getActorsIDs() != null)
+            deSerializeActors(c, dto.getActorsIDs());
+        if(dto.getMoviesIDs() != null)
+            deSerializeMovies(c, dto.getMoviesIDs());
     }
 
 //    private void serializeActors(LiteCharacterDto dto, List<Actor> actors) {
@@ -76,36 +76,30 @@ public class CharacterMapper {
 //                dto.getMovies().add( movieMapper.convert(m) );
 //    }
 
-    private void deSerializeActors(Character c, List<ActorDto> actorDtos) {
-        c.getActors().clear();
-
-        if(actorDtos != null && actorDtos.size() > 0)
-            for (ActorDto liteActor : actorDtos) {
-                if ( actorDao.retrieveActorsByName( liteActor.getName() ).size() != 0 )
-                    System.out.println("Actors with similar names do exist in database. Do you want to check them out?");
-                else {
-                    Actor actor = ModelFactory.initActor();
-                    actorMapper.transfer(liteActor, actor);
-                    actorDao.add(actor);
-                    c.getActors().add(actor);
-                }
-            }
-    }
-
-    private void deSerializeMovies(Character c, List<MovieDto> movieDtos) {
+    private void deSerializeMovies(Character c, List<Long> moviesIDs) {
         c.getMovies().clear();
 
-        if(movieDtos != null && movieDtos.size() > 0)
-            for (MovieDto m : movieDtos) {
-                if ( movieDao.retrieveMoviesByTitle( m.getTitle() ).size() != 0 )
-                    System.out.println("Movies with similar names do exist in database. Do you want to check them out?");
-                else {
-                    Movie movie = ModelFactory.initMovie();
-                    movieMapper.transfer(m, movie);
-                    movieDao.add(movie);
-                    c.getMovies().add(movie);
-                }
+        if(moviesIDs != null || moviesIDs.size() > 0) {
+            for (Long ID : moviesIDs) {
+                c.getMovies().add(
+                        movieDao.findById(ID)
+                                .orElseThrow(() -> new IllegalArgumentException("Movie not found"))
+                );
             }
+        }
+    }
+
+    private void deSerializeActors(Character c, List<Long> actorsIDs) {
+        c.getActors().clear();
+
+        if(actorsIDs != null || actorsIDs.size() > 0) {
+            for (Long ID : actorsIDs) {
+                c.getMovies().add(
+                        movieDao.findById(ID)
+                                .orElseThrow(() -> new IllegalArgumentException("Actor not found"))
+                );
+            }
+        }
     }
 
 }

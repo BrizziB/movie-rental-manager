@@ -10,7 +10,7 @@ public class DirectorDto implements Serializable {
     private Date birthDate;
     private String country;
 //    private String biography;
-    private List<MovieDto> movies;
+    private List<Long> moviesIDs;
 
     public String getName() {
         return name;
@@ -36,11 +36,11 @@ public class DirectorDto implements Serializable {
         this.country = country;
     }
 
-    public List<MovieDto> getMovies() {
-        return movies;
+    public List<Long> getMoviesIDs() {
+        return moviesIDs;
     }
 
-    public void setMovies(List<MovieDto> movies) {
-        this.movies = movies;
+    public void setMoviesIDs(List<Long> moviesIDs) {
+        this.moviesIDs = moviesIDs;
     }
 }

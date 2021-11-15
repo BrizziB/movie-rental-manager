@@ -27,6 +27,14 @@ public class OrderDao extends BaseDao<Order> {
         oldOrder.computeDiscountedTotal();
     }
 
+    public List<Order> retrieveOrdersByIDs(List<Long> IDs) {
+        TypedQuery<Order> query = getEm().createQuery(
+                "FROM Order o WHERE o.id IN :IDs",
+                Order.class
+        ).setParameter("IDs", IDs);
+        return query.getResultList();
+    }
+
     public List<Order> retrieveOrdersBetweenDates(Date start, Date end) {
         TypedQuery<Order> query = getEm().createQuery(
                 "FROM Order o WHERE o.lastUpdateTime > :start AND o.lastUpdateTime < :end",

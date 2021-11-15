@@ -45,6 +45,24 @@ public class MovieDao extends BaseDao<Movie> {
         return query.getResultList();
     }
 
+//    public List<Movie> retrieveMoviesByMultipleFilters(@Nullable Long actorId, @Nullable Long directorId, @Nullable Long crewMemberId, @Nullable CrewRole crewRole, @Nullable String movieTitle) {
+//        ActorDao
+//
+//        TypedQuery<Movie> query = getEm().createQuery(
+//                "FROM Movie m WHERE " +
+//                        "m.title LIKE CONCAT('%', :title, '%') AND" +
+//                        ":actorId IN m.cast CONCAT('%', :title, '%') AND" +
+//                        "m.title LIKE CONCAT('%', :title, '%') AND" +
+//                        "m.title LIKE CONCAT('%', :title, '%') AND" ,
+//                Movie.class
+//        ).setParameter("title", title);
+//        .setParameter("title", title);
+//        .setParameter("title", title);
+//        .setParameter("title", title);
+//        .setParameter("title", title);
+//        return query.getResultList();
+//    }
+
     public List<Movie> retrieveTopRatedMovies(Integer limit) {
         TypedQuery<Movie> query = getEm().createQuery(
                 "FROM Movie m ORDER BY m.criticRating DESC",
@@ -59,7 +77,10 @@ public class MovieDao extends BaseDao<Movie> {
                "FROM Movie m JOIN FETCH m.cast WHERE m.id = :id",
                Movie.class
        ).setParameter("id", id);
-       return query.getSingleResult();
+        return query.getResultList()
+                .stream()
+                .findFirst()
+                .orElse(null);
     }
 
     @Transactional
@@ -68,7 +89,10 @@ public class MovieDao extends BaseDao<Movie> {
                 "FROM Movie m JOIN FETCH m.characters WHERE m.id = :id",
                 Movie.class
         ).setParameter("id", id);
-        return query.getSingleResult();
+        return query.getResultList()
+                .stream()
+                .findFirst()
+                .orElse(null);
     }
 
     @Transactional
@@ -77,7 +101,10 @@ public class MovieDao extends BaseDao<Movie> {
                 "FROM Movie m JOIN FETCH m.crew WHERE m.id = :id",
                 Movie.class
         ).setParameter("id", id);
-        return query.getSingleResult();
+        return query.getResultList()
+                .stream()
+                .findFirst()
+                .orElse(null);
     }
 
     @Transactional
@@ -86,7 +113,10 @@ public class MovieDao extends BaseDao<Movie> {
                 "FROM Movie m JOIN FETCH m.producers WHERE m.id = :id",
                 Movie.class
         ).setParameter("id", id);
-        return query.getSingleResult();
+        return query.getResultList()
+                .stream()
+                .findFirst()
+                .orElse(null);
     }
 
 }

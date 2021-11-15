@@ -10,29 +10,29 @@ import java.util.List;
 
 public class OrderDto implements Serializable {
 
-    private CustomerDto customer;
-    private PaymentProfileDto paymentProfile;
+    private Long customerID;
+    private Long paymentProfileID;
     private OrderStatus orderStatus;
     private RentalType rentalType;
     private BigDecimal total;
     private Delivery delivery;
-    private List<DigitalMovieItemDto> digitalItems;
-    private List<PhysicalMovieItemDto> physicalItems;
+    private List<Long> digitalItemsIDs;
+    private List<Long> physicalItemsIDs;
 
-    public CustomerDto getCustomer() {
-        return customer;
+    public Long getCustomerID() {
+        return customerID;
     }
 
-    public void setCustomer(CustomerDto customer) {
-        this.customer = customer;
+    public void setCustomerID(Long customerID) {
+        this.customerID = customerID;
     }
 
-    public PaymentProfileDto getPaymentProfile() {
-        return paymentProfile;
+    public Long getPaymentProfileID() {
+        return paymentProfileID;
     }
 
-    public void setPaymentProfile(PaymentProfileDto paymentProfile) {
-        this.paymentProfile = paymentProfile;
+    public void setPaymentProfileID(Long paymentProfileID) {
+        this.paymentProfileID = paymentProfileID;
     }
 
     public OrderStatus getOrderStatus() {
@@ -67,20 +67,20 @@ public class OrderDto implements Serializable {
         this.delivery = delivery;
     }
 
-    public List<DigitalMovieItemDto> getDigitalItems() {
-        return digitalItems;
+    public List<Long> getDigitalItemsIDs() {
+        return digitalItemsIDs;
     }
 
-    public void setDigitalItems(List<DigitalMovieItemDto> digitalItems) {
-        this.digitalItems = digitalItems;
+    public void setDigitalItemsIDs(List<Long> digitalItemsIDs) {
+        this.digitalItemsIDs = digitalItemsIDs;
     }
 
-    public List<PhysicalMovieItemDto> getPhysicalItems() {
-        return physicalItems;
+    public List<Long> getPhysicalItemsIDs() {
+        return physicalItemsIDs;
     }
 
-    public void setPhysicalItems(List<PhysicalMovieItemDto> physicalItems) {
-        this.physicalItems = physicalItems;
+    public void setPhysicalItemsIDs(List<Long> physicalItemsIDs) {
+        this.physicalItemsIDs = physicalItemsIDs;
     }
 
 }

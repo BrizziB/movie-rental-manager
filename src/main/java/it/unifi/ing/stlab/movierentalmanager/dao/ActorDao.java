@@ -32,7 +32,10 @@ public class ActorDao extends BaseDao<Actor> {
                 "FROM Actor a JOIN FETCH a.movies WHERE a.id = :id",
                 Actor.class
         ).setParameter("id", id);
-        return query.getSingleResult();
+        return query.getResultList()
+                .stream()
+                .findFirst()
+                .orElse(null);
     }
 
     @Transactional

@@ -20,7 +20,6 @@ public class Movie extends BaseEntity {
     private String language;
     private Integer budget;
     private Double criticRating;
-    private boolean disabled;
     @Enumerated(EnumType.STRING) private Genre genre;
     @Enumerated(EnumType.STRING) private Rating rating;
 
@@ -65,7 +64,6 @@ public class Movie extends BaseEntity {
         this.cast = new ArrayList<Actor>();
         this.producers = new ArrayList<ProductionCompany>();
         this.items = new ArrayList<MovieItem>();
-        disabled = false;
     }
 
     public Movie(UUID uuid) {
@@ -75,7 +73,6 @@ public class Movie extends BaseEntity {
         this.cast = new ArrayList<Actor>();
         this.producers = new ArrayList<ProductionCompany>();
         this.items = new ArrayList<MovieItem>();
-        disabled = false;
     }
 
     public String getTitle() {
@@ -182,16 +179,6 @@ public class Movie extends BaseEntity {
 
     public void setCriticRating(Double criticRating) {
         this.criticRating = criticRating;
-    }
-
-    @Override
-    public boolean isDisabled() {
-        return disabled;
-    }
-
-    @Override
-    public void setDisabled(boolean disabled) {
-        this.disabled = disabled;
     }
 
     public Director getDirector() {

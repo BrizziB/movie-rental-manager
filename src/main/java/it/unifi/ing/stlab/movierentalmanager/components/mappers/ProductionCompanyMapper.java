@@ -48,8 +48,8 @@ public class ProductionCompanyMapper {
             pc.setFoundationDate(dto.getFoundationDate());
         if(dto.getWebSiteURL() != null)
             pc.setWebSiteURL(dto.getWebSiteURL());
-        if(dto.getMovies() != null)
-            deSerializeMovies(pc, dto.getMovies());
+        if(dto.getMoviesIDs() != null)
+            deSerializeMovies(pc, dto.getMoviesIDs());
     }
 
 //    private void serializeMovies(LiteProductionCompanyDto dto, List<Movie> movies) {
@@ -58,20 +58,17 @@ public class ProductionCompanyMapper {
 //                dto.getMovies().add( movieMapper.convert(movie) );
 //    }
 
-    private void deSerializeMovies(ProductionCompany pc, List<MovieDto> movieDtos) {
+    private void deSerializeMovies(ProductionCompany pc, List<Long> moviesIDs) {
         pc.getMovies().clear();
 
-        if(movieDtos != null && movieDtos.size() > 0)
-            for (MovieDto m : movieDtos) {
-                if ( movieDao.retrieveMoviesByTitle( m.getTitle() ).size() != 0 )
-                    System.out.println("Movies with similar titles do exist in database. Do you want to check them out?");
-                else {
-                    Movie movie = ModelFactory.initMovie();
-                    movieMapper.transfer(m, movie);
-                    movieDao.add(movie);
-                    pc.getMovies().add(movie);
-                }
+        if(moviesIDs != null || moviesIDs.size() > 0) {
+            for (Long ID : moviesIDs) {
+                pc.getMovies().add(
+                        movieDao.findById(ID)
+                                .orElseThrow(() -> new IllegalArgumentException("Movie not found"))
+                );
             }
+        }
     }
 
 }

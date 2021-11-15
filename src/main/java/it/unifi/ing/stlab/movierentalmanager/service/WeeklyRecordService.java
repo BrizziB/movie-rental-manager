@@ -20,12 +20,14 @@ public class WeeklyRecordService {
     public Response retrieveWeeklyRecordById(@PathParam("id") Long id) {
         Gson gson = new Gson();
         try {
-            return Response.ok(
+            return Response.status(Response.Status.OK).entity(
                     gson.toJson( weeklyRecordController.getWeeklyRecordById(id) )
             ).build();
         } catch(Exception e) {
             e.printStackTrace();
-            return Response.notAcceptable(null).build();
+            return Response.status(Response.Status.NOT_ACCEPTABLE)
+                    .entity(null)
+                    .build();
         }
     }
 
@@ -35,12 +37,14 @@ public class WeeklyRecordService {
     public Response retrieveWeeklyRecordsByName(@QueryParam("name") String name) {
         Gson gson = new Gson();
         try {
-            return Response.ok(
+            return Response.status(Response.Status.OK).entity(
                     gson.toJson( weeklyRecordController.getWeeklyRecordsByName(name) )
             ).build();
         } catch(Exception e) {
             e.printStackTrace();
-            return Response.notAcceptable(null).build();
+            return Response.status(Response.Status.NOT_ACCEPTABLE)
+                    .entity(null)
+                    .build();
         }
     }
 
@@ -50,12 +54,14 @@ public class WeeklyRecordService {
     public Response retrieveWeeklyRecordsByMovieId(@PathParam("id") Long id) {
         Gson gson = new Gson();
         try {
-            return Response.ok(
+            return Response.status(Response.Status.OK).entity(
                     gson.toJson( weeklyRecordController.getWeeklyRecordsByMovieId(id) )
             ).build();
         } catch(Exception e) {
             e.printStackTrace();
-            return Response.notAcceptable(null).build();
+            return Response.status(Response.Status.NOT_ACCEPTABLE)
+                    .entity(null)
+                    .build();
         }
     }
 
@@ -65,12 +71,14 @@ public class WeeklyRecordService {
     public Response retrieveWeeklyRecordsByMovieTitle(@QueryParam("title") String title) {
         Gson gson = new Gson();
         try {
-            return Response.ok(
+            return Response.status(Response.Status.OK).entity(
                     gson.toJson( weeklyRecordController.getWeeklyRecordsByMovieTitle(title) )
             ).build();
         } catch(Exception e) {
             e.printStackTrace();
-            return Response.notAcceptable(null).build();
+            return Response.status(Response.Status.NOT_ACCEPTABLE)
+                    .entity(null)
+                    .build();
         }
     }
 
@@ -80,12 +88,14 @@ public class WeeklyRecordService {
     public Response retrieveWeeklyRecordsByDate(@QueryParam("start") Date start, @QueryParam("end") Date end) {
         Gson gson = new Gson();
         try {
-            return Response.ok(
+            return Response.status(Response.Status.OK).entity(
                     gson.toJson( weeklyRecordController.getWeeklyRecordsBetweenDates(start, end) )
             ).build();
         } catch(Exception e) {
             e.printStackTrace();
-            return Response.notAcceptable(null).build();
+            return Response.status(Response.Status.NOT_ACCEPTABLE)
+                    .entity(null)
+                    .build();
         }
     }
 
@@ -95,12 +105,14 @@ public class WeeklyRecordService {
     public Response retrieveAllWeeklyRecords() {
         Gson gson = new Gson();
         try {
-            return Response.ok(
+            return Response.status(Response.Status.OK).entity(
                     gson.toJson( weeklyRecordController.getAllWeeklyRecords(0, 25) )
             ).build();
         } catch(Exception e) {
             e.printStackTrace();
-            return Response.notAcceptable(null).build();
+            return Response.status(Response.Status.NOT_ACCEPTABLE)
+                    .entity(null)
+                    .build();
         }
     }
 
@@ -113,10 +125,12 @@ public class WeeklyRecordService {
     public Response updateWeeklyRecord(String json, @QueryParam("id") Long id) {
         try {
             weeklyRecordController.updateWeeklyRecordOnDb(json, id);
-            return Response.ok("Weekly record " + id + " correctly updated").build();
+            return Response.status(Response.Status.OK).entity("Weekly record " + id + " correctly updated").build();
         } catch(Exception e) {
             e.printStackTrace();
-            return Response.notAcceptable(null).build();
+            return Response.status(Response.Status.NOT_ACCEPTABLE)
+                    .entity(null)
+                    .build();
         }
     }
 
@@ -126,10 +140,12 @@ public class WeeklyRecordService {
     public Response disableWeeklyRecord(@QueryParam("id") Long id) {
         try {
             weeklyRecordController.disableWeeklyRecordOnDb(true, id);
-            return Response.ok("Weekly record " + id + " correctly disabled").build();
+            return Response.status(Response.Status.OK).entity("Weekly record " + id + " correctly disabled").build();
         } catch(Exception e) {
             e.printStackTrace();
-            return Response.notAcceptable(null).build();
+            return Response.status(Response.Status.NOT_ACCEPTABLE)
+                    .entity(null)
+                    .build();
         }
     }
 
@@ -139,10 +155,12 @@ public class WeeklyRecordService {
     public Response restoreWeeklyRecord(@QueryParam("id") Long id) {
         try {
             weeklyRecordController.disableWeeklyRecordOnDb(false, id);
-            return Response.ok("Weekly record " + id + " correctly restored").build();
+            return Response.status(Response.Status.OK).entity("Weekly record " + id + " correctly restored").build();
         } catch(Exception e) {
             e.printStackTrace();
-            return Response.notAcceptable(null).build();
+            return Response.status(Response.Status.NOT_ACCEPTABLE)
+                    .entity(null)
+                    .build();
         }
     }
 

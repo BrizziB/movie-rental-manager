@@ -37,17 +37,10 @@ public class PhysicalMovieItemMapper {
         if(pmi == null)
             throw new MapperTransferException("The physical movie item Entity is NULL");
 
-        if(dto.getMovie() != null) {
-            if ( movieDao.retrieveMoviesByTitle( dto.getMovie().getTitle() ).size() != 0) {
-                System.out.println("Movies with similar names do exist in database. Do you want to check them out?");
-            }
-            else {
-                Movie movie = ModelFactory.initMovie();
-                movieMapper.transfer(dto.getMovie(), movie);
-                movieDao.add(movie);
-                pmi.setMovie(movie);
-            }
-        }
+        pmi.setMovie(
+                movieDao.findById( dto.getMovieID() )
+                        .orElseThrow( () -> new IllegalArgumentException("Movie not found"))
+        );
         if(dto.getRentalPrice() != null)
             pmi.setRentalPrice(dto.getRentalPrice());
         if(dto.getDiscountedPrice() != null)

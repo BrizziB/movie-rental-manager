@@ -53,10 +53,10 @@ public class PaymentProfileController {
         paymentProfileDao.add(pp);
     }
 
-    public void updatePaymentProfileOnDb(String json, Long id) {
+    public void updatePaymentProfileOnDb(String json, Long customerID) {
         gson = new Gson();
         PaymentProfileDto dto = gson.fromJson(json, PaymentProfileDto.class);
-        PaymentProfile oldPP = paymentProfileDao.findById(id).orElseThrow(
+        PaymentProfile oldPP = paymentProfileDao.findById(customerID).orElseThrow(
                 () -> new IllegalArgumentException("ID not corresponding to any payment profile on database")
         );
         paymentProfileMapper.transfer(dto, oldPP);

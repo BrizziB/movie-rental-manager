@@ -4,16 +4,16 @@ import java.io.Serializable;
 
 public class PaymentProfileDto implements Serializable {
 
-    private CustomerDto customer;
+    private Long customerID;
     private String creditCardType;
     private String creditCardNumber;
 
-    public CustomerDto getCustomer() {
-        return customer;
+    public Long getCustomerID() {
+        return customerID;
     }
 
-    public void setCustomer(CustomerDto customer) {
-        this.customer = customer;
+    public void setCustomerID(Long customerID) {
+        this.customerID = customerID;
     }
 
     public String getCreditCardType() {
