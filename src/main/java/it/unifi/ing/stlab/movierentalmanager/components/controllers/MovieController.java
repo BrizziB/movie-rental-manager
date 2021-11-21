@@ -91,8 +91,8 @@ public class MovieController {
                 .collect(Collectors.toList());
     }
 
-    public List<LiteMovieDto> getAllMovies(Integer offset, Integer limit) {
-        return movieDao.findAll(offset, limit)
+    public List<LiteMovieDto> getAllMovies(Integer offset, Integer limit, List<String> orderBy) {
+        return movieDao.findAll(offset, limit, orderBy)
                 .stream()
                 .map(movieMapper::convert)
                 .collect(Collectors.toList());

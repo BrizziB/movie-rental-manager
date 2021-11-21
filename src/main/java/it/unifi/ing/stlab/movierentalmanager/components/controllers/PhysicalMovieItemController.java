@@ -43,8 +43,8 @@ public class PhysicalMovieItemController {
                 .collect(Collectors.toList());
     }
 
-    public List<LitePhysicalMovieItemDto> getAllPhysicalMovieItems(Integer offset, Integer limit) {
-        return physicalMovieItemDao.findAll(offset, limit)
+    public List<LitePhysicalMovieItemDto> getAllPhysicalMovieItems(Integer offset, Integer limit, List<String> orderBy) {
+        return physicalMovieItemDao.findAll(offset, limit, orderBy)
                 .stream()
                 .map(physicalMovieItemMapper::convert)
                 .collect(Collectors.toList());

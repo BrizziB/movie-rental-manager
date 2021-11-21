@@ -10,6 +10,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.Date;
+import java.util.List;
 
 @Path("orders")
 public class OrderService {
@@ -78,11 +79,13 @@ public class OrderService {
     @Produces({ MediaType.APPLICATION_JSON })
     @JWTAuthNeeded
     @RolesAllowed({"FRONT_OFFICE", "BACK_OFFICE"})
-    public Response retrieveAllOrders() {
+    public Response retrieveAllOrders(@QueryParam("from") int idx_start,
+                                      @QueryParam("to") int idx_end,
+                                      @QueryParam("orderBy") List<String> orderBy) {
         Gson gson = new Gson();
         try {
             return Response.status(Response.Status.OK).entity(
-                    gson.toJson( orderController.getAllOrders(0, 25) )
+                    gson.toJson( orderController.getAllOrders(idx_start, idx_end-idx_start, orderBy) )
             ).build();
         } catch(Exception e) {
             e.printStackTrace();

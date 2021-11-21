@@ -13,7 +13,6 @@ import javax.ws.rs.core.Response;
 import java.util.List;
 
 @Path("movies")
-@RolesAllowed("BACK-OFFICE")
 public class MovieService {
 
     @Inject private MovieController movieController;
@@ -157,13 +156,15 @@ public class MovieService {
     }
 
     @GET
-    @Path("/list/all")
+    @Path("")
     @Produces({ MediaType.APPLICATION_JSON })
-    public Response retrieveAllMovies() {
+    public Response retrieveAllMovies(@QueryParam("from") int idx_start,
+                                      @QueryParam("to") int idx_end,
+                                      @QueryParam("orderBy") List<String> orderBy) {
         Gson gson = new Gson();
         try {
             return Response.status(Response.Status.OK).entity(
-                    gson.toJson( movieController.getAllMovies(0, 25) )
+                    gson.toJson( movieController.getAllMovies(idx_start, idx_end-idx_start, orderBy) )
             ).build();
         } catch(Exception e) {
             e.printStackTrace();

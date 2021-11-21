@@ -45,8 +45,8 @@ public class DirectorController {
                           .collect(Collectors.toList());
     }
 
-    public List<LiteDirectorDto> getAllDirectors(Integer offset, Integer limit) {
-        return directorDao.findAll(offset, limit)
+    public List<LiteDirectorDto> getAllDirectors(Integer offset, Integer limit, List<String> orderBy) {
+        return directorDao.findAll(offset, limit, orderBy)
                 .stream()
                 .map(directorMapper::convert)
                 .collect(Collectors.toList());

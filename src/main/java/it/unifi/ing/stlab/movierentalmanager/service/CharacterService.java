@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
 
 @Path("characters")
 public class CharacterService {
@@ -71,11 +72,13 @@ public class CharacterService {
     @GET
     @Path("/list/all")
     @Produces({ MediaType.APPLICATION_JSON })
-    public Response retrieveAllCharacters() {
+    public Response retrieveAllCharacters(@QueryParam("from") int idx_start,
+                                          @QueryParam("to") int idx_end,
+                                          @QueryParam("orderBy") List<String> orderBy) {
         Gson gson = new Gson();
         try {
             return Response.status(Response.Status.OK).entity(
-                    gson.toJson( characterController.getAllCharacters(0, 25) )
+                    gson.toJson( characterController.getAllCharacters(idx_start, idx_end-idx_start, orderBy) )
             ).build();
         } catch(Exception e) {
             e.printStackTrace();

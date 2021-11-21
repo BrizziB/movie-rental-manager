@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
 
 @Path("directors")
 public class DirectorService {
@@ -73,11 +74,13 @@ public class DirectorService {
     @GET
     @Path("/list/all")
     @Produces({ MediaType.APPLICATION_JSON })
-    public Response retrieveAllDirectors() {
+    public Response retrieveAllDirectors(@QueryParam("from") int idx_start,
+                                         @QueryParam("to") int idx_end,
+                                         @QueryParam("orderBy") List<String> orderBy) {
         Gson gson = new Gson();
         try {
             return Response.status(Response.Status.OK).entity(
-                    gson.toJson( directorController.getAllDirectors(0, 25) )
+                    gson.toJson( directorController.getAllDirectors(idx_start, idx_end-idx_start, orderBy) )
             ).build();
         } catch(Exception e) {
             e.printStackTrace();

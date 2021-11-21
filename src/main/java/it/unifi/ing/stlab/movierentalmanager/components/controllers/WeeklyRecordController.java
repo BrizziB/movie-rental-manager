@@ -55,8 +55,8 @@ public class WeeklyRecordController {
                               .collect(Collectors.toList());
     }
 
-    public List<LiteWeeklyRecordDto> getAllWeeklyRecords(Integer offset, Integer limit) {
-        return weeklyRecordDao.findAll(offset, limit)
+    public List<LiteWeeklyRecordDto> getAllWeeklyRecords(Integer offset, Integer limit, List<String> orderBy) {
+        return weeklyRecordDao.findAll(offset, limit, orderBy)
                               .stream()
                               .map(weeklyRecordMapper::convert)
                               .collect(Collectors.toList());

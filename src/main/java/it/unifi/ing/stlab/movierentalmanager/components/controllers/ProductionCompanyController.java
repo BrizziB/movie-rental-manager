@@ -46,8 +46,8 @@ public class ProductionCompanyController {
                 .collect(Collectors.toList());
     }
 
-    public List<LiteProductionCompanyDto> getAllProductionCompanies(Integer offset, Integer limit) {
-        return productionCompanyDao.findAll(offset, limit)
+    public List<LiteProductionCompanyDto> getAllProductionCompanies(Integer offset, Integer limit, List<String> orderBy) {
+        return productionCompanyDao.findAll(offset, limit, orderBy)
                 .stream()
                 .map(productionCompanyMapper::convert)
                 .collect(Collectors.toList());

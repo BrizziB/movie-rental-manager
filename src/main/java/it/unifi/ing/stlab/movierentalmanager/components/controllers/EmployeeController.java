@@ -34,8 +34,8 @@ public class EmployeeController {
                 .collect(Collectors.toList());
     }
 
-    public List<LiteEmployeeDto> getAllEmployees(Integer offset, Integer limit) {
-        return employeeDao.findAll(offset, limit)
+    public List<LiteEmployeeDto> getAllEmployees(Integer offset, Integer limit, List<String> orderBy) {
+        return employeeDao.findAll(offset, limit, orderBy)
                 .stream()
                 .map(employeeMapper::convert)
                 .collect(Collectors.toList());

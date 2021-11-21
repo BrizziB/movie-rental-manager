@@ -55,8 +55,8 @@ public class YearlyRecordController {
                 .collect(Collectors.toList());
     }
 
-    public List<LiteYearlyRecordDto> getAllYearlyRecords(Integer offset, Integer limit) {
-        return yearlyRecordDao.findAll(offset, limit)
+    public List<LiteYearlyRecordDto> getAllYearlyRecords(Integer offset, Integer limit, List<String> orderBy) {
+        return yearlyRecordDao.findAll(offset, limit, orderBy)
                 .stream()
                 .map(yearlyRecordMapper::convert)
                 .collect(Collectors.toList());

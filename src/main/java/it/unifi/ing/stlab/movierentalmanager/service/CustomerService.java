@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
 
 @Path("customers")
 public class CustomerService {
@@ -58,11 +59,13 @@ public class CustomerService {
     @JWTAuthNeeded
     @RolesAllowed({"FRONT_OFFICE", "BACK_OFFICE"})
     @Produces({ MediaType.APPLICATION_JSON })
-    public Response retrieveAllCustomers() {
+    public Response retrieveAllCustomers(@QueryParam("from") int idx_start,
+                                         @QueryParam("to") int idx_end,
+                                         @QueryParam("orderBy") List<String> orderBy) {
         Gson gson = new Gson();
         try {
             return Response.status(Response.Status.OK).entity(
-                    gson.toJson( customerController.getAllCustomers(0, 25) )
+                    gson.toJson( customerController.getAllCustomers(idx_start, idx_end-idx_start, orderBy) )
             ).build();
         } catch(Exception e) {
             e.printStackTrace();

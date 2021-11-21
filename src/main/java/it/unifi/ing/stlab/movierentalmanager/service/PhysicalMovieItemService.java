@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
 
 @Path("physical-movie-items")
 public class PhysicalMovieItemService {
@@ -77,11 +78,13 @@ public class PhysicalMovieItemService {
     @Produces({ MediaType.APPLICATION_JSON })
     @JWTAuthNeeded
     @RolesAllowed({"FRONT_OFFICE", "BACK_OFFICE"})
-    public Response retrieveAllPhysicalMovieItems() {
+    public Response retrieveAllPhysicalMovieItems(@QueryParam("from") int idx_start,
+                                                  @QueryParam("to") int idx_end,
+                                                  @QueryParam("orderBy") List<String> orderBy) {
         Gson gson = new Gson();
         try {
             return Response.status(Response.Status.OK).entity(
-                    gson.toJson( physicalMovieItemController.getAllPhysicalMovieItems(0, 25) )
+                    gson.toJson( physicalMovieItemController.getAllPhysicalMovieItems(idx_start, idx_end-idx_start, orderBy) )
             ).build();
         } catch(Exception e) {
             e.printStackTrace();

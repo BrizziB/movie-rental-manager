@@ -38,8 +38,8 @@ public class PaymentProfileController {
                        .collect(Collectors.toList());
     }
 
-    public List<LitePaymentProfileDto> getAllPaymentProfiles(Integer offset, Integer limit) {
-        return paymentProfileDao.findAll(offset, limit)
+    public List<LitePaymentProfileDto> getAllPaymentProfiles(Integer offset, Integer limit, List<String> orderBy) {
+        return paymentProfileDao.findAll(offset, limit, orderBy)
                 .stream()
                 .map(paymentProfileMapper::convert)
                 .collect(Collectors.toList());

@@ -37,10 +37,19 @@ public abstract class BaseDao<T extends BaseEntity> {
         return Optional.ofNullable(em.find(entityType, id));
     }
 
-    public List<T> findAll(Integer offset, Integer limit) {
-        TypedQuery<T> query = em.createQuery("FROM " + entityType.getName(), entityType)
-                                        .setFirstResult(offset)
-                                        .setMaxResults(limit);
+    public List<T> findAll(Integer offset, Integer limit, List<String> orderBy) {
+        String orderByList = "";
+
+        if(orderBy.size() > 0)
+            orderByList = " ORDER BY " +
+                    orderBy.stream()
+                            .reduce( (str, combinedStr) -> { return combinedStr + ", " + str; } )
+                            .get();
+
+        TypedQuery<T> query = em.createQuery("FROM " + entityType.getName() + orderByList, entityType)
+                   .setFirstResult(offset)
+                   .setMaxResults(limit);
+
         return query.getResultList();
     }
 

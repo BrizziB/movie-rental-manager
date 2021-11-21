@@ -45,8 +45,8 @@ public class OrderController {
                        .collect(Collectors.toList());
     }
 
-    public List<LiteOrderDto> getAllOrders(Integer offset, Integer limit) {
-        return orderDao.findAll(offset, limit)
+    public List<LiteOrderDto> getAllOrders(Integer offset, Integer limit, List<String> orderBy) {
+        return orderDao.findAll(offset, limit, orderBy)
                 .stream()
                 .map(orderMapper::convert)
                 .collect(Collectors.toList());

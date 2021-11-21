@@ -46,8 +46,8 @@ public class CrewMemberController {
                             .collect(Collectors.toList());
     }
 
-    public List<LiteCrewMemberDto> getAllCrewMembers(Integer offset, Integer limit) {
-        return crewMemberDao.findAll(offset, limit)
+    public List<LiteCrewMemberDto> getAllCrewMembers(Integer offset, Integer limit, List<String> orderBy) {
+        return crewMemberDao.findAll(offset, limit, orderBy)
                 .stream()
                 .map(crewMemberMapper::convert)
                 .collect(Collectors.toList());

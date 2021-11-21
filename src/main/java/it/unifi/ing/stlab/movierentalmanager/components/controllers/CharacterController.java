@@ -46,8 +46,8 @@ public class CharacterController {
                            .collect(Collectors.toList());
     }
 
-    public List<LiteCharacterDto> getAllCharacters(Integer offset, Integer limit) {
-        return characterDao.findAll(offset, limit)
+    public List<LiteCharacterDto> getAllCharacters(Integer offset, Integer limit, List<String> orderBy) {
+        return characterDao.findAll(offset, limit, orderBy)
                 .stream()
                 .map(characterMapper::convert)
                 .collect(Collectors.toList());

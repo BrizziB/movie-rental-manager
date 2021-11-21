@@ -55,8 +55,8 @@ public class MonthlyRecordController {
                 .collect(Collectors.toList());
     }
 
-    public List<LiteMonthlyRecordDto> getAllMonthlyRecords(Integer offset, Integer limit) {
-        return monthlyRecordDao.findAll(offset, limit)
+    public List<LiteMonthlyRecordDto> getAllMonthlyRecords(Integer offset, Integer limit, List<String> orderBy) {
+        return monthlyRecordDao.findAll(offset, limit, orderBy)
                 .stream()
                 .map(monthlyRecordMapper::convert)
                 .collect(Collectors.toList());

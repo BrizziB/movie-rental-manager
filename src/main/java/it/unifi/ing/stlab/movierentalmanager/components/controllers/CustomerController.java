@@ -34,8 +34,8 @@ public class CustomerController {
                           .collect(Collectors.toList());
     }
 
-    public List<LiteCustomerDto> getAllCustomers(Integer offset, Integer limit) {
-        return customerDao.findAll(offset, limit)
+    public List<LiteCustomerDto> getAllCustomers(Integer offset, Integer limit, List<String> orderBy) {
+        return customerDao.findAll(offset, limit, orderBy)
                 .stream()
                 .map(customerMapper::convert)
                 .collect(Collectors.toList());

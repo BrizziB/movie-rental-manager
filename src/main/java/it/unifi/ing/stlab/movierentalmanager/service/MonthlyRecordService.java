@@ -8,6 +8,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.Date;
+import java.util.List;
 
 @Path("monthly-records")
 public class MonthlyRecordService {
@@ -102,11 +103,13 @@ public class MonthlyRecordService {
     @GET
     @Path("/list/all")
     @Produces({ MediaType.APPLICATION_JSON })
-    public Response retrieveAllMonthlyRecords() {
+    public Response retrieveAllMonthlyRecords(@QueryParam("from") int idx_start,
+                                              @QueryParam("to") int idx_end,
+                                              @QueryParam("orderBy") List<String> orderBy) {
         Gson gson = new Gson();
         try {
             return Response.status(Response.Status.OK).entity(
-                    gson.toJson( monthlyRecordController.getAllMonthlyRecords(0, 25) )
+                    gson.toJson( monthlyRecordController.getAllMonthlyRecords(idx_start, idx_end-idx_start, orderBy) )
             ).build();
         } catch(Exception e) {
             e.printStackTrace();

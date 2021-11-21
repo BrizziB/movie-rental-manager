@@ -21,7 +21,8 @@ public class DirectorMapper {
 
     public LiteDirectorDto convert(Director d) {
         if(d == null)
-            throw new MapperConversionException("The director is NULL");
+            return new LiteDirectorDto();
+//            throw new MapperConversionException("The director is NULL");
 
         LiteDirectorDto dto = new LiteDirectorDto();
 

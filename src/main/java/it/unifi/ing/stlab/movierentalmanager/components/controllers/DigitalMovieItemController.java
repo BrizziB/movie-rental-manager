@@ -42,8 +42,8 @@ public class DigitalMovieItemController {
                 .collect(Collectors.toList());
     }
 
-    public List<LiteDigitalMovieItemDto> getAllDigitalMovieItems(Integer offset, Integer limit) {
-        return digitalMovieItemDao.findAll(offset, limit)
+    public List<LiteDigitalMovieItemDto> getAllDigitalMovieItems(Integer offset, Integer limit, List<String> orderBy) {
+        return digitalMovieItemDao.findAll(offset, limit, orderBy)
                 .stream()
                 .map(digitalMovieItemMapper::convert)
                 .collect(Collectors.toList());

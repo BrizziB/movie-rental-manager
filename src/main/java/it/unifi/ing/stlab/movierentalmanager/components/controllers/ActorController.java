@@ -45,8 +45,8 @@ public class ActorController {
                        .collect(Collectors.toList());
     }
 
-    public List<LiteActorDto> getAllActors(Integer offset, Integer limit) {
-        return actorDao.findAll(offset, limit)
+    public List<LiteActorDto> getAllActors(Integer offset, Integer limit, List<String> orderBy) {
+        return actorDao.findAll(offset, limit, orderBy)
                 .stream()
                 .map(actorMapper::convert)
                 .collect(Collectors.toList());
