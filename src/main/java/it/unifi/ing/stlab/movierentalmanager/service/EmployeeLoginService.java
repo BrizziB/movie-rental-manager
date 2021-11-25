@@ -3,6 +3,7 @@ package it.unifi.ing.stlab.movierentalmanager.service;
 import com.google.gson.Gson;
 import it.unifi.ing.stlab.movierentalmanager.dao.EmployeeDao;
 import it.unifi.ing.stlab.movierentalmanager.model.filters.*;
+import it.unifi.ing.stlab.movierentalmanager.model.users.PasswordHash;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -19,17 +20,22 @@ public class EmployeeLoginService implements UserAuthenticator {
     private Gson gson;
     private JwtUtil jwtTokenUtil;
 
-    private void authenticate(String inputUser, String inputPass) throws BadCredentialsException {
-        Long customerID = employeeDao.retrieveEmployeeIDByUsername( inputUser )
-                                     .orElseThrow( () -> new BadCredentialsException("") );
+    private boolean isValidPassword(String plainPass, String hashedPass) {
+        PasswordHash passwordHash = new PasswordHash();
+        return passwordHash.createPasswordKey(plainPass).equals(hashedPass);
+    }
 
-        String customerPassword = employeeDao.findById(customerID)
-                .get()
-                .getWebUser()
-                .getPassword();
+    private void authenticate(String userIn, String passIn) throws BadCredentialsException {
+        Long customerID = employeeDao.retrieveEmployeeIDByUsername( userIn )
+                                     .orElseThrow( () -> new BadCredentialsException("Your credentials are incorrect") );
 
-        if( !customerPassword.equals(inputPass) )
-            throw new BadCredentialsException("");
+        String employeeHashedPass = employeeDao.findById(customerID)
+                                         .get()
+                                         .getWebUser()
+                                         .getPassword();
+
+        if( !isValidPassword(passIn, employeeHashedPass) )
+            throw new BadCredentialsException("Your credentials are incorrect");
     }
 
     @POST

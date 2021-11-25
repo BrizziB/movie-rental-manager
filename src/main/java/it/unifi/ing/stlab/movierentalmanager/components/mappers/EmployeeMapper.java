@@ -3,6 +3,7 @@ package it.unifi.ing.stlab.movierentalmanager.components.mappers;
 import it.unifi.ing.stlab.movierentalmanager.components.dto.EmployeeDto;
 import it.unifi.ing.stlab.movierentalmanager.components.litedto.LiteEmployeeDto;
 import it.unifi.ing.stlab.movierentalmanager.model.users.Employee;
+import it.unifi.ing.stlab.movierentalmanager.model.users.WebUser;
 
 import javax.enterprise.context.RequestScoped;
 
@@ -36,8 +37,11 @@ public class EmployeeMapper {
             e.setAddress(dto.getAddress());
         if(dto.getPhoneNumber() != null)
             e.setPhoneNumber(dto.getPhoneNumber());
-        if(dto.getWebUser() != null)
-            e.setWebUser(dto.getWebUser());
+        if(dto.getWebUser() != null) {
+            WebUser hashedPasswordWebUser = dto.getWebUser();
+            hashedPasswordWebUser.setPassword(dto.getWebUser().getPassword() );
+            e.setWebUser(hashedPasswordWebUser);
+        }
         if(dto.getRole() != null)
             e.setRole(dto.getRole());
     }

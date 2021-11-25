@@ -8,7 +8,6 @@ public class WebUser {
     private String username;
     private String email;
     private String password;
-    private String secret;
 
     public WebUser() {
 
@@ -35,7 +34,13 @@ public class WebUser {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        PasswordHash passwordHash = new PasswordHash();
+        this.password = passwordHash.createPasswordKey(password );
+    }
+
+    public boolean isValidPassword(String password) {
+        PasswordHash passwordHash = new PasswordHash();
+        return passwordHash.createPasswordKey(password).equals(this.password);
     }
 
 }

@@ -3,11 +3,11 @@ package it.unifi.ing.stlab.movierentalmanager.components.mappers;
 import it.unifi.ing.stlab.movierentalmanager.components.dto.CustomerDto;
 import it.unifi.ing.stlab.movierentalmanager.components.dto.PaymentProfileDto;
 import it.unifi.ing.stlab.movierentalmanager.components.litedto.LiteCustomerDto;
-import it.unifi.ing.stlab.movierentalmanager.components.litedto.LitePaymentProfileDto;
 import it.unifi.ing.stlab.movierentalmanager.components.factory.ModelFactory;
 import it.unifi.ing.stlab.movierentalmanager.dao.PaymentProfileDao;
 import it.unifi.ing.stlab.movierentalmanager.model.users.Customer;
 import it.unifi.ing.stlab.movierentalmanager.model.purchases.PaymentProfile;
+import it.unifi.ing.stlab.movierentalmanager.model.users.WebUser;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -48,8 +48,11 @@ public class CustomerMapper {
             c.setAddress(dto.getAddress());
         if(dto.getPhoneNumber() != null)
             c.setPhoneNumber(dto.getPhoneNumber());
-        if(dto.getWebUser() != null)
-            c.setWebUser(dto.getWebUser());
+        if(dto.getWebUser() != null) {
+            WebUser hashedPasswordWebUser = dto.getWebUser();
+            hashedPasswordWebUser.setPassword(dto.getWebUser().getPassword() );
+            c.setWebUser(hashedPasswordWebUser);
+        }
         if(dto.getMembership() != null)
             c.setMembership(dto.getMembership());
         if(dto.getCustomerDetails() != null)
