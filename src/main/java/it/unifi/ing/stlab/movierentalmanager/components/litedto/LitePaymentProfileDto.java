@@ -2,7 +2,7 @@ package it.unifi.ing.stlab.movierentalmanager.components.litedto;
 
 import java.io.Serializable;
 
-public class LitePaymentProfileDto implements Serializable {
+public class LitePaymentProfileDto {
 
     private LiteCustomerDto customer;
     private String creditCardType;

@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-public class LiteProductionCompanyDto implements Serializable {
+public class LiteProductionCompanyDto {
 
     private String name;
     private String country;

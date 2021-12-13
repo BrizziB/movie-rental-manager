@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class LiteDigitalMovieItemDto implements Serializable {
+public class LiteDigitalMovieItemDto {
 
     private LiteMovieDto movie;
     private BigDecimal rentalPrice;

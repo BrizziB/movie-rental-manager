@@ -6,7 +6,7 @@ import it.unifi.ing.stlab.movierentalmanager.model.items.MovieMedium;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class PhysicalMovieItemDto implements Serializable {
+public class PhysicalMovieItemDto {
 
     private Long movieID;
     private BigDecimal rentalPrice;

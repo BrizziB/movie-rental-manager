@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-public class ActorDto implements Serializable {
+public class ActorDto {
 
     private String name;
     private Date birthDate;

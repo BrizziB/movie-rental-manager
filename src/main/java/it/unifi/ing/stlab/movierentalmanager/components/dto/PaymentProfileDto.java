@@ -2,7 +2,7 @@ package it.unifi.ing.stlab.movierentalmanager.components.dto;
 
 import java.io.Serializable;
 
-public class PaymentProfileDto implements Serializable {
+public class PaymentProfileDto {
 
     private Long customerID;
     private String creditCardType;

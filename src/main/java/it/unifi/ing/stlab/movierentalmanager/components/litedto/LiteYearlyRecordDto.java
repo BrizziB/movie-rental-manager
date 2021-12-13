@@ -2,7 +2,7 @@ package it.unifi.ing.stlab.movierentalmanager.components.litedto;
 
 import java.io.Serializable;
 
-public class LiteYearlyRecordDto implements Serializable {
+public class LiteYearlyRecordDto {
 
     private String name;
     private LiteMovieDto movie;

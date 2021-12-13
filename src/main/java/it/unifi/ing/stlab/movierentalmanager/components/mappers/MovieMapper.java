@@ -61,7 +61,7 @@ public class MovieMapper {
         return dto;
     }
 
-    public void transfer(MovieDto dto, Movie m) {
+    public Movie transfer(MovieDto dto, Movie m) {
         if(dto == null)
             throw new MapperTransferException("The movie DTO is NULL");
         if(m == null)
@@ -103,6 +103,7 @@ public class MovieMapper {
         deSerializeCrew(m, dto.getCrew());
         deSerializeCast(m, dto.getCast());
         deSerializeProducers(m, dto.getProducers());
+        return m;
 //        deSerializeDigitalItems(m, dto.getDigitalItems());
 //        deSerializePhysicalItems(m, dto.getPhysicalItems());
     }

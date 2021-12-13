@@ -5,8 +5,9 @@ import it.unifi.ing.stlab.movierentalmanager.model.movies.Rating;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 
-public class LiteMovieDto implements Serializable {
+public class LiteMovieDto {
 
     private String title;
     private String year;
@@ -115,6 +116,25 @@ public class LiteMovieDto implements Serializable {
 
     public void setRating(Rating rating) {
         this.rating = rating;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof LiteMovieDto)) return false;
+        LiteMovieDto that = (LiteMovieDto) o;
+        return disabled == that.disabled &&
+                Objects.equals(title, that.title) &&
+                Objects.equals(year, that.year) &&
+                Objects.equals(length, that.length) &&
+                Objects.equals(plot, that.plot) &&
+                Objects.equals(country, that.country) &&
+                Objects.equals(language, that.language) &&
+                Objects.equals(budget, that.budget) &&
+                Objects.equals(criticRating, that.criticRating) &&
+                genre == that.genre &&
+                rating == that.rating &&
+                Objects.equals(director, that.director);
     }
 
 }

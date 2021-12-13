@@ -3,7 +3,7 @@ package it.unifi.ing.stlab.movierentalmanager.components.dto;
 import java.io.Serializable;
 import java.util.List;
 
-public class CharacterDto implements Serializable {
+public class CharacterDto {
 
     private String name;
     private ActorDto actor;

@@ -3,7 +3,7 @@ package it.unifi.ing.stlab.movierentalmanager.components.litedto;
 import java.io.Serializable;
 import java.util.List;
 
-public class LiteCharacterDto implements Serializable {
+public class LiteCharacterDto {
 
     private String name;
     private LiteActorDto actor;

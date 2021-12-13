@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-public class LiteCrewMemberDto implements Serializable {
+public class LiteCrewMemberDto {
 
     private String name;
     private Date birthDate;

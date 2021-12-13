@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-public class DirectorDto implements Serializable {
+public class DirectorDto {
 
     private String name;
     private Date birthDate;

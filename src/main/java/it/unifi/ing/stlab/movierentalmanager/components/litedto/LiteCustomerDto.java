@@ -7,7 +7,7 @@ import it.unifi.ing.stlab.movierentalmanager.model.users.WebUser;
 import java.io.Serializable;
 import java.util.List;
 
-public class LiteCustomerDto implements Serializable {
+public class LiteCustomerDto {
 
     private String name;
     private String address;

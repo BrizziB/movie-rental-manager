@@ -1,6 +1,5 @@
 package it.unifi.ing.stlab.movierentalmanager.dao;
 
-import com.sun.istack.Nullable;
 import it.unifi.ing.stlab.movierentalmanager.model.movies.CrewRole;
 import it.unifi.ing.stlab.movierentalmanager.model.movies.Movie;
 

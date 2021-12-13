@@ -2,7 +2,7 @@ package it.unifi.ing.stlab.movierentalmanager.components.dto;
 
 import java.io.Serializable;
 
-public class YearlyRecordDto implements Serializable {
+public class YearlyRecordDto {
 
     private String name;
     private MovieDto movie;

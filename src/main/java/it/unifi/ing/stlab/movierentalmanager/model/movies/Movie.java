@@ -6,6 +6,7 @@ import it.unifi.ing.stlab.movierentalmanager.model.items.MovieItem;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @Entity
@@ -244,4 +245,5 @@ public class Movie extends BaseEntity {
     public void setItems(List<MovieItem> items) {
         this.items = items;
     }
+
 }

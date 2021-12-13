@@ -9,7 +9,7 @@ import java.util.UUID;
 public abstract class BaseEntity {
 
     @Id @GeneratedValue @Column(unique = true) private Long id;
-    private UUID uuid;
+    private String uuid;
     @Temporal(TemporalType.TIMESTAMP) private Date creationTime;
     @Temporal(TemporalType.TIMESTAMP) private Date lastUpdateTime;
     private boolean disabled = false;
@@ -20,7 +20,9 @@ public abstract class BaseEntity {
     }
 
     public BaseEntity(UUID uuid) {
-        this.uuid = uuid;
+        if(uuid == null)
+            throw new IllegalArgumentException("UUID cannot be null");
+        this.uuid = uuid.toString();
         this.creationTime = new Date(System.currentTimeMillis());
         this.lastUpdateTime = new Date(System.currentTimeMillis());
     }
@@ -29,7 +31,7 @@ public abstract class BaseEntity {
         return id;
     }
 
-    public UUID getUuid() {
+    public String getUuid() {
         return uuid;
     }
 

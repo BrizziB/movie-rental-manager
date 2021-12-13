@@ -6,7 +6,7 @@ import it.unifi.ing.stlab.movierentalmanager.model.movies.Rating;
 import java.io.Serializable;
 import java.util.List;
 
-public class MovieDto implements Serializable {
+public class MovieDto {
 
     private String title;
     private String year;
